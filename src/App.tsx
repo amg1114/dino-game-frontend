@@ -1,9 +1,15 @@
 import "./App.css";
-
+import logo from "./assets/logo.svg";
 function App() {
     return (
         <>
             <main className="bg-body py-9 h-screen ">
+                <header className="container flex items-center justify-between pb-2 border-b border-b-placeholder">
+                    <figure className="w-40">
+                        <img src={logo} alt="Dinogame" />
+                    </figure>
+                    <h2>Style guide</h2>
+                </header>
                 <div className="container">
                     <h1>Dinogame works</h1>
                     <p className="">
