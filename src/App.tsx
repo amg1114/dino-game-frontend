@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+    return (
+        <>
+            <main className="bg-body py-9 h-screen ">
+                <div className="container">
+                    <h1>Dinogame works</h1>
+                    <p className="">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit repellat explicabo aperiam cupiditate minus tempora natus
+                        alias deserunt commodi! Vel tempore sequi sapiente sint. Dicta distinctio aperiam, neque, <a href="#">facilis consequatur</a>{" "}
+                        quis tempore incidunt atque odio provident soluta suscipit. At eaque soluta fugit. Doloremque ducimus eum tenetur eaque
+                        perspiciatis alias?
+                    </p>
+                    <h2>Botónes</h2>
+                    <section className="space-y-6">
+                        <div className="flex gap-4 items-end">
+                            <button type="button" className="primary-button">
+                                Primary button
+                            </button>
+                            <button type="button" className="primary-button primary-button--sm">
+                                Primary sm button
+                            </button>
+                            <button type="button" className="primary-button primary-button--xs">
+                                Primary xs button
+                            </button>
+                        </div>
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+                        <div className="flex gap-4 items-end">
+                            <button type="button" className="secondary-button">
+                                Secondary button
+                            </button>
+                            <button type="button" className="secondary-button secondary-button--sm">
+                                Secondary sm button
+                            </button>
+                            <button type="button" className="secondary-button secondary-button--xs">
+                                Secondary xs button
+                            </button>
+                        </div>
+
+                        <div className="flex gap-4 items-end">
+                            <button type="button" className="thertiary-button">
+                                Thertiary button
+                            </button>
+                            <button type="button" className="thertiary-button thertiary-button--sm">
+                                Thertiary sm button
+                            </button>
+                            <button type="button" className="thertiary-button thertiary-button--xs">
+                                Thertiary xs button
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </>
+    );
 }
 
-export default App
+export default App;
