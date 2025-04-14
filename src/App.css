@@ -1,95 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-    /* Colors */
-    --color-*: initial;
-    --color-green: #3dab7b;
-    --color-green-2: #a1ddc3;
-    --color-white: #ffffff;
-    --color-body: #1d1d1d;
-    --color-placeholder: #303030;
-    --color-placeholder-2: #454545;
+  /* Colors */
+  --color-*: initial;
+  --color-green: #3dab7b;
+  --color-green-2: #a1ddc3;
+  --color-white: #ffffff;
+  --color-body: #1d1d1d;
+  --color-placeholder: #303030;
+  --color-placeholder-2: #454545;
 
-    /* Fonts */
-    --font-bebas: "Bebas Neue", cursive;
-    --font-oswald: "Oswald", sans-serif;
-    --font-roboto: "Roboto", sans-serif;
+  /* Fonts */
+  --font-bebas: 'Bebas Neue', cursive;
+  --font-oswald: 'Oswald', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
 }
 
 @layer base {
-    * {
-        @apply font-roboto text-white;
-    }
+  * {
+    @apply font-roboto text-white;
+  }
 
-    h1 {
-        @apply text-5xl;
-    }
+  h1 {
+    @apply text-5xl;
+  }
 
-    h2 {
-        @apply text-4xl;
-    }
+  h2 {
+    @apply text-4xl;
+  }
 
-    h3 {
-        @apply text-3xl;
-    }
+  h3 {
+    @apply text-3xl;
+  }
 
-    h4 {
-        @apply text-2xl;
-    }
+  h4 {
+    @apply text-2xl;
+  }
 
-    h1,
-    h2,
-    h3,
-    h4 {
-        @apply font-bebas leading-normal;
-    }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bebas leading-normal;
+  }
 
-    a {
-        @apply text-green underline hover:text-green-2 transition-colors;
-    }
+  a {
+    @apply text-green hover:text-green-2 underline transition-colors;
+  }
 }
 
 @layer components {
-    .body-text {
-        @apply text-base;
-    }
+  .body-text {
+    @apply text-base;
+  }
 
-    .text-body-sm {
-        @apply text-sm;
-    }
+  .text-body-sm {
+    @apply text-sm;
+  }
 
-    .primary-button,
-    .secondary-button,
-    .thertiary-button {
-        @apply font-oswald font-semibold uppercase tracking-wide text-base rounded px-3 py-2 cursor-pointer transition-transform outline-4 outline-transparent hover:scale-110;
-    }
+  .primary-button,
+  .secondary-button,
+  .thertiary-button {
+    @apply font-oswald cursor-pointer rounded px-3 py-2 text-base font-semibold tracking-wide uppercase outline-4 outline-transparent transition-transform hover:scale-110;
+  }
 
-    .primary-button--sm,
-    .secondary-button--sm,
-    .thertiary-button--sm {
-        @apply text-sm px-2 py-1.5;
-    }
+  .primary-button--sm,
+  .secondary-button--sm,
+  .thertiary-button--sm {
+    @apply px-2 py-1.5 text-sm;
+  }
 
-    .primary-button--xs,
-    .secondary-button--xs,
-    .thertiary-button--xs {
-        @apply text-xs px-1.5 py-1;
-    }
+  .primary-button--xs,
+  .secondary-button--xs,
+  .thertiary-button--xs {
+    @apply px-1.5 py-1 text-xs;
+  }
 
-    .primary-button {
-        @apply bg-green text-white py-2 px-4 rounded-md active:outline-green/40;
-    }
+  .primary-button {
+    @apply bg-green active:outline-green/40 rounded-md px-4 py-2 text-white;
+  }
 
-    .secondary-button {
-        @apply bg-placeholder text-white py-2 px-4 rounded-md active:outline-placeholder/40;
-    }
+  .secondary-button {
+    @apply bg-placeholder active:outline-placeholder/40 rounded-md px-4 py-2 text-white;
+  }
 
-    .thertiary-button {
-        @apply bg-white text-green py-2 px-4 rounded-md active:outline-white/40;
-    }
+  .thertiary-button {
+    @apply text-green rounded-md bg-white px-4 py-2 active:outline-white/40;
+  }
 
-    .container {
-        @apply mx-auto w-full px-6 md:px-0 md:max-w-3xl lg:max-w-6xl;
-    }
+  .container {
+    @apply mx-auto w-full px-6 md:max-w-3xl md:px-0 lg:max-w-6xl;
+  }
 }

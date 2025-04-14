@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "npx lint-staged",
+    "format": "prettier --write .",
     "preview": "vite preview",
     "prepare": "lefthook install"
   },
