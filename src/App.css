@@ -1,42 +1,95 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  /* Colors */
+  --color-*: initial;
+  --color-green: #3dab7b;
+  --color-green-2: #a1ddc3;
+  --color-white: #ffffff;
+  --color-body: #1d1d1d;
+  --color-placeholder: #303030;
+  --color-placeholder-2: #454545;
+
+  /* Fonts */
+  --font-bebas: 'Bebas Neue', cursive;
+  --font-oswald: 'Oswald', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@layer base {
+  * {
+    @apply font-roboto text-white;
   }
-  to {
-    transform: rotate(360deg);
+
+  h1 {
+    @apply text-5xl;
+  }
+
+  h2 {
+    @apply text-4xl;
+  }
+
+  h3 {
+    @apply text-3xl;
+  }
+
+  h4 {
+    @apply text-2xl;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bebas leading-normal;
+  }
+
+  a {
+    @apply text-green hover:text-green-2 underline transition-colors;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@layer components {
+  .body-text {
+    @apply text-base;
   }
-}
 
-.card {
-  padding: 2em;
-}
+  .text-body-sm {
+    @apply text-sm;
+  }
 
-.read-the-docs {
-  color: #888;
+  .primary-button,
+  .secondary-button,
+  .thertiary-button {
+    @apply font-oswald cursor-pointer rounded px-3 py-2 text-base font-semibold tracking-wide uppercase outline-4 outline-transparent transition-transform hover:scale-110;
+  }
+
+  .primary-button--sm,
+  .secondary-button--sm,
+  .thertiary-button--sm {
+    @apply px-2 py-1.5 text-sm;
+  }
+
+  .primary-button--xs,
+  .secondary-button--xs,
+  .thertiary-button--xs {
+    @apply px-1.5 py-1 text-xs;
+  }
+
+  .primary-button {
+    @apply bg-green active:outline-green/40 rounded-md px-4 py-2 text-white;
+  }
+
+  .secondary-button {
+    @apply bg-placeholder active:outline-placeholder/40 rounded-md px-4 py-2 text-white;
+  }
+
+  .thertiary-button {
+    @apply text-green rounded-md bg-white px-4 py-2 active:outline-white/40;
+  }
+
+  .container {
+    @apply mx-auto w-full px-6 md:max-w-3xl md:px-0 lg:max-w-6xl;
+  }
 }
