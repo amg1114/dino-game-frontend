@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { StyleGuidePage } from './pages/styleGuide/StyleGuide';
-import { Login } from './pages/styleGuide/Login';
-import { Register } from './pages/styleGuide/Register';
+import { Login } from './pages/auth/Login';
+import { Register } from './pages/auth/Register';
 import AuthProvider from './providers/AuthContext';
 
 function App() {
