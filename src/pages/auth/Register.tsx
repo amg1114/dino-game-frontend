@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../providers/AuthContext";
+import countries from "world-countries";
 
 const schema = z.object({
     nombre: z.string().min(1, "El nombre es obligatorio"),
@@ -37,6 +38,7 @@ export function Register() {
         const { id, value } = e.target;
         setFormData((prev) => ({ ...prev, [id]: value }));
     };
+
     useEffect(() => {
         if (!isLoading && usuario) {
             navigate('/');
@@ -76,50 +78,57 @@ export function Register() {
     };
 
     return <>
-        <Modal onClose={onClose} modalTitle="REGISTRARSE" style={{ width: '500px', height: 'auto' }} modalId="register-modal">
-            <form className="flex flex-col gap-4 p-4">
-                <div className="grid grid-cols-2 gap-4">
+        <Modal onClose={onClose} modalTitle="REGISTRARSE" size='600px' modalId="register-modal">
+            <form className="flex flex-col gap-4 px-4 mt-2">
+                <div className="grid grid-cols-2 gap-5">
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-700">NOMBRE</label>
+                        <label className="text-xl text-gray-700">NOMBRE</label>
                         <input
                             type="text"
                             id="nombre"
-                            className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
-                            placeholder="Ingrese su nombre de usuario"
+                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
+                            placeholder="Jhon Doe"
                             value={formData.nombre}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-700">FECHA DE NACIMIENTO</label>
+                        <label className="text-xl text-gray-700">FECHA DE NACIMIENTO</label>
                         <input
                             type="date"
                             id="fechaNacimiento"
                             className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
+                            placeholder="01/01/2000"
+                            min="1900-01-01"
                             value={formData.fechaNacimiento}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-700">PAÍS</label>
-                        <input
-                            type="text"
+                        <label className="text-xl text-gray-700">PAÍS</label>
+                        <select
                             id="pais"
                             className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
-                            placeholder="Ingrese su país"
                             value={formData.pais}
                             onChange={handleChange}
-                        />
+                        >
+                            <option disabled value="">Seleccione una opción</option>
+                            {countries.map((country) => (
+                                <option key={country.cca2} value={country.name.common}>
+                                    {country.name.common}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-700">GÉNERO</label>
+                        <label className="text-xl text-gray-700">GÉNERO</label>
                         <select
                             id="sexo"
                             className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
                             value={formData.sexo}
                             onChange={handleChange}
                         >
-                            <option disabled>Seleccione su género</option>
+                            <option disabled>Seleccione una opcion</option>
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
                             <option value="D">Otro</option>
@@ -127,31 +136,31 @@ export function Register() {
                     </div>
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label className="text-sm text-gray-700">CORREO ELECTRONICO</label>
+                    <label className="text-xl text-gray-700">CORREO ELECTRONICO</label>
                     <input
                         type="correo"
                         id="correo"
                         className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
-                        placeholder="Ingrese su correo electrónico"
+                        placeholder="jhondoe@example.com"
                         value={formData.correo}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label className="text-sm text-gray-700">CONTRASEÑA</label>
+                    <label className="text-xl text-gray-700">CONTRASEÑA</label>
                     <input
                         type="password"
                         id="password"
                         className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
-                        placeholder="Ingrese su contraseña"
+                        placeholder="**************"
                         value={formData.password}
                         onChange={handleChange}
                     />
                 </div>
-                <div className="flex flex-col gap-1 p-4 mt-4 w-full items-center justify-center">
+                <div className="flex flex-col gap-1 mt-4 w-full items-center justify-center">
                     <button
                         type="submit"
-                        className="bg-green text-white rounded p-2 hover:bg-blue-600 w-fit cursor-pointer font-semibold"
+                        className='primary-button'
                         onClick={handleSubmit}
                     >
                         REGISTRARSE
@@ -170,7 +179,7 @@ export function Register() {
             <Modal
                 onClose={() => setErrorModal(null)}
                 modalTitle="Error"
-                style={{ width: '300px', height: 'auto' }}
+                size='300px'
                 modalId="error-modal"
             >
                 <p className="text-red-500">{errorModal}</p>
@@ -180,7 +189,7 @@ export function Register() {
             <Modal
                 onClose={() => setSuccessModal(false)}
                 modalTitle="Éxito"
-                style={{ width: '300px', height: 'auto' }}
+                size='300px'
                 modalId="success-modal"
             >
                 <p className="text-green-500">Registro exitoso</p>
