@@ -79,8 +79,8 @@ export function Register() {
 
     return <>
         <Modal onClose={onClose} modalTitle="REGISTRARSE" size='600px' modalId="register-modal">
-            <form className="flex flex-col gap-4 px-4 mt-2">
-                <div className="grid grid-cols-2 gap-5">
+            <form className="flex flex-col gap-4 px-4 sm:px-8 mt-2 overflow-y-auto max-h-[80vh]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="flex flex-col gap-1">
                         <label className="text-xl text-gray-700">NOMBRE</label>
                         <input
@@ -160,14 +160,14 @@ export function Register() {
                 <div className="flex flex-col gap-1 mt-4 w-full items-center justify-center">
                     <button
                         type="submit"
-                        className='primary-button'
+                        className='primary-button w-full sm:w-auto'
                         onClick={handleSubmit}
                     >
                         REGISTRARSE
                     </button>
                     <button
                         type="button"
-                        className="text-white rounded p-2 w-fit cursor-pointer"
+                        className="text-white rounded p-2 w-full sm:w-auto cursor-pointer"
                         onClick={() => navigate('/login')}
                     >
                         Iniciar sesión
