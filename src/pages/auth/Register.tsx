@@ -114,7 +114,7 @@ export function Register() {
                         >
                             <option disabled value="">Seleccione una opción</option>
                             {countries.map((country) => (
-                                <option key={country.cca2} value={country.name.common}>
+                                <option key={country.cca2} value={country.cca2}>
                                     {country.name.common}
                                 </option>
                             ))}

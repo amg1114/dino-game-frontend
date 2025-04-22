@@ -20,7 +20,7 @@ export function Modal({ children, onClose, modalTitle, size, modalId }: { childr
     }, []);
 
     return <>
-        <div className="bg-body fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 body-text" data-modal-id={modalId} style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }} onClick={onClose}>
+        <div className="bg-body/80 fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 body-text" data-modal-id={modalId} onClick={onClose}>
             <div
                 className={`bg-placeholder-2 p-5 max-w-7xl rounded-2xl h-min w-full sm:w-full max-h-screen overflow-y-auto`}
                 ref={modalRef}
