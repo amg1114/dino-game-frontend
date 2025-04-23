@@ -46,7 +46,11 @@
   }
 
   label {
-    @apply font-bebas font-medium
+    @apply font-bebas
+  }
+
+  input {
+    @apply font-roboto font-light;
   }
 
   a {

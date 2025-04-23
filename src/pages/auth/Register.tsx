@@ -78,11 +78,11 @@ export function Register() {
     };
 
     return <>
-        <Modal onClose={onClose} modalTitle="REGISTRARSE" size='600px' modalId="register-modal">
-            <form className="flex flex-col gap-4 px-4 sm:px-8 mt-2 overflow-y-auto max-h-[80vh]">
+        <Modal onClose={onClose} modalTitle="Registrarse" size='lg' modalId="register-modal">
+            <form className="flex flex-col gap-4 px-4 mt-4 overflow-y-auto max-h-screen">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="flex flex-col gap-1">
-                        <label className="text-xl text-gray-700">NOMBRE</label>
+                        <label className="text-xl text-white uppercase">Nombre</label>
                         <input
                             type="text"
                             id="nombre"
@@ -93,11 +93,11 @@ export function Register() {
                         />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-xl text-gray-700">FECHA DE NACIMIENTO</label>
+                        <label className="text-xl text-white uppercase">Fecha De Nacimiento</label>
                         <input
                             type="date"
                             id="fechaNacimiento"
-                            className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
+                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
                             placeholder="01/01/2000"
                             min="1900-01-01"
                             value={formData.fechaNacimiento}
@@ -105,10 +105,10 @@ export function Register() {
                         />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-xl text-gray-700">PAÍS</label>
+                        <label className="text-xl text-white uppercase">País</label>
                         <select
                             id="pais"
-                            className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
+                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
                             value={formData.pais}
                             onChange={handleChange}
                         >
@@ -121,14 +121,14 @@ export function Register() {
                         </select>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-xl text-gray-700">GÉNERO</label>
+                        <label className="text-xl text-white uppercase">Género</label>
                         <select
                             id="sexo"
-                            className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
+                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
                             value={formData.sexo}
                             onChange={handleChange}
                         >
-                            <option disabled>Seleccione una opcion</option>
+                            <option value="" disabled>Seleccione una opcion</option>
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
                             <option value="D">Otro</option>
@@ -136,22 +136,22 @@ export function Register() {
                     </div>
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label className="text-xl text-gray-700">CORREO ELECTRONICO</label>
+                    <label className="text-xl text-white uppercase">Correo Electrónico</label>
                     <input
                         type="correo"
                         id="correo"
-                        className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
+                        className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
                         placeholder="jhondoe@example.com"
                         value={formData.correo}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label className="text-xl text-gray-700">CONTRASEÑA</label>
+                    <label className="text-xl text-white uppercase">Contraseña</label>
                     <input
                         type="password"
                         id="password"
-                        className="rounded p-2 bg-[#303030] focus:outline-none focus:ring-2 focus:ring-green"
+                        className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
                         placeholder="**************"
                         value={formData.password}
                         onChange={handleChange}
@@ -160,17 +160,17 @@ export function Register() {
                 <div className="flex flex-col gap-1 mt-4 w-full items-center justify-center">
                     <button
                         type="submit"
-                        className='primary-button w-full sm:w-auto'
+                        className='primary-button w-full sm:w-auto uppercase'
                         onClick={handleSubmit}
                     >
-                        REGISTRARSE
+                        Registrarse
                     </button>
                     <button
                         type="button"
                         className="text-white rounded p-2 w-full sm:w-auto cursor-pointer"
                         onClick={() => navigate('/login')}
                     >
-                        Iniciar sesión
+                        Iniciar Sesión
                     </button>
                 </div>
             </form>
@@ -179,20 +179,20 @@ export function Register() {
             <Modal
                 onClose={() => setErrorModal(null)}
                 modalTitle="Error"
-                size='300px'
+                size='xs'
                 modalId="error-modal"
             >
-                <p className="text-red-500">{errorModal}</p>
+                <p className="text-white">{errorModal}</p>
             </Modal>
         )}
         {successModal && (
             <Modal
                 onClose={() => setSuccessModal(false)}
                 modalTitle="Éxito"
-                size='300px'
+                size='xs'
                 modalId="success-modal"
             >
-                <p className="text-green-500">Registro exitoso</p>
+                <p className="text-white">Registro Exitoso</p>
             </Modal>
         )}
     </>

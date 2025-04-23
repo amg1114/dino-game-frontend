@@ -69,31 +69,33 @@ export function Login() {
     };
 
     return <>
-        <Modal onClose={onclose} modalTitle="INICIAR SESIÓN" size='350px' modalId="login-modal">
-            <form className="flex flex-col gap-5 mt-2 px-4">
-                <div className="flex flex-col gap-1">
-                    <label className="text-xl text-gray-700">EMAIL</label>
-                    <input
-                        type="text"
-                        id="correo"
-                        className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green font-semibold"
-                        placeholder="jhondoe@example.com"
-                        value={data.correo}
-                        onChange={handleChange}
-                    />
+        <Modal onClose={onclose} modalTitle="INICIAR SESIÓN" size='sm' modalId="login-modal">
+            <form className="flex flex-col gap-4 mt-4 px-4">
+                <div className="flex flex-col gap-7">
+                    <div className="flex flex-col gap-1">
+                        <label className="text-xl text-white uppercase">Email</label>
+                        <input
+                            type="text"
+                            id="correo"
+                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
+                            placeholder="jhondoe@example.com"
+                            value={data.correo}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label className="text-xl text-white uppercase">Contraseña</label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
+                            placeholder="*********"
+                            value={data.password}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                    <label className="text-xl text-gray-700">CONTRASEÑA</label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green font-semibold"
-                        placeholder="*********"
-                        value={data.password}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="flex justify-end mt-2">
+                <div className="flex justify-end">
                     <p className="text-green text-sm cursor-pointer hover:text-green-2">Olvide mi contraseña</p>
                 </div>
                 <div className="flex flex-col gap-1 p-4 mt-4 w-full items-center justify-center">
@@ -118,7 +120,7 @@ export function Login() {
             <Modal
                 onClose={() => setErrorModal(null)}
                 modalTitle="Error"
-                size='300px'
+                size='xs'
                 modalId="error-modal"
             >
                 <p className="text-red-500">{errorModal}</p>
@@ -128,7 +130,7 @@ export function Login() {
             <Modal
                 onClose={() => setSuccessModal(false)}
                 modalTitle="Éxito"
-                size='300px'
+                size='xs'
                 modalId="success-modal"
             >
                 <p className="text-green-500">Inicio de sesión exitoso</p>
