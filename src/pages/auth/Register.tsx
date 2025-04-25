@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../providers/AuthContext";
 import countries from "world-countries";
+import { StyledInput } from "../../components/StyledInput";
+import { StyledSelect } from "../../components/StyledSelect";
 
 const schema = z.object({
     nombre: z.string().min(1, "El nombre es obligatorio"),
@@ -31,7 +33,10 @@ export function Register() {
     const [successModal, setSuccessModal] = useState<boolean>(false);
 
     const onClose = (): void => {
-        navigate('/');
+        setTimeout(() => {
+            navigate('/');
+        }
+            , 800);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -81,82 +86,57 @@ export function Register() {
         <Modal onClose={onClose} modalTitle="Registrarse" size='lg' modalId="register-modal">
             <form className="flex flex-col gap-4 px-4 mt-4 overflow-y-auto max-h-screen">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xl text-white uppercase">Nombre</label>
-                        <input
-                            type="text"
-                            id="nombre"
-                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                            placeholder="Jhon Doe"
-                            value={formData.nombre}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xl text-white uppercase">Fecha De Nacimiento</label>
-                        <input
-                            type="date"
-                            id="fechaNacimiento"
-                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                            placeholder="01/01/2000"
-                            min="1900-01-01"
-                            value={formData.fechaNacimiento}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xl text-white uppercase">País</label>
-                        <select
-                            id="pais"
-                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                            value={formData.pais}
-                            onChange={handleChange}
-                        >
-                            <option disabled value="">Seleccione una opción</option>
-                            {countries.map((country) => (
-                                <option key={country.cca2} value={country.cca2}>
-                                    {country.name.common}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xl text-white uppercase">Género</label>
-                        <select
-                            id="sexo"
-                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                            value={formData.sexo}
-                            onChange={handleChange}
-                        >
-                            <option value="" disabled>Seleccione una opcion</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
-                            <option value="D">Otro</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="flex flex-col gap-1">
-                    <label className="text-xl text-white uppercase">Correo Electrónico</label>
-                    <input
-                        type="correo"
-                        id="correo"
-                        className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                        placeholder="jhondoe@example.com"
-                        value={formData.correo}
+                    <StyledInput
+                        id="nombre"
+                        type="text"
+                        placeholder="Jhon Doe"
+                        value={formData.nombre}
                         onChange={handleChange}
+                        label="nombre"
+                    />
+                    <StyledInput
+                        id="fechaNacimiento"
+                        type="date"
+                        placeholder="01/01/2000"
+                        value={formData.fechaNacimiento}
+                        onChange={handleChange}
+                        label="fecha de nacimiento"
+                    />
+                    <StyledSelect
+                        id="pais"
+                        options={countries.map(country => ({ label: country.name.common, value: country.cca2 }))}
+                        value={formData.pais}
+                        onChange={handleChange}
+                        label="país"
+                    />
+                    <StyledSelect
+                        id="sexo"
+                        options={[
+                            { label: "Masculino", value: "M" },
+                            { label: "Femenino", value: "F" },
+                            { label: "Otro", value: "D" },
+                        ]}
+                        value={formData.sexo}
+                        onChange={handleChange}
+                        label="género"
                     />
                 </div>
-                <div className="flex flex-col gap-1">
-                    <label className="text-xl text-white uppercase">Contraseña</label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                        placeholder="**************"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </div>
+                <StyledInput
+                    id="correo"
+                    type="email"
+                    placeholder="jhondoe@example.com"
+                    value={formData.correo}
+                    onChange={handleChange}
+                    label="correo electrónico"
+                />
+                <StyledInput
+                    id="password"
+                    type="password"
+                    placeholder="**************"
+                    value={formData.password}
+                    onChange={handleChange}
+                    label="contraseña"
+                />
                 <div className="flex flex-col gap-1 mt-4 w-full items-center justify-center">
                     <button
                         type="submit"
@@ -167,7 +147,7 @@ export function Register() {
                     </button>
                     <button
                         type="button"
-                        className="text-white rounded p-2 w-full sm:w-auto cursor-pointer"
+                        className="text-white rounded p-2 w-full sm:w-auto cursor-pointer hover:underline"
                         onClick={() => navigate('/login')}
                     >
                         Iniciar Sesión
@@ -177,7 +157,7 @@ export function Register() {
         </Modal>
         {errorModal && (
             <Modal
-                onClose={() => setErrorModal(null)}
+                onClose={() => setTimeout(() => setErrorModal(null), 500)}
                 modalTitle="Error"
                 size='xs'
                 modalId="error-modal"
@@ -187,7 +167,7 @@ export function Register() {
         )}
         {successModal && (
             <Modal
-                onClose={() => setSuccessModal(false)}
+                onClose={() => setTimeout(() => setSuccessModal(false), 500)}
                 modalTitle="Éxito"
                 size='xs'
                 modalId="success-modal"

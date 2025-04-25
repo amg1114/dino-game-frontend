@@ -1,6 +1,6 @@
-import React, { JSX, useEffect, useRef } from 'react';
+import { JSX, ReactNode, useEffect, useRef, useState } from 'react';
 
-const Sizes = {
+const modalSize = {
     xs: 'max-w-xs',
     sm: 'max-w-sm',
     md: 'max-w-md',
@@ -12,16 +12,26 @@ const Sizes = {
     '5xl': 'max-w-5xl',
     '6xl': 'max-w-6xl',
     '7xl': 'max-w-7xl',
-} as const;
+};
 
-type Sizes = keyof typeof Sizes;
+type modalSize = keyof typeof modalSize;
 
-export function Modal({ children, onClose, modalTitle, size = 'md', modalId }: { children: React.ReactNode; onClose: () => void; modalTitle?: string; size?: Sizes; modalId?: string }): JSX.Element {
+interface ModalProps {
+    children: ReactNode;
+    onClose: () => void;
+    modalTitle?: string;
+    size?: modalSize;
+    modalId?: string;
+}
+
+export function Modal({ children, onClose, modalTitle, size = 'md', modalId }: ModalProps): JSX.Element {
     const modalRef = useRef<HTMLDivElement>(null);
+    const [out, setOut] = useState(false);
 
     const handleClickOutside = (event: MouseEvent) => {
         if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
             if (!modalId || (event.target as HTMLElement).dataset.modalId === modalId) {
+                setOut(true);
                 onClose();
             }
         }
@@ -38,7 +48,7 @@ export function Modal({ children, onClose, modalTitle, size = 'md', modalId }: {
     return <>
         <div className="bg-body/80 fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 body-text animate__animated animate__fadeIn" data-modal-id={modalId} onClick={onClose}>
             <div
-                className={`${Sizes[size]} bg-placeholder-2 p-5 rounded-md h-min w-full sm:w-full max-h-screen overflow-y-auto animate__animated animate__slideInDown`}
+                className={`${modalSize[size]} bg-placeholder-2 p-5 rounded-md h-min w-full sm:w-full max-h-screen overflow-y-auto animate__animated ${out ? 'animate__slideOutUp' : 'animate__slideInDown'}`}
                 ref={modalRef}
                 onClick={(e) => e.stopPropagation()}
             >

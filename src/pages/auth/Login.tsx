@@ -4,6 +4,7 @@ import { useAuth } from "../../providers/AuthContext";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import axios from "axios";
+import { StyledInput } from "../../components/StyledInput";
 
 const schema = z.object({
     correo: z.string().email("Correo electrónico inválido")
@@ -29,7 +30,10 @@ export function Login() {
 
     const navigate = useNavigate();
     const onclose = (): void => {
-        navigate('/');
+        setTimeout(() => {
+            navigate('/');
+        }
+            , 800);
     };
 
     useEffect(() => {
@@ -72,28 +76,22 @@ export function Login() {
         <Modal onClose={onclose} modalTitle="INICIAR SESIÓN" size='sm' modalId="login-modal">
             <form className="flex flex-col gap-4 mt-4 px-4">
                 <div className="flex flex-col gap-7">
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xl text-white uppercase">Email</label>
-                        <input
-                            type="text"
-                            id="correo"
-                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                            placeholder="jhondoe@example.com"
-                            value={data.correo}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xl text-white uppercase">Contraseña</label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="rounded p-2 bg-placeholder focus:outline-none focus:ring-2 focus:ring-green"
-                            placeholder="*********"
-                            value={data.password}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <StyledInput
+                        id="correo"
+                        type="text"
+                        placeholder="jhondoe@example.com"
+                        value={data.correo}
+                        onChange={handleChange}
+                        label="Correo electrónico"
+                    />
+                    <StyledInput
+                        id="password"
+                        type="password"
+                        placeholder="*********"
+                        value={data.password}
+                        onChange={handleChange}
+                        label="Contraseña"
+                    />
                 </div>
                 <div className="flex justify-end">
                     <p className="text-green text-sm cursor-pointer hover:text-green-2">Olvide mi contraseña</p>
@@ -108,7 +106,7 @@ export function Login() {
                     </button>
                     <button
                         type="button"
-                        className="text-white rounded p-2 w-full sm:w-auto cursor-pointer"
+                        className="text-white rounded p-2 w-full sm:w-auto cursor-pointer hover:underline"
                         onClick={() => navigate('/register')}
                     >
                         Registrarse

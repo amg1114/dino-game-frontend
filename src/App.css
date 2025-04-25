@@ -46,10 +46,11 @@
   }
 
   label {
-    @apply font-bebas
+    @apply font-bebas uppercase
   }
 
-  input {
+  input,
+  select {
     @apply font-roboto font-light;
   }
 
