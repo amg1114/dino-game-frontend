@@ -1,13 +1,9 @@
-import logo from '../../assets/logo.svg';
+import Header from '../../partials/header/Header';
+import { Footer } from '../../partials/footer/Footer';
 export function StyleGuidePage() {
   return (
     <main className="bg-body h-screen py-9">
-      <header className="border-b-placeholder container flex items-center justify-between border-b pb-2">
-        <figure className="w-40">
-          <img src={logo} alt="Dinogame" />
-        </figure>
-        <h2>Style guide</h2>
-      </header>
+      <Header />
       <div className="container">
         <h1>Dinogame works</h1>
         <p className="">
@@ -55,6 +51,7 @@ export function StyleGuidePage() {
           </div>
         </section>
       </div>
+      <Footer />
     </main>
   );
 }
