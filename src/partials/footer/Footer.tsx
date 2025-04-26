@@ -21,7 +21,7 @@ export const Footer = () => {
 
             <div className="grid grid-cols-2 gap-8 md:gap-16 relative">
                 <div className=" pr-4 border-r md:border-r-0 border-r-placeholder">
-                    <h3 className="text-lg font-bold mb-4">USUARIOS</h3>
+                    <h4 className="text-lg mb-4">USUARIOS</h4>
                     <ul className="space-y-2">
                         <li><a href="#" className='no-underline'>INICIAR SESIÓN</a></li>
                         <li><a href="#" className='no-underline'>REGISTRARSE</a></li>
@@ -29,7 +29,7 @@ export const Footer = () => {
                 </div>
 
                 <div className="pl-4">
-                    <h3 className="text-lg font-bold mb-4">INTERÉS</h3>
+                    <h4 className="text-lg mb-4">INTERÉS</h4>
                     <ul className="space-y-2 [&>li>a]:no-underline">
                         <li><a href="#">JUEGOS</a></li>
                         <li><a href="#">BLOG</a></li>
