@@ -1,9 +1,7 @@
-import Header from '../../partials/header/Header';
-import { Footer } from '../../partials/footer/Footer';
+
 export function StyleGuidePage() {
   return (
     <main className="bg-body h-screen py-9">
-      <Header />
       <div className="container">
         <h1>Dinogame works</h1>
         <p className="">
@@ -51,7 +49,7 @@ export function StyleGuidePage() {
           </div>
         </section>
       </div>
-      <Footer />
+      
     </main>
   );
 }
