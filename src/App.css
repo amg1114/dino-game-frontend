@@ -45,6 +45,15 @@
     @apply font-bebas leading-normal;
   }
 
+  label {
+    @apply font-bebas uppercase
+  }
+
+  input,
+  select {
+    @apply font-roboto font-light;
+  }
+
   a {
     @apply text-green hover:text-green-2 underline transition-colors;
   }

@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 export function StyleGuidePage() {
   return (
@@ -55,6 +56,7 @@ export function StyleGuidePage() {
           </div>
         </section>
       </div>
+      <Outlet />
     </main>
   );
 }
