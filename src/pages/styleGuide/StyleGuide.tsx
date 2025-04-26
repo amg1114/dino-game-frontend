@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router-dom';
+import logo from '../../assets/logo.svg'; 
 
 export function StyleGuidePage() {
   return (
@@ -10,6 +12,7 @@ export function StyleGuidePage() {
           <a href="#">facilis consequatur</a> quis tempore incidunt atque odio provident soluta suscipit. At eaque
           soluta fugit. Doloremque ducimus eum tenetur eaque perspiciatis alias?
         </p>
+
         <h2>Botónes</h2>
         <section className="space-y-6">
           <div className="flex items-end gap-4">
@@ -49,7 +52,8 @@ export function StyleGuidePage() {
           </div>
         </section>
       </div>
-      
+
+      <Outlet />
     </main>
   );
 }
