@@ -4,7 +4,7 @@ import logo from '../../assets/logo.svg';
 export default function Header() {
     return (
         <header className="text-white px-6 py-2 flex items-center justify-between shadow-md">
-        <div className="text-2xl font-bold tracking-wide">
+        <div className="text-2xl tracking-wide">
             <figure className='w-40'>
                 <img src={logo} alt="Logo Dinogame" className='w-full h-auto' />
             </figure>

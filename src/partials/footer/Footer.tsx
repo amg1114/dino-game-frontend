@@ -2,7 +2,7 @@ import logo from '../../assets/logo.svg'; // Asegúrate de que la ruta sea corre
 
 export const Footer = () => {
     return (
-    <footer className="text-white py-8 px-4">
+    <footer className="text-white py-8 px-4 bg-body">
         <div className="border-t pt-6 text-center border-t-placeholder" > </div>
         <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">

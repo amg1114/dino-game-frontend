@@ -4,15 +4,16 @@ import { Footer } from '../partials/footer/Footer';
 
 const GlobalLayout = () => {
     return (
-        <div className="min-h-screen flex flex-col bg-body">
-        <Header />
-        <main className="flex-grow bg-body py-9">
+     
+        <main className="h-screen bg-body py-9">
             <div className="container">
+                <Header />
                 <Outlet />
+                <Footer />
             </div>
         </main>
-        <Footer />
-        </div>
+      
+        
     );
 };
 
