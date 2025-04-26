@@ -3,7 +3,7 @@ import logo from '../../assets/logo.svg'; // Asegúrate de que la ruta sea corre
 export const Footer = () => {
     return (
     <footer className="text-white py-8 px-4">
-        <div className="border-t pt-6 text-center" > </div>
+        <div className="border-t pt-6 text-center border-t-placeholder" > </div>
         <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="mb-6 md:mb-0 text-center md:text-left">
@@ -20,7 +20,7 @@ export const Footer = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-8 md:gap-16 relative">
-                <div className="border-b-placeholder-2 pr-4 border-r md:border-r-0">
+                <div className=" pr-4 border-r md:border-r-0 border-r-placeholder">
                     <h3 className="text-lg font-bold mb-4">USUARIOS</h3>
                     <ul className="space-y-2">
                         <li><a href="#" className='no-underline'>INICIAR SESIÓN</a></li>

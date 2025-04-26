@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import logo from '../../assets/logo.svg'; 
 
 export function StyleGuidePage() {
   return (
