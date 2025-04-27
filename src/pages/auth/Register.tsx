@@ -21,7 +21,7 @@ const schema = z.object({
 });
 
 export function Register() {
-  const ENDPOINT = import.meta.env.API_URL + '/auth/register';
+  const ENDPOINT = '/api/auth/register';
   const navigate = useNavigate();
   const { usuario, isLoading, updateToken } = useAuth();
   const [formData, setFormData] = useState({
