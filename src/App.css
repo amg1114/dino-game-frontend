@@ -18,8 +18,12 @@
 }
 
 @layer base {
-  * {
+  body {
     @apply font-roboto text-white;
+  }
+
+  svg {
+    @apply text-inherit;
   }
 
   h1 {
