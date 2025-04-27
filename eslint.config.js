@@ -22,7 +22,7 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-      'react/no-inline-styles': 'error',
+      'react/style-prop-object': 'error',
     },
   }
 );
