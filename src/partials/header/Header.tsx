@@ -10,7 +10,7 @@ export default function Header() {
         </figure>
       </div>
 
-      <nav className="mr-auto ml-6 hidden space-x-6 md:flex">
+      <nav className="mr-auto ml-6 hidden space-x-6 lg:flex">
         <a href="/blog" className="font-roboto text-white not-hover:no-underline">
           BLOG
         </a>
@@ -22,26 +22,22 @@ export default function Header() {
         </a>
       </nav>
 
-      <div className="hidden items-center space-x-4 md:flex">
+      <div className="hidden items-center space-x-4 lg:flex">
         <button className="transition-transform hover:text-green-400 active:scale-95">
-          <a href="/buscar" className="text-green">
+          <a href="/buscar" className="text-green text-2xl">
             <Search />
           </a>
         </button>
 
-        <button className="primary-button">
-          <a href="/iniciar-sesion" className="text-white no-underline">
-            INICIAR SESIÓN
-          </a>
-        </button>
-        <button className="secondary-button">
-          <a href="/registro" className="text-white no-underline">
-            REGISTRARSE
-          </a>
-        </button>
+        <a href="/iniciar-sesion" className="primary-button">
+          INICIAR SESIÓN
+        </a>
+        <a href="/registro" className="secondary-button">
+          REGISTRARSE
+        </a>
       </div>
 
-      <button type="button" className="text-green md:hidden">
+      <button type="button" className="text-green text-xl md:text-3xl lg:hidden">
         <Menu />
       </button>
     </header>

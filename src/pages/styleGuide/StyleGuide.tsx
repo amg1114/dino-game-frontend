@@ -12,7 +12,7 @@ export function StyleGuidePage() {
       </p>
       <h2>Botónes</h2>
       <section className="space-y-6">
-        <div className="flex items-end gap-4">
+        <div className="flex flex-wrap items-end gap-4">
           <button type="button" className="primary-button">
             Primary button
           </button>
@@ -23,7 +23,7 @@ export function StyleGuidePage() {
             Primary xs button
           </button>
         </div>
-        <div className="flex items-end gap-4">
+        <div className="flex flex-wrap items-end gap-4">
           <button type="button" className="secondary-button">
             Secondary button
           </button>
@@ -34,7 +34,7 @@ export function StyleGuidePage() {
             Secondary xs button
           </button>
         </div>
-        <div className="flex items-end gap-4">
+        <div className="flex flex-wrap items-end gap-4">
           <button type="button" className="thertiary-button">
             Thertiary button
           </button>
