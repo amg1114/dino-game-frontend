@@ -1,5 +1,30 @@
 import logo from '../../assets/logo.svg';
+import { CardNoticia } from '../newsPage/components/CardNoticia';
+import { HeroNoticia } from '../newsPage/components/HeroNoticia';
+import { Pagination } from '../../components/pagination';
+import { useState } from 'react';
+import { useResponsiveItems } from '../../hooks/pagination/useItemsPerPage';
+import { usePagination } from '../../hooks/pagination/usePagination';
+
+const noticiasEjemplo = [
+  { id: 1, title: "Noticia 1" },
+  { id: 2, title: "Noticia 2" },
+  { id: 3, title: "Noticia 3" },
+  { id: 4, title: "Noticia 4" },
+  { id: 5, title: "Noticia 5" },
+  { id: 6, title: "Noticia 6" },
+  { id: 7, title: "Noticia 7" },
+  { id: 8, title: "Noticia 8" },
+  { id: 9, title: "Noticia 9" },
+  { id: 10, title: "Noticia 10" },
+];
+
 export function StyleGuidePage() {
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = useResponsiveItems();
+  const { paginatedData, totalPages } = usePagination(noticiasEjemplo, currentPage, itemsPerPage);
+
   return (
     <main className="bg-body h-screen py-9">
       <header className="border-b-placeholder container flex items-center justify-between border-b pb-2">
@@ -54,6 +79,42 @@ export function StyleGuidePage() {
             </button>
           </div>
         </section>
+        <br />
+        <div>
+          <CardNoticia
+            title="Noticia destacada"
+            image="https://i.pinimg.com/originals/e4/59/3b/e4593b3873004989c60957c4c007db27.gif"
+            description="Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum viverra, ex sit amet venenatis auctor, neque nibh lacinia dolor, id vulputate elit nisi quis lectus. Suspendisse quam augue, dapibus id convallis in, interdum vel ex. In tincidunt odio nec mi consequat efficitur. Integer bibendum diam at velit elementum porta. In velit lacus, aliquet sit amet lorem eu, venenatis commodo est. Donec leo sem, convallis a semper at, aliquet et purus"
+            slug="noticia-destacada"
+          />
+        </div>
+        <br />
+        <div>
+          <HeroNoticia
+            title="Noticia destacada"
+            image="https://preview.redd.it/vttjhicjlzfb1.jpg?auto=webp&s=c50aa80266d3593cae4e7f335d8879723f00bd11"
+            description="Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum viverra, ex sit amet venenatis auctor, neque nibh lacinia dolor, id vulputate elit nisi quis lectus. Suspendisse quam augue, dapibus id convallis in, interdum vel ex. In tincidunt odio nec mi consequat efficitur. Integer bibendum diam at velit elementum porta. In velit lacus, aliquet sit amet lorem eu, venenatis commodo est. Donec leo sem, convallis a semper at, aliquet et purus"
+            slug="noticia-destacada"
+          />
+        </div>
+
+        <div>
+          <div className="p-4">
+            <h1 className="text-xl text-green font-bold mb-4">Noticias</h1>
+
+            {paginatedData.map((noticia: any) => (
+              <div key={noticia.id} className="mb-2 text-body">
+                {noticia.title}
+              </div>
+            ))}
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
+        </div>
       </div>
     </main>
   );
