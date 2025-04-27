@@ -11,7 +11,7 @@ const schema = z.object({
 });
 
 export function Login() {
-    const ENDPOINT = import.meta.env.API_URL + '/auth/login';
+    const ENDPOINT = '/api/auth/login';
     const { usuario, updateToken, isLoading } = useAuth();
     const [data, setData] = useState({
         correo: '',

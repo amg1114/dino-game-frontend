@@ -1,6 +1,0 @@
-pre-commit:
-  commands:
-    check-code:
-      run: npm run lint
-    update-index:
-      run: git update-index --again
