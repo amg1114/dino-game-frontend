@@ -16,12 +16,12 @@ export const Footer = () => {
             <h4 className="mb-4 text-lg">USUARIOS</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/login" className="no-underline">
+                <a href="/iniciar-sesion" className="no-underline">
                   INICIAR SESIÓN
                 </a>
               </li>
               <li>
-                <a href="/registe" className="no-underline">
+                <a href="/registro" className="no-underline">
                   REGISTRARSE
                 </a>
               </li>
