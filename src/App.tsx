@@ -1,16 +1,32 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { StyleGuidePage } from './pages/styleGuide/StyleGuide';
-import { VistaNoticia } from './pages/newsPage/VistaNoticia';
-import { NewsPage } from './pages/newsPage/NewsPage';
 
 function App() {
-  const router = createBrowserRouter([{ path: '/', element: <StyleGuidePage /> },
-  { path: '/blog', element: <NewsPage /> },
-  { path: '/blog/:slug', element: <VistaNoticia /> }
-
+  const router = createBrowserRouter([
+    {
+      path: '',
+      element: <GlobalLayout />,
+      children: [
+        {
+          path: '',
+          element: <StyleGuidePage />,
+          children: [
+            {
+              path: 'iniciar-sesion',
+              element: <Login />,
+            },
+            {
+              path: 'registro',
+              element: <Register />,
+            },
+          ],
+        },
+      ],
+    },
   ]);
-  return <RouterProvider router={router} />;
+
+  return <AuthProvider child={<RouterProvider router={router} />} />;
 }
 
 export default App;
