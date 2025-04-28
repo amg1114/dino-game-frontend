@@ -95,7 +95,7 @@ export function Login() {
             />
           </div>
           <div className="flex justify-end">
-            <p className="text-green hover:text-green-2 cursor-pointer text-sm">Olvide mi contraseña</p>
+            <p className="text-green hover:text-green-light cursor-pointer text-sm">Olvide mi contraseña</p>
           </div>
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-1 p-4">
             <button type="submit" className="primary-button w-full sm:w-auto" onClick={login}>

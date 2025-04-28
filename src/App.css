@@ -4,8 +4,19 @@
 @theme {
   /* Colors */
   --color-*: initial;
+  
   --color-green: #3dab7b;
-  --color-green-2: #a1ddc3;
+  --color-green-light: #a1ddc3;
+  
+  --color-red: #B95959;
+  --color-red-light: #E3BDBD;
+
+  --color-blue: #387DD8;
+  --color-blue-light: #AFCBEF;
+
+  --color-yellow: #E5B710;
+  --color-yellow-light: #FAEAB3;
+
   --color-white: #ffffff;
   --color-body: #1d1d1d;
   --color-placeholder: #303030;
