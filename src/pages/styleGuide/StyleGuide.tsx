@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
 import logo from '../../assets/logo.svg';
-import { CardNoticia } from '../newsPage/components/CardNoticia';
-import { HeroNoticia } from '../newsPage/components/HeroNoticia';
+import { CardNoticia } from '../../components/CardNoticia';
+import { HeroNoticia } from '../blog/components/HeroNoticia';
 import { Pagination } from '../../components/pagination';
 import { useState } from 'react';
 import { useResponsiveItems } from '../../hooks/pagination/useItemsPerPage';
@@ -24,7 +24,7 @@ const noticiasEjemplo = [
 export function StyleGuidePage() {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = useResponsiveItems();
+  const itemsPerPage = useResponsiveItems({ smallScreen: 4, largeScreen: 9 });
   const { paginatedData, totalPages } = usePagination(noticiasEjemplo, currentPage, itemsPerPage);
 
   return (
@@ -74,97 +74,94 @@ export function StyleGuidePage() {
       </section>
 
       <Outlet />
-    </>
-    <main className="bg-body h-screen py-9">
-      <header className="border-b-placeholder container flex items-center justify-between border-b pb-2">
-        <figure className="w-40">
-          <img src={logo} alt="Dinogame" />
-        </figure>
-        <h2>Style guide</h2>
-      </header>
-      <div className="container">
-        <h1>Dinogame works</h1>
-        <p className="">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit repellat explicabo aperiam cupiditate
-          minus tempora natus alias deserunt commodi! Vel tempore sequi sapiente sint. Dicta distinctio aperiam, neque,{' '}
-          <a href="#">facilis consequatur</a> quis tempore incidunt atque odio provident soluta suscipit. At eaque
-          soluta fugit. Doloremque ducimus eum tenetur eaque perspiciatis alias?
-        </p>
-        <h2>Botónes</h2>
-        <section className="space-y-6">
-          <div className="flex items-end gap-4">
-            <button type="button" className="primary-button">
-              Primary button
-            </button>
-            <button type="button" className="primary-button primary-button--sm">
-              Primary sm button
-            </button>
-            <button type="button" className="primary-button primary-button--xs">
-              Primary xs button
-            </button>
-          </div>
 
-          <div className="flex items-end gap-4">
-            <button type="button" className="secondary-button">
-              Secondary button
-            </button>
-            <button type="button" className="secondary-button secondary-button--sm">
-              Secondary sm button
-            </button>
-            <button type="button" className="secondary-button secondary-button--xs">
-              Secondary xs button
-            </button>
-          </div>
+      <main className="bg-body h-screen py-9">
+        <header className="border-b-placeholder container flex items-center justify-between border-b pb-2">
+          <figure className="w-40">
+            <img src={logo} alt="Dinogame" />
+          </figure>
+          <h2>Style guide</h2>
+        </header>
+        <div className="container">
+          <h1>Dinogame works</h1>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit repellat explicabo aperiam cupiditate
+            minus tempora natus alias deserunt commodi! Vel tempore sequi sapiente sint. Dicta distinctio aperiam, neque,{' '}
+            <a href="#">facilis consequatur</a> quis tempore incidunt atque odio provident soluta suscipit. At eaque
+            soluta fugit. Doloremque ducimus eum tenetur eaque perspiciatis alias?
+          </p>
+          <h2>Botónes</h2>
+          <section className="space-y-6">
+            <div className="flex items-end gap-4">
+              <button type="button" className="primary-button">
+                Primary button
+              </button>
+              <button type="button" className="primary-button primary-button--sm">
+                Primary sm button
+              </button>
+              <button type="button" className="primary-button primary-button--xs">
+                Primary xs button
+              </button>
+            </div>
 
-          <div className="flex items-end gap-4">
-            <button type="button" className="thertiary-button">
-              Thertiary button
-            </button>
-            <button type="button" className="thertiary-button thertiary-button--sm">
-              Thertiary sm button
-            </button>
-            <button type="button" className="thertiary-button thertiary-button--xs">
-              Thertiary xs button
-            </button>
-          </div>
-        </section>
-        <br />
-        <div>
-          <CardNoticia
-            title="Noticia destacada"
-            image="https://i.pinimg.com/originals/e4/59/3b/e4593b3873004989c60957c4c007db27.gif"
-            description="Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum viverra, ex sit amet venenatis auctor, neque nibh lacinia dolor, id vulputate elit nisi quis lectus. Suspendisse quam augue, dapibus id convallis in, interdum vel ex. In tincidunt odio nec mi consequat efficitur. Integer bibendum diam at velit elementum porta. In velit lacus, aliquet sit amet lorem eu, venenatis commodo est. Donec leo sem, convallis a semper at, aliquet et purus"
-            slug="noticia-destacada"
-          />
-        </div>
-        <br />
-        <div>
-          <HeroNoticia
-            title="Noticia destacada"
-            image="https://preview.redd.it/vttjhicjlzfb1.jpg?auto=webp&s=c50aa80266d3593cae4e7f335d8879723f00bd11"
-            description="Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum viverra, ex sit amet venenatis auctor, neque nibh lacinia dolor, id vulputate elit nisi quis lectus. Suspendisse quam augue, dapibus id convallis in, interdum vel ex. In tincidunt odio nec mi consequat efficitur. Integer bibendum diam at velit elementum porta. In velit lacus, aliquet sit amet lorem eu, venenatis commodo est. Donec leo sem, convallis a semper at, aliquet et purus"
-            slug="noticia-destacada"
-          />
-        </div>
+            <div className="flex items-end gap-4">
+              <button type="button" className="secondary-button">
+                Secondary button
+              </button>
+              <button type="button" className="secondary-button secondary-button--sm">
+                Secondary sm button
+              </button>
+              <button type="button" className="secondary-button secondary-button--xs">
+                Secondary xs button
+              </button>
+            </div>
 
-        <div>
-          <div className="p-4">
-            <h1 className="text-xl text-green font-bold mb-4">Noticias</h1>
-
-            {paginatedData.map((noticia: any) => (
-              <div key={noticia.id} className="mb-2 text-body">
-                {noticia.title}
-              </div>
-            ))}
-
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
+            <div className="flex items-end gap-4">
+              <button type="button" className="thertiary-button">
+                Thertiary button
+              </button>
+              <button type="button" className="thertiary-button thertiary-button--sm">
+                Thertiary sm button
+              </button>
+              <button type="button" className="thertiary-button thertiary-button--xs">
+                Thertiary xs button
+              </button>
+            </div>
+          </section>
+          <br />
+          {/**<div>
+            <CardNoticia news={noticiasEjemplo}
+            />
+          </div> **/}
+          <br />
+          <div>
+            <HeroNoticia
+              title="Noticia destacada"
+              image="https://preview.redd.it/vttjhicjlzfb1.jpg?auto=webp&s=c50aa80266d3593cae4e7f335d8879723f00bd11"
+              description="Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum viverra, ex sit amet venenatis auctor, neque nibh lacinia dolor, id vulputate elit nisi quis lectus. Suspendisse quam augue, dapibus id convallis in, interdum vel ex. In tincidunt odio nec mi consequat efficitur. Integer bibendum diam at velit elementum porta. In velit lacus, aliquet sit amet lorem eu, venenatis commodo est. Donec leo sem, convallis a semper at, aliquet et purus"
+              slug="noticia-destacada"
             />
           </div>
+
+          <div>
+            <div className="p-4">
+              <h1 className="text-xl text-green font-bold mb-4">Noticias</h1>
+
+              {paginatedData.map((noticia: any) => (
+                <div key={noticia.id} className="mb-2 text-body">
+                  {noticia.title}
+                </div>
+              ))}
+
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

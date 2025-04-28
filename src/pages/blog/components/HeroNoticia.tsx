@@ -1,7 +1,7 @@
 import { SquareArrowOutUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-type HeroNoticiaProps = {
+interface HeroNoticiaProps {
     title: string;
     description: string;
     image: string;
@@ -13,13 +13,12 @@ export function HeroNoticia({ title, description, image, slug }: HeroNoticiaProp
         <div className="relative w-6xl aspect-[16/9] flex flex-col align-middle">
             {image && (
                 <img
-                    className="w-full h-full object-cover" // Cambiado a object-cover para mejor ajuste
+                    className="w-full h-full object-cover rounded-lg"
                     src={image}
                     alt="Hero Image"
                 />
             )}
 
-            {/* Overlay con texto en esquina inferior izquierda */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end items-start p-6 w-1/2">
                 <h3 className="text-white text-3xl font-bold uppercase">{title}</h3>
                 <p className="text-white mt-2 line-clamp-2" dangerouslySetInnerHTML={{

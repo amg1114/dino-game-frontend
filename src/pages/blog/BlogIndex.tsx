@@ -4,13 +4,13 @@ import { useLastNews } from "./hooks/useLastNews";
 import { useResponsiveItems } from "../../hooks/pagination/useItemsPerPage";
 import { usePagination } from "../../hooks/pagination/usePagination";
 import { Pagination } from "../../components/pagination";
-import { CardNoticia } from "./components/CardNoticia";
+import { CardNoticia } from "../../components/CardNoticia";
 
 export function NewsPage() {
 
     const { news, sortNews } = useLastNews();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = useResponsiveItems();
+    const itemsPerPage = useResponsiveItems({ smallScreen: 4, largeScreen: 9 });
     const { paginatedData, totalPages } = usePagination(sortNews, currentPage, itemsPerPage);
 
 
@@ -32,12 +32,8 @@ export function NewsPage() {
                     </h1>
                     <section>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                            {paginatedData.map((noticia: any) => (
-                                <CardNoticia
-                                    title={noticia.titulo}
-                                    image={noticia.thumb.url}
-                                    description={noticia.descripcion}
-                                    slug={noticia.slug}
+                            {paginatedData.map((noticia) => (
+                                <CardNoticia key={noticia.id} news={noticia}
                                 />
                             ))}
                         </div>
