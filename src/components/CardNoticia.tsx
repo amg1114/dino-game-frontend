@@ -11,7 +11,7 @@ export function CardNoticia({ news }: { news: News }) {
     })
     return (
         <div>
-            <div className="sectionCard w-sm aspect-[16/9] bg-body p-0.5">
+            <div className="sectionCard w-full md:w-mb aspect-[16/9] bg-body">
                 {news.thumb.url ?
                     <img className="newsImage w-full aspect-[16/9] bg-placeholder-2 object-cover mb-2 rounded-md"
                         src={news.thumb.url}

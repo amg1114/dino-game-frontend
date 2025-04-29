@@ -31,12 +31,10 @@ function App() {
         {
           path: 'blog',
           element: <NewsPage />,
-          children: [
-            {
-              path: ':slug',
-              element: <VistaNoticia />
-            }
-          ]
+        },
+        {
+          path: 'blog/:slug',
+          element: <VistaNoticia />
         }
       ],
     },

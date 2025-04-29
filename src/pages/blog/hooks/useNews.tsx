@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { News } from "../../../models/news.interface";
+
 interface NoticiaRetornada {
     news: News | null;
     relatedNews: News[];
@@ -17,7 +18,7 @@ export const useNews = (slug: string): NoticiaRetornada => {
         axios.get(ENDPOINT)
             .then(function (resp) {
                 const news_data = resp.data;
-                axios.get('http://localhost:8000/api/noticias')
+                axios.get('/api/noticias?limit=4')
                     .then(function (resp) {
                         const allNews = resp.data.data;
                         const sortNews = allNews.slice().sort((a: News, b: News) => {
@@ -37,6 +38,34 @@ export const useNews = (slug: string): NoticiaRetornada => {
                 setLoading(false);
             });
     }, [slug])
+
+    return { news: news, relatedNews: newss, loading };
+}
+
+export const useLastNews = (): NoticiaRetornada => {
+    const ENDPOINT = '/api/noticias';
+    const [newss, setNewss] = useState<News[]>([]);
+    const [news, setNews] = useState<News | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        setLoading(true)
+        axios.get(ENDPOINT)
+            .then(function (resp) {
+                const noticiasList = resp.data.data;
+                const sortNews = noticiasList.slice().sort((a: News, b: News) => {
+                    return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
+                });
+                const lastNews = sortNews[0];
+                const filteredNews = sortNews.filter((news: News) => news.id !== lastNews.id);
+                setNewss(filteredNews);
+                setNews(lastNews)
+                setLoading(false);
+            }).catch(function (err) {
+                console.error(err)
+                setLoading(false)
+            })
+    }, [])
 
     return { news: news, relatedNews: newss, loading };
 }

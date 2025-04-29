@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HeroNoticia } from "./components/HeroNoticia";
-import { useLastNews } from "./hooks/useLastNews";
+import { useLastNews } from "./hooks/useNews";
 import { useResponsiveItems } from "../../hooks/pagination/useItemsPerPage";
 import { usePagination } from "../../hooks/pagination/usePagination";
 import { Pagination } from "../../components/pagination";
@@ -8,45 +8,46 @@ import { CardNoticia } from "../../components/CardNoticia";
 
 export function NewsPage() {
 
-    const { news, sortNews } = useLastNews();
+    const { news, relatedNews, loading } = useLastNews();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = useResponsiveItems({ smallScreen: 4, largeScreen: 9 });
-    const { paginatedData, totalPages } = usePagination(sortNews, currentPage, itemsPerPage);
+    const { paginatedData, totalPages } = usePagination(relatedNews, currentPage, itemsPerPage);
 
-
+    if (loading) return <p>Cargando Blog</p>
     if (!news) return <p>No se encuentra la noticia</p>
     return (
-        <main className="bg-body h-auto py-9">
-            <div className="container md:w-6xl w-full h-auto">
-                <div className="w-full aspect-[16/9] flex flex-col justify-center">
-                    <HeroNoticia
-                        title={news.titulo}
-                        description={news.descripcion}
-                        image={news.thumb.url}
-                        slug={news.slug}
-                    />
-                </div>
-                <div>
-                    <h1 className="mt-10 mb-10">
-                        <span className="text-green font-bebas">Dino</span>noticias
-                    </h1>
-                    <section>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                            {paginatedData.map((noticia) => (
-                                <CardNoticia key={noticia.id} news={noticia}
-                                />
-                            ))}
-                        </div>
-
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={setCurrentPage}
-                        />
-
-                    </section>
-                </div>
+        <div className="container-blog w-full md:max-w-screen-xl mx-auto flex flex-col items-center">
+            <div>
+                <HeroNoticia
+                    title={news.titulo}
+                    description={news.descripcion}
+                    image={news.thumb.url}
+                    slug={news.slug}
+                />
             </div>
-        </main>
+            <div className="border-t border-b mt-10 pb-10 text-placeholder-2">
+
+                <h1 className="mt-10 mb-10 text-white">
+                    <span className="text-green font-bebas">Dino</span>noticias
+                </h1>
+
+                <section>
+                    <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+                        {paginatedData.map((noticia) => (
+                            <CardNoticia key={noticia.id} news={noticia}
+                            />
+                        ))}
+                    </div>
+
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                    />
+
+                </section>
+            </div>
+        </div>
+
     );
 }
