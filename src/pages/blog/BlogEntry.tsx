@@ -23,7 +23,7 @@ export function VistaNoticia() {
         <div>
             <div className="w-full md:w-1/2 mx-auto">
                 <div className="w-full aspect-[16/9] flex flex-col">
-                    <img className="rounded-xl md:3xl lg:w-5xl" src={news.thumb?.url} alt="news image" />
+                    <img className="rounded-xl sm:min-w-[90%] max-w-[90%]" src={news.thumb?.url} alt="news image" />
                     <div className="w-full grid grid-cols-3 text-placeholder-2 text-sm md:w-2/3 justify-start">
                         <p className="mt-2 mr-2 font-roboto border-r">{fechaFormateada}</p>
                         <p className="p-0 mt-2 font-roboto border-r">{news.autor.nombre}</p>
@@ -47,7 +47,7 @@ export function VistaNoticia() {
                     noticias recientes
                 </h2>
 
-                <div className="flex overflow-x-auto space-x-4 mt-5 px-2 md:grid grid-cols-3">
+                <div className="flex overflow-x-auto space-x-4 mt-5 px-2 md:grid grid-cols-3 overflow-visible">
                     {relatedNews.slice(0, 3).map((item) => (
                         <div key={item.id} className="min-w-[90%] max-w-[90%] flex-shrink-0">
                             <CardNoticia news={item} />
