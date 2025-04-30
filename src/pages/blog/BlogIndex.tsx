@@ -16,7 +16,7 @@ export function NewsPage() {
     if (loading) return <p>Cargando Blog</p>
     if (!news) return <p>No se encuentra la noticia</p>
     return (
-        <div className="container-blog w-full md:max-w-screen-xl mx-auto flex flex-col items-center">
+        <div className="w-full md:max-w-screen-xl mx-auto flex flex-col items-center">
             <div>
                 <HeroNoticia
                     title={news.titulo}

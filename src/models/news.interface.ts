@@ -5,6 +5,9 @@ export interface News {
   fecha: string;
   slug: string;
   cantidadLikes: number;
+  autor: {
+    nombre: string;
+  };
   thumb: {
     id: number;
     title: string;

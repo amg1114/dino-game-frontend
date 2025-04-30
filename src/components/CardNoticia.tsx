@@ -11,20 +11,20 @@ export function CardNoticia({ news }: { news: News }) {
     })
     return (
         <div>
-            <div className="sectionCard w-full md:w-mb aspect-[16/9] bg-body">
+            <div className="w-full md:w-mb aspect-[16/9] bg-body">
                 {news.thumb.url ?
-                    <img className="newsImage w-full aspect-[16/9] bg-placeholder-2 object-cover mb-2 rounded-md"
+                    <img className="w-full aspect-[16/9] bg-placeholder-2 object-cover mb-2 rounded-md"
                         src={news.thumb.url}
                         alt="news image"
                     /> : <></>}
-                <div className="newsText h-46">
-                    <h3 className="newsTitle w-full text-white uppercase ">{news.titulo}</h3>
-                    <div className="newsDescription text-white ">
-                        <p dangerouslySetInnerHTML={{ __html: truncatedtext }}></p>
+                <div className="min-h-auto">
+                    <h3 className="w-full text-white uppercase ">{news.titulo}</h3>
+                    <div className="text-white ">
+                        <p>{truncatedtext}</p>
                     </div>
-                    <Link className="btn-ver-mas flex flex-row text-green mt-1" to={'/blog/' + news.slug}>
+                    <Link className="flex flex-row text-green mt-1" to={'/blog/' + news.slug}>
                         Ver más
-                        <SquareArrowOutUpRight className="see-more-icon stroke-green stroke-2 size-3 mt-2" />
+                        <SquareArrowOutUpRight className="stroke-green stroke-2 size-3 mt-2" />
                     </Link>
                 </div>
             </div>
