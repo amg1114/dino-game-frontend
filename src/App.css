@@ -72,7 +72,7 @@
   }
 
   a {
-    @apply text-green hover:text-green-2 underline transition-colors;
+    @apply text-green hover:text-green-light underline transition-colors;
   }
 }
 
