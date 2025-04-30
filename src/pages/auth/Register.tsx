@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
 import { z } from 'zod';
 import { useEffect, useState } from 'react';
