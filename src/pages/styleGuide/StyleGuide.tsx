@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import logo from '../../assets/logo.svg';
 import { CardNoticia } from '../../components/CardNoticia';

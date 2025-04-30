@@ -1,10 +1,11 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import './App.css';
 import { StyleGuidePage } from './pages/styleGuide/StyleGuide';
 import GlobalLayout from './partials/layoutGlobal';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
 import AuthProvider from './providers/AuthContext';
+import { ErrorBoundary } from './partials/ErrorElement';
 import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
 
@@ -13,6 +14,7 @@ function App() {
     {
       path: '',
       element: <GlobalLayout />,
+      errorElement: <ErrorBoundary />,
       children: [
         {
           path: '',

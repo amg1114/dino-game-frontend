@@ -4,8 +4,19 @@
 @theme {
   /* Colors */
   --color-*: initial;
+  
   --color-green: #3dab7b;
-  --color-green-2: #a1ddc3;
+  --color-green-light: #a1ddc3;
+  
+  --color-red: #B95959;
+  --color-red-light: #E3BDBD;
+
+  --color-blue: #387DD8;
+  --color-blue-light: #AFCBEF;
+
+  --color-yellow: #E5B710;
+  --color-yellow-light: #FAEAB3;
+
   --color-white: #ffffff;
   --color-body: #1d1d1d;
   --color-placeholder: #303030;
@@ -15,6 +26,20 @@
   --font-bebas: 'Bebas Neue', cursive;
   --font-oswald: 'Oswald', sans-serif;
   --font-roboto: 'Roboto', sans-serif;
+
+  --animate-place-holder: placeholder 1100ms linear infinite;
+
+  @keyframes placeholder {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {
@@ -61,7 +86,7 @@
   }
 
   a {
-    @apply text-green hover:text-green-2 underline transition-colors;
+    @apply text-green hover:text-green-light underline transition-colors;
   }
 }
 
