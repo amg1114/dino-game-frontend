@@ -6,19 +6,19 @@ import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
 import AuthProvider from './providers/AuthContext';
 import { ErrorBoundary } from './partials/ErrorElement';
+import { HomePage } from './pages/home/HomePage';
 import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: '',
       element: <GlobalLayout />,
       errorElement: <ErrorBoundary />,
       children: [
         {
           path: '',
-          element: <StyleGuidePage />,
+          element: <HomePage />,
           children: [
             {
               path: 'iniciar-sesion',
