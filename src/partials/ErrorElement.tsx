@@ -1,4 +1,4 @@
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { isRouteErrorResponse, useRouteError } from 'react-router';
 import { Footer } from './footer/Footer';
 import Header from './header/Header';
 import { ServerCrash } from 'lucide-react';
