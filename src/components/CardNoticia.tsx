@@ -1,5 +1,5 @@
 import { SquareArrowOutUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { News } from "../models/news.interface";
 import truncate from "truncate-html";
 
@@ -8,6 +8,7 @@ export function CardNoticia({ news }: { news: News }) {
     const truncatedtext = truncate(news.descripcion, {
         length: 140,
         ellipsis: "...",
+
     })
     return (
         <div>
@@ -20,7 +21,7 @@ export function CardNoticia({ news }: { news: News }) {
                 <div className="min-h-auto">
                     <h3 className="w-full text-white uppercase ">{news.titulo}</h3>
                     <div className="text-white ">
-                        <p>{truncatedtext}</p>
+                        {truncatedtext}
                     </div>
                     <Link className="flex flex-row text-green mt-1" to={'/blog/' + news.slug}>
                         Ver más

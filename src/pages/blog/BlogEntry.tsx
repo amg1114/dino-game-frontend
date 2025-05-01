@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useNews } from "./hooks/useNews";
 import { Heart } from "lucide-react";
 import { CardNoticia } from "../../components/CardNoticia";
@@ -21,27 +21,25 @@ export function VistaNoticia() {
 
     return (
         <div>
-            <div className="w-full md:w-1/2 mx-auto">
-                <div className="w-full aspect-[16/9] flex flex-col">
-                    <img className="rounded-xl sm:min-w-[90%] max-w-[90%]" src={news.thumb?.url} alt="news image" />
-                    <div className="w-full grid grid-cols-3 text-placeholder-2 text-sm md:w-2/3 justify-start">
-                        <p className="mt-2 mr-2 font-roboto border-r">{fechaFormateada}</p>
-                        <p className="p-0 mt-2 font-roboto border-r">{news.autor.nombre}</p>
-                        <div className="flex flex-row">
-                            <p className="mt-3 mr-1 ml-2 fill-placeholder-2 stroke-placeholder-2 text-xs">
-                                <Heart className="" />
-                            </p>
-                            <p className="mt-2 text-sm">{news.cantidadLikes}</p>
+            <div className="w-full md:w-[80%] lg:w-1/2 mx-auto">
+                <div className="w-full aspect-[16/9] flex flex-col sm:min-w-[90%] max-w-[90%]">
+                    <img className="rounded-xl" src={news.thumb?.url} alt="news image" />
+                    <div className="mt-4 flex flex-row text-sm md:w-2/3 justify-start">
+                        <time dateTime={news.fecha} className="leading-none pr-2 font-roboto border-r-placeholder-2 border-r-2 text-white">{fechaFormateada}</time>
+                        <p className="leading-none px-2 font-roboto border-r-placeholder-2 border-r-2 text-white">{news.autor.nombre}</p>
+                        <div className="items-center px-2 flex flex-row">
+                            <span className=" leading-none  pr-1 fill-placeholder-2 stroke-placeholder-2 text-xs">
+                                <Heart />
+                            </span>
+                            <span className="leading-none  text-sm text-white">{news.cantidadLikes}</span>
                         </div>
                     </div>
-                    <h1 className="mt-2">{news.titulo}</h1>
-                    <p className="w-full">{news.descripcion}</p>
+                    <h1 className="mt-2 w-auto">{news.titulo}</h1>
+                    <p className="w-full" dangerouslySetInnerHTML={{ __html: news.descripcion }}></p>
                 </div>
             </div>
 
-
-
-            <div className="mt-5 border-t text-placeholder-2">
+            <div className="mt-5 pt-5 border-t text-placeholder-2">
                 <h2 className="mb-2 text-white">
                     <span className="text-green uppercase font-bebas">dino</span>
                     noticias recientes

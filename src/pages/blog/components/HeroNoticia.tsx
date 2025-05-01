@@ -1,6 +1,6 @@
 import truncate from "truncate-html";
 import { SquareArrowOutUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface HeroNoticiaProps {
     title: string;

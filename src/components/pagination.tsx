@@ -23,8 +23,10 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
                 <button
                     key={page}
                     onClick={() => onPageChange(page)}
-                    className={`px-3 py-1 rounded font-bold ${page === currentPage ? "bg-green text-white" : "bg-white text-green"
-                        } p-2 hover:cursor-pointer`}
+                    className={`px-3 py-1 rounded font-bold hover:cursor-pointer ${page === currentPage ?
+                        "bg-green text-white hover:bg-white hover:text-green"
+                        : "bg-white text-green hover:bg-green hover:text-white"
+                        } p-2`}
                 >
                     {page}
                 </button>
