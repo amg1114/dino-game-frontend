@@ -161,7 +161,7 @@ export function Register() {
           size="xs"
           modalId="error-modal"
         >
-          <p className="text-white">{errorModal}</p>
+          <p className="text-red">{errorModal}</p>
         </Modal>
       )}
       {successModal && (
@@ -171,7 +171,7 @@ export function Register() {
           size="xs"
           modalId="success-modal"
         >
-          <p className="text-white">Registro Exitoso</p>
+          <p className="text-green">Registro Exitoso</p>
         </Modal>
       )}
     </>

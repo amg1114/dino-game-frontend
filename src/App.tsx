@@ -6,6 +6,7 @@ import GlobalLayout from '../src/partials/layoutGlobal';
 import AuthProvider from './providers/AuthContext';
 import { ErrorBoundary } from './partials/ErrorElement';
 import { HomePage } from './pages/home/HomePage';
+import PasswordRecovery from './pages/auth/PasswordRecovery';
 
 function App() {
   const router = createBrowserRouter([
@@ -16,17 +17,19 @@ function App() {
         {
           path: '',
           element: <HomePage />,
-          children: [
-            {
-              path: 'iniciar-sesion',
-              element: <Login />,
-            },
-            {
-              path: 'registro',
-              element: <Register />,
-            },
-          ],
         },
+        {
+          path: 'iniciar-sesion',
+          element: <Login />,
+        },
+        {
+          path: 'registro',
+          element: <Register />,
+        },
+        {
+          path: 'recuperar-contraseña',
+          element: <PasswordRecovery />,
+        }
       ],
     },
   ]);

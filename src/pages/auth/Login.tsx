@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
 import { useAuth } from '../../providers/AuthContext';
 import { useEffect, useState } from 'react';
@@ -95,7 +95,7 @@ export function Login() {
             />
           </div>
           <div className="flex justify-end">
-            <p className="text-green hover:text-green-light cursor-pointer text-sm">Olvide mi contraseña</p>
+            <Link to={"/recuperar-contraseña"} className="text-green hover:text-green-light cursor-pointer text-sm">Olvide mi contraseña</Link>
           </div>
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-1 p-4">
             <button type="submit" className="primary-button w-full sm:w-auto" onClick={login}>
@@ -113,12 +113,12 @@ export function Login() {
       </Modal>
       {errorModal && (
         <Modal onClose={() => setErrorModal(null)} modalTitle="Error" size="xs" modalId="error-modal">
-          <p className="text-red-500">{errorModal}</p>
+          <p className="text-red">{errorModal}</p>
         </Modal>
       )}
       {successModal && (
         <Modal onClose={() => setSuccessModal(false)} modalTitle="Éxito" size="xs" modalId="success-modal">
-          <p className="text-green-500">Inicio de sesión exitoso</p>
+          <p className="text-green">Inicio de sesión exitoso</p>
         </Modal>
       )}
     </>
