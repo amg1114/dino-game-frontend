@@ -4,18 +4,18 @@
 @theme {
   /* Colors */
   --color-*: initial;
-  
+
   --color-green: #3dab7b;
   --color-green-light: #a1ddc3;
-  
-  --color-red: #B95959;
-  --color-red-light: #E3BDBD;
 
-  --color-blue: #387DD8;
-  --color-blue-light: #AFCBEF;
+  --color-red: #b95959;
+  --color-red-light: #e3bdbd;
 
-  --color-yellow: #E5B710;
-  --color-yellow-light: #FAEAB3;
+  --color-blue: #387dd8;
+  --color-blue-light: #afcbef;
+
+  --color-yellow: #e5b710;
+  --color-yellow-light: #faeab3;
 
   --color-white: #ffffff;
   --color-body: #1d1d1d;
@@ -77,7 +77,7 @@
   }
 
   label {
-    @apply font-bebas uppercase
+    @apply font-bebas uppercase;
   }
 
   input,
@@ -130,6 +130,91 @@
   }
 
   .container {
-    @apply mx-auto w-full px-6 md:max-w-3xl xl:px-0 xl:max-w-6xl;
+    @apply mx-auto w-full px-6 md:max-w-3xl xl:max-w-6xl xl:px-0;
+  }
+
+  .rich-text {
+    @apply text-base space-y-6 leading-relaxed;
+
+    /* Text color and base font */
+    color: var(--color-white);
+    font-family: var(--font-roboto);
+
+    /* Headings */
+    h1,
+    h2,
+    h3,
+    h4 {
+      @apply font-bebas leading-tight;
+      color: var(--color-yellow);
+    }
+
+    h1 {
+      @apply mt-6 mb-3 text-5xl;
+    }
+    h2 {
+      @apply mt-5 mb-2.5 text-4xl;
+    }
+    h3 {
+      @apply mt-4 mb-2 text-3xl;
+    }
+    h4 {
+      @apply mt-3 mb-1.5 text-2xl;
+    }
+
+    /* Paragraphs */
+    p {
+      @apply text-base leading-7 text-white;
+    }
+
+    /* Links */
+    a {
+      @apply text-green hover:text-green-light underline transition-colors;
+    }
+
+    /* Lists */
+    ul {
+      @apply list-disc space-y-2 pl-6;
+    }
+
+    ol {
+      @apply list-decimal space-y-2 pl-6;
+    }
+
+    li {
+      @apply text-base text-white;
+    }
+
+    /* Blockquote */
+    blockquote {
+      @apply border-yellow text-yellow-light border-l-4 pl-4 italic;
+    }
+
+    /* Images */
+    img {
+      @apply my-4 w-full rounded-lg shadow-lg;
+    }
+
+    /* Code block */
+    pre {
+      @apply bg-placeholder-2 overflow-x-auto rounded p-4 font-mono text-sm text-white;
+    }
+
+    code {
+      @apply bg-placeholder-2 text-yellow-light rounded px-1 py-0.5 font-mono text-sm;
+    }
+
+    /* Tables */
+    table {
+      @apply my-6 w-full border-collapse text-left;
+    }
+
+    th {
+      @apply bg-placeholder border-placeholder-2 border-b px-4 py-2 text-white;
+    }
+
+    td {
+      @apply border-placeholder-2 border-b px-4 py-2;
+    }
   }
 }

@@ -34,8 +34,8 @@ export function VistaNoticia() {
                             <span className="leading-none  text-sm text-white">{news.cantidadLikes}</span>
                         </div>
                     </div>
-                    <h1 className="mt-2 w-auto">{news.titulo}</h1>
-                    <p className="w-full" dangerouslySetInnerHTML={{ __html: news.descripcion }}></p>
+                    <h1 className="mt-2 w-auto text-4xl leading-tight">{news.titulo}</h1>
+                    <div className="rich-text w-full" dangerouslySetInnerHTML={{ __html: news.descripcion }}></div>
                 </div>
             </div>
 
