@@ -17,19 +17,22 @@ function App() {
         {
           path: '',
           element: <HomePage />,
+          children: [
+            {
+              path: 'iniciar-sesion',
+              element: <Login />,
+            },
+            {
+              path: 'registro',
+              element: <Register />,
+            },
+            {
+              path: 'recuperar-contraseña',
+              element: <PasswordRecovery />,
+            }
+          ]
         },
-        {
-          path: 'iniciar-sesion',
-          element: <Login />,
-        },
-        {
-          path: 'registro',
-          element: <Register />,
-        },
-        {
-          path: 'recuperar-contraseña',
-          element: <PasswordRecovery />,
-        }
+
       ],
     },
   ]);
