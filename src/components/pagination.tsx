@@ -20,12 +20,12 @@ export function Pagination({ currentPage, totalPages, onPageChange, visibleButto
     }
 
     return (
-        <div className="flex justify-center gap-2 mt-4 bg-body p-2">
+        <div className="flex justify-center gap-2 mt-6 bg-body p-2">
             {/* Flecha anterior */}
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="px-2 py-1 bg-white text-green rounded disabled:opacity-50 hover:bg-green hover:text-white"
+                className="px-2 py-1 bg-white text-green rounded disabled:opacity-50 hover:cursor-pointer hover:bg-green hover:text-white"
             >
                 <ChevronLeft />
             </button>
@@ -48,7 +48,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, visibleButto
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="px-2 py-1 bg-white text-green rounded disabled:opacity-50 hover:bg-green hover:text-white"
+                className="px-2 py-1 bg-white text-green rounded disabled:opacity-50 hover:cursor-pointer hover:bg-green hover:text-white"
             >
                 <ChevronRight />
             </button>
