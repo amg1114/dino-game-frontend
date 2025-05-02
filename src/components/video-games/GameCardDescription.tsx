@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { VideoGame } from '../../models/video-game.interface';
-import { formatPrice } from '../../utils/formatPrice';
 import { truncateDescription } from '../../utils/truncateDescription';
+import { GamePrice } from './GamePrice';
 
 interface GameCardDescriptionProps {
   videoGame: VideoGame;
@@ -35,9 +35,7 @@ export function GameCardDescription({ videoGame }: GameCardDescriptionProps) {
           )}
         </ul>
       </div>
-      <Link to={`/video-games/${videoGame.slug}`} className="primary-button primary-button--xs mt-auto w-fit">
-        {formatPrice(videoGame.precio)}
-      </Link>
+      <GamePrice videoGame={videoGame} />
     </article>
   );
 }
