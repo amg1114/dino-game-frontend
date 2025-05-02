@@ -1,11 +1,14 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import './App.css';
+import { StyleGuidePage } from './pages/styleGuide/StyleGuide';
+import GlobalLayout from './partials/layoutGlobal';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
-import GlobalLayout from '../src/partials/layoutGlobal';
 import AuthProvider from './providers/AuthContext';
 import { ErrorBoundary } from './partials/ErrorElement';
 import { HomePage } from './pages/home/HomePage';
+import { NewsPage } from './pages/blog/BlogIndex';
+import { VistaNoticia } from './pages/blog/BlogEntry';
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +30,14 @@ function App() {
             },
           ],
         },
+        {
+          path: 'blog',
+          element: <NewsPage />,
+        },
+        {
+          path: 'blog/:slug',
+          element: <VistaNoticia />
+        }
       ],
     },
   ]);
