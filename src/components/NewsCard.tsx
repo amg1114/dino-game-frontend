@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { News } from "../models/news.interface";
 import { truncateDescription } from "../utils/truncateDescription";
 
-export function CardNoticia({ news }: { news: News }) {
+export function NewsCard({ news }: { news: News }) {
 
     return (
         <div>

@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import { useNews } from "./hooks/useNews";
 import { Heart } from "lucide-react";
-import { CardNoticia } from "../../components/CardNoticia";
+import { NewsCard } from "../../components/NewsCard";
 
 export function VistaNoticia() {
     const { slug } = useParams<{ slug: string }>();
@@ -48,7 +48,7 @@ export function VistaNoticia() {
                 <div className="flex overflow-x-auto space-x-4 mt-5 px-2 md:grid grid-cols-3 overflow-visible">
                     {relatedNews.slice(0, 3).map((item) => (
                         <div key={item.id} className="min-w-[90%] max-w-[90%] flex-shrink-0">
-                            <CardNoticia news={item} />
+                            <NewsCard news={item} />
                         </div>
                     ))}
                 </div>

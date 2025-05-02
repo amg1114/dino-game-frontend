@@ -4,7 +4,7 @@ import { useLastNews } from "./hooks/useNews";
 import { useResponsiveItems } from "../../hooks/pagination/useItemsPerPage";
 import { usePagination } from "../../hooks/pagination/usePagination";
 import { Pagination } from "../../components/pagination";
-import { CardNoticia } from "../../components/CardNoticia";
+import { NewsCard } from "../../components/NewsCard";
 
 export function NewsPage() {
 
@@ -34,7 +34,7 @@ export function NewsPage() {
                 <section>
                     <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
                         {paginatedData.map((noticia) => (
-                            <CardNoticia key={noticia.id} news={noticia}
+                            <NewsCard key={noticia.id} news={noticia}
                             />
                         ))}
                     </div>
