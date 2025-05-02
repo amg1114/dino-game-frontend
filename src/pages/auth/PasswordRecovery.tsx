@@ -12,6 +12,7 @@ export default function PasswordRecovery() {
     const { usuario, isLoading } = useAuth()
     const [errorModal, setErrorModal] = useState<string | null>(null);
     const [successModal, setSuccessModal] = useState<boolean>(false);
+    const [isLoadingPetition, setIsLoadingPetition] = useState(false);
 
     const handleChangeCorreo = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
@@ -35,20 +36,29 @@ export default function PasswordRecovery() {
 
         try {
             z.string().email('Correo electrónico inválido').parse(correo);
+            z.string().min(1, 'El correo es requerido').parse(correo);
+            setIsLoadingPetition(true);
 
             axios.post(`/api/auth/request-password-reset?email=${correo}`)
                 .then(() => {
                     setSuccessModal(true);
-                    console.log('Correo enviado a:', correo);
+                    setErrorModal(null);
+                    setIsLoadingPetition(false);
+                    setTimeout(() => {
+                        navigate('/iniciar-sesion');
+                    }, 3000);
+
                 })
                 .catch((error) => {
                     setErrorModal(error.response.data.message);
+                    setIsLoadingPetition(false);
                 });
         }
         catch (error) {
             if (error instanceof z.ZodError) {
                 setErrorModal(error.errors[0].message);
             }
+            setIsLoadingPetition(false);
         }
 
     };
@@ -87,6 +97,11 @@ export default function PasswordRecovery() {
             </form>
 
         </Modal>
+        {isLoadingPetition && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-green-500"></div>
+            </div>
+        )}
         {errorModal && (
             <Modal onClose={() => setErrorModal(null)} modalTitle="Error" size="xs" modalId="error-modal">
                 <p className="text-red">{errorModal}</p>

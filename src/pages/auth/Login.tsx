@@ -95,7 +95,7 @@ export function Login() {
             />
           </div>
           <div className="flex justify-end">
-            <Link to={"/recuperar-contraseña"} className="text-green hover:text-green-light cursor-pointer text-sm">Olvide mi contraseña</Link>
+            <Link to={"/recuperar-contrasena"} className="text-green hover:text-green-light cursor-pointer text-sm">Olvide mi contraseña</Link>
           </div>
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-1 p-4">
             <button type="submit" className="primary-button w-full sm:w-auto" onClick={login}>
