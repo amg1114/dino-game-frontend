@@ -1,11 +1,15 @@
-import { HomeSection } from './components/HomeSection';
+import { CategoriesSection } from './components/CategoriesSection';
+import { GamesSection } from './components/GamesSection';
 import { useHomePage } from './hooks/useHomePage';
 
 export function HomePage() {
-  const { freeGames } = useHomePage();
+  const { freeGames, paidGames, discountedGames, categories } = useHomePage();
   return (
-    <>
-      <HomeSection title="Destacados Gratuitos" data={freeGames} />
-    </>
+    <div className="space-y-9">
+      <GamesSection title="Destacados Gratuitos" data={freeGames} />
+      <GamesSection title="Destacados de Pago" data={paidGames} />
+      <GamesSection title="Descuentos" data={discountedGames} />
+      <CategoriesSection data={categories} />
+    </div>
   );
 }

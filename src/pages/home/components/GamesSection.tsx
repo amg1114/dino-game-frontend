@@ -1,14 +1,15 @@
 import React from 'react';
-import { HomeSectionData } from '../hooks/useHomePage';
+import { SectionData } from '../hooks/useHomePage';
 import { GameCardBasic, GameCardBasicPlaceholder } from '../../../components/video-games/GameCardBasic';
 import { GameCardDescription } from '../../../components/video-games/GameCardDescription';
+import { VideoGame } from '../../../models/video-game.interface';
 
-interface HomeSectionProps {
+interface GamesSectionProps {
   title: string | React.ReactNode;
-  data: HomeSectionData;
+  data: SectionData<VideoGame>;
 }
 
-export function HomeSection({ title, data }: HomeSectionProps) {
+export function GamesSection({ title, data }: GamesSectionProps) {
   const { loading, error, data: games } = data;
   return (
     <section className="border-t-placeholder space-y-9 border-t pt-9 first:border-t-0 first:pt-0">
@@ -16,7 +17,7 @@ export function HomeSection({ title, data }: HomeSectionProps) {
         <span className="text-green">Dino</span>
         {title}
       </h2>
-      {error && <p>Error: {error}</p>}
+      {error && <p className="bg-placeholder text-body rounded p-4 text-center uppercase">No hay juegos disponibles</p>}
 
       {loading && (
         <div className="grid grid-cols-4 gap-4">

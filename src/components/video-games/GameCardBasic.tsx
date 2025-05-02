@@ -21,7 +21,7 @@ export function GameCardBasic({ videoGame }: GameCardBasicProps) {
             <li className="list-none leading-none" key={categoria.id}>
               <Link
                 to={`/categoria/${categoria.slug}`}
-                className="hover:text-green relative z-20 text-xs leading-none text-white uppercase underline"
+                className="hover:text-green relative z-20 text-xs leading-none text-white uppercase not-hover:no-underline"
               >
                 {categoria.titulo}
               </Link>
