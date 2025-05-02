@@ -64,7 +64,7 @@ export function useHomePage() {
       setPaidGames
     );
     fetchData<VideoGame>('/api/video-games?descuentos=true&orderBy=featured&order=DESC&limit=3', setDiscountedGames);
-    fetchData<Categoria>('/api/categorias', setCategories);
+    fetchData<Categoria>('/api/categorias?limit=8', setCategories);
   }, []);
 
   return {
