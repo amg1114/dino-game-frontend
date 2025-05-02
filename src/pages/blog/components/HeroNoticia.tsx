@@ -12,7 +12,7 @@ interface HeroNoticiaProps {
 export function HeroNoticia({ title, description, image, slug }: HeroNoticiaProps) {
     return (
         <div>
-            <div className="relative w-full md:w-2xl lg:w-5xl aspect-[16/9]">
+            <div className="relative w-full aspect-[16/9]">
                 {image && (
                     <img
                         className="w-full h-full object-cover rounded-lg"
