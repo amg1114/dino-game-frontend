@@ -15,7 +15,7 @@ export function GameCardDescription({ videoGame }: GameCardDescriptionProps) {
           <img src={videoGame.thumb.url} alt={videoGame.thumb.title} />
         </figure>
       </header>
-      <div className="flex flex-col gap-2">
+      <div className="mb-auto flex flex-col gap-2">
         <h4 className="text-xl leading-none md:text-2xl">{videoGame.titulo}</h4>
         <p className="text-sm">{truncateDescription(videoGame.descripcion)}</p>
         <ul className="mb-2 flex flex-wrap gap-2">
