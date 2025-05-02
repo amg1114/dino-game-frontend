@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router';
 
 import logo from '../../assets/logo.svg';
-import { CardNoticia } from '../../components/CardNoticia';
 import { HeroNoticia } from '../blog/components/HeroNoticia';
 import { Pagination } from '../../components/pagination';
 import { useState } from 'react';
@@ -9,20 +8,19 @@ import { useResponsiveItems } from '../../hooks/pagination/useItemsPerPage';
 import { usePagination } from '../../hooks/pagination/usePagination';
 
 const noticiasEjemplo = [
-  { id: 1, title: "Noticia 1" },
-  { id: 2, title: "Noticia 2" },
-  { id: 3, title: "Noticia 3" },
-  { id: 4, title: "Noticia 4" },
-  { id: 5, title: "Noticia 5" },
-  { id: 6, title: "Noticia 6" },
-  { id: 7, title: "Noticia 7" },
-  { id: 8, title: "Noticia 8" },
-  { id: 9, title: "Noticia 9" },
-  { id: 10, title: "Noticia 10" },
+  { id: 1, title: 'Noticia 1' },
+  { id: 2, title: 'Noticia 2' },
+  { id: 3, title: 'Noticia 3' },
+  { id: 4, title: 'Noticia 4' },
+  { id: 5, title: 'Noticia 5' },
+  { id: 6, title: 'Noticia 6' },
+  { id: 7, title: 'Noticia 7' },
+  { id: 8, title: 'Noticia 8' },
+  { id: 9, title: 'Noticia 9' },
+  { id: 10, title: 'Noticia 10' },
 ];
 
 export function StyleGuidePage() {
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = useResponsiveItems({ smallScreen: 4, largeScreen: 9 });
   const { paginatedData, totalPages } = usePagination(noticiasEjemplo, currentPage, itemsPerPage);
@@ -86,9 +84,9 @@ export function StyleGuidePage() {
           <h1>Dinogame works</h1>
           <p className="">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit repellat explicabo aperiam cupiditate
-            minus tempora natus alias deserunt commodi! Vel tempore sequi sapiente sint. Dicta distinctio aperiam, neque,{' '}
-            <a href="#">facilis consequatur</a> quis tempore incidunt atque odio provident soluta suscipit. At eaque
-            soluta fugit. Doloremque ducimus eum tenetur eaque perspiciatis alias?
+            minus tempora natus alias deserunt commodi! Vel tempore sequi sapiente sint. Dicta distinctio aperiam,
+            neque, <a href="#">facilis consequatur</a> quis tempore incidunt atque odio provident soluta suscipit. At
+            eaque soluta fugit. Doloremque ducimus eum tenetur eaque perspiciatis alias?
           </p>
           <h2>Botónes</h2>
           <section className="space-y-6">
@@ -130,7 +128,7 @@ export function StyleGuidePage() {
           </section>
           <br />
           {/**<div>
-            <CardNoticia news={noticiasEjemplo}
+            <NewsCard news={noticiasEjemplo}
             />
           </div> **/}
           <br />
@@ -145,19 +143,15 @@ export function StyleGuidePage() {
 
           <div>
             <div className="p-4">
-              <h1 className="text-xl text-green font-bold mb-4">Noticias</h1>
+              <h1 className="text-green mb-4 text-xl font-bold">Noticias</h1>
 
               {paginatedData.map((noticia: any) => (
-                <div key={noticia.id} className="mb-2 text-body">
+                <div key={noticia.id} className="text-body mb-2">
                   {noticia.title}
                 </div>
               ))}
 
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
             </div>
           </div>
         </div>

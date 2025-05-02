@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { VideoGame } from '../../../models/video-game.interface';
 import { Categoria } from '../../../models/categoria.interface';
 import { BaseFetch } from '../../../models/base-fetch.interface';
+import { News } from '../../../models/news.interface';
 
 export interface FetchResponse<T> extends BaseFetch {
   data: T[];
@@ -15,6 +16,12 @@ export interface SectionData<T> {
 }
 
 export function useHomePage() {
+  const [blogNews, setBlogNews] = useState<SectionData<News>>({
+    data: [],
+    loading: true,
+    error: null,
+  });
+
   const [freeGames, setFreeGames] = useState<SectionData<VideoGame>>({
     data: [],
     loading: true,
@@ -65,9 +72,11 @@ export function useHomePage() {
     );
     fetchData<VideoGame>('/api/video-games?descuentos=true&orderBy=featured&order=DESC&limit=3', setDiscountedGames);
     fetchData<Categoria>('/api/categorias?limit=8', setCategories);
+    fetchData<News>('/api/noticias?limit=3&order=DESC&orderBy=fecha', setBlogNews);
   }, []);
 
   return {
+    blogNews,
     freeGames,
     paidGames,
     discountedGames,
