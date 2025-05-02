@@ -4,13 +4,24 @@ type PaginationProps = {
     currentPage: number;
     totalPages: number;
     onPageChange: (n: number) => void;
-}
+    visibleButtons?: number; // opcional, default a 3
+};
 
-export function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, onPageChange, visibleButtons = 3 }: PaginationProps) {
+    const pages = [];
 
-    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const half = Math.floor(visibleButtons / 2);
+    const startPage = Math.max(1, currentPage - half);
+    const endPage = Math.min(totalPages, currentPage + half);
+
+    // Asegurar que siempre se muestren visibleButtons (si hay suficientes páginas)
+    for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+    }
+
     return (
-        <div className="flex justify-center gap-3 mt-4 bg-body p-2">
+        <div className="flex justify-center gap-2 mt-6 bg-body p-2">
+            {/* Flecha anterior */}
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
@@ -19,19 +30,21 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
                 <ChevronLeft />
             </button>
 
+            {/* Botones de página */}
             {pages.map((page) => (
                 <button
                     key={page}
                     onClick={() => onPageChange(page)}
-                    className={`px-3 py-1 rounded font-bold hover:cursor-pointer ${page === currentPage ?
-                        "bg-green text-white hover:bg-white hover:text-green"
+                    className={`px-3 py-1 rounded font-bold hover:cursor-pointer ${page === currentPage
+                        ? "bg-green text-white"
                         : "bg-white text-green hover:bg-green hover:text-white"
-                        } p-2`}
+                        }`}
                 >
                     {page}
                 </button>
             ))}
 
+            {/* Flecha siguiente */}
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
