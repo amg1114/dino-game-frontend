@@ -4,11 +4,12 @@ import { GamePrice } from './GamePrice';
 
 interface GameCardBasicProps {
   videoGame: VideoGame;
+  wrapperExtraClasses?: string;
 }
 
-export function GameCardBasic({ videoGame }: GameCardBasicProps) {
+export function GameCardBasic({ videoGame, wrapperExtraClasses }: GameCardBasicProps) {
   return (
-    <article className="flex h-full flex-col">
+    <article className={`flex h-full flex-col ${wrapperExtraClasses}`}>
       <header className="mb-3">
         <figure className="bg-placeholder aspect-video w-full overflow-hidden rounded">
           <img src={videoGame.thumb.url} alt={videoGame.thumb.title} />
