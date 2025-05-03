@@ -9,7 +9,7 @@ import axios from 'axios';
 export default function PasswordReset() {
   const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
-  const { usuario, isLoading, updateToken } = useAuth();
+  const { usuario, isLoading } = useAuth();
   const [data, setData] = useState({
     token: '',
     newPassword: '',
@@ -48,10 +48,12 @@ export default function PasswordReset() {
 
       await axios
         .post(ENDPOINT, { token, newPassword: data.newPassword })
-        .then((r) => {
+        .then(() => {
           setSuccessModal(true);
-          updateToken(r.data.access_token);
           setErrorModal(null);
+          setTimeout(() => {
+            navigate('/iniciar-sesion');
+          }, 900);
         })
         .catch((error) => {
           setErrorModal(error.response?.data?.message || 'Error al cambiar la contraseña');
