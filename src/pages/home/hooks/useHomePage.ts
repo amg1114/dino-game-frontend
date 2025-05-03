@@ -16,6 +16,12 @@ export interface SectionData<T> {
 }
 
 export function useHomePage() {
+  const [featuredGames, setFeaturedGames] = useState<SectionData<VideoGame>>({
+    data: [],
+    loading: true,
+    error: null,
+  });
+
   const [blogNews, setBlogNews] = useState<SectionData<News>>({
     data: [],
     loading: true,
@@ -65,6 +71,7 @@ export function useHomePage() {
   };
 
   useEffect(() => {
+    fetchData<VideoGame>('/api/video-games?&orderBy=fechaLanzamiento&order=DESC&limit=4', setFeaturedGames);
     fetchData<VideoGame>('/api/video-games?precio=0&orderBy=featured&order=DESC&limit=7', setFreeGames);
     fetchData<VideoGame>(
       '/api/video-games?onlyPaidGames=true&descuentos=false&orderBy=featured&order=DESC&limit=7',
@@ -76,6 +83,7 @@ export function useHomePage() {
   }, []);
 
   return {
+    featuredGames,
     blogNews,
     freeGames,
     paidGames,
