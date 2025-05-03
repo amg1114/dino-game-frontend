@@ -3,7 +3,7 @@ import { Modal } from '../../components/Modal';
 import { z } from 'zod';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../providers/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import countries from 'world-countries';
 import { StyledInput } from '../../components/StyledInput';
 import { StyledSelect } from '../../components/StyledSelect';
@@ -61,7 +61,7 @@ export function Register() {
         navigate('/');
       }, 3000);
     }
-  }, [isLoading, usuario, errorModal, successModal]);
+  }, [isLoading, usuario, errorModal, successModal, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -161,7 +161,7 @@ export function Register() {
           size="xs"
           modalId="error-modal"
         >
-          <p className="text-white">{errorModal}</p>
+          <p className="text-red">{errorModal}</p>
         </Modal>
       )}
       {successModal && (
@@ -171,7 +171,7 @@ export function Register() {
           size="xs"
           modalId="success-modal"
         >
-          <p className="text-white">Registro Exitoso</p>
+          <p className="text-green">Registro Exitoso</p>
         </Modal>
       )}
     </>
