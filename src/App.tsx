@@ -36,8 +36,8 @@ function App() {
             {
               path: 'recuperar-contrasena/:token',
               element: <PasswordReset />,
-            }
-          ]
+            },
+          ],
         },
         {
           path: 'blog',
@@ -45,9 +45,8 @@ function App() {
         },
         {
           path: 'blog/:slug',
-          element: <VistaNoticia />
-        }
-
+          element: <VistaNoticia />,
+        },
       ],
     },
   ]);

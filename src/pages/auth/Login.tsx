@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
-import { useAuth } from '../../providers/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import axios from 'axios';
@@ -50,7 +50,7 @@ export function Login() {
         navigate('/');
       }, 3000);
     }
-  }, [usuario, isLoading, errorModal, successModal]);
+  }, [usuario, isLoading, errorModal, successModal, navigate]);
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +95,9 @@ export function Login() {
             />
           </div>
           <div className="flex justify-end">
-            <Link to={"/recuperar-contrasena"} className="text-green hover:text-green-light cursor-pointer text-sm">Olvide mi contraseña</Link>
+            <Link to={'/recuperar-contrasena'} className="text-green hover:text-green-light cursor-pointer text-sm">
+              Olvide mi contraseña
+            </Link>
           </div>
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-1 p-4">
             <button type="submit" className="primary-button w-full sm:w-auto" onClick={login}>
