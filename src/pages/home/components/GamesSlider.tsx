@@ -39,20 +39,20 @@ export function GamesSlider({ data }: { data: SectionData<VideoGame> }) {
       {error && <p className="bg-placeholder text-body rounded p-4 text-center uppercase">No hay juegos disponibles</p>}
 
       {!loading && !error && videoGames.length && (
-        <section className="flex items-start gap-4">
-          <div className="bg-placeholder relative aspect-video h-auto flex-1 overflow-hidden rounded-lg">
+        <section className="flex flex-wrap items-start gap-4">
+          <div className="md:bg-placeholder relative h-auto w-full overflow-hidden rounded-lg md:aspect-video xl:flex-1">
             <figure className="relative z-0 w-full">
               <img src={videoGames[currentIndex].thumb.url} alt={videoGames[currentIndex].titulo} className="w-full" />
             </figure>
-            <div className="absolute bottom-0 left-0 z-10 p-8 md:max-w-2/3">
-              <h2>{videoGames[currentIndex].titulo}</h2>
+            <div className="absolute bottom-0 left-0 z-10 max-w-2/3 p-8 max-md:hidden">
+              <h2 className="leading-none">{videoGames[currentIndex].titulo}</h2>
               <p className="mb-4 text-lg">{videoGames[currentIndex].descripcion}</p>
               <GamePrice videoGame={videoGames[currentIndex]} />
             </div>
-            <span className="to-body/70 absolute inset-0 z-0 h-full w-full bg-linear-to-b from-transparent"></span>
+            <span className="to-body/70 absolute inset-0 z-0 h-full w-full bg-linear-to-b from-transparent max-md:hidden"></span>
           </div>
 
-          <div className="grid w-full grid-cols-1 grid-rows-4 gap-4 md:max-w-44 md:flex-col xl:max-w-1/6">
+          <div className="grid w-full grid-cols-4 gap-1.5 md:gap-4 xl:max-w-1/6 xl:grid-cols-1 xl:grid-rows-4">
             {videoGames.map((game, index) => (
               <div className="group font-oswald relative flex flex-col gap-2" key={game.id}>
                 <figure className="bg-placeholder relative aspect-video h-auto w-full overflow-hidden rounded">
@@ -69,11 +69,17 @@ export function GamesSlider({ data }: { data: SectionData<VideoGame> }) {
                   className="hover:text-green cursor-pointer text-center text-sm transition-colors"
                   onClick={() => handleSelectGame(index)}
                 >
-                  {game.titulo}
+                  <span className="max-md:hidden">{game.titulo}</span>
                   <span className="absolute inset-0"></span>
                 </button>
               </div>
             ))}
+          </div>
+
+          <div className="flex w-full flex-col md:hidden">
+            <h2 className="mb-2.5 text-3xl leading-none">{videoGames[currentIndex].titulo}</h2>
+            <p className="mb-2">{videoGames[currentIndex].descripcion}</p>
+            <GamePrice videoGame={videoGames[currentIndex]} />
           </div>
         </section>
       )}

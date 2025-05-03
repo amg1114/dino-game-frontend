@@ -130,11 +130,11 @@
   }
 
   .container {
-    @apply mx-auto w-full px-6 md:max-w-3xl xl:max-w-6xl xl:px-0;
+    @apply mx-auto w-full px-6 md:max-w-3xl 2xl:max-w-6xl 2xl:px-0;
   }
 
   .rich-text {
-    @apply text-base space-y-6 leading-relaxed;
+    @apply space-y-6 text-base leading-relaxed;
 
     /* Text color and base font */
     color: var(--color-white);
