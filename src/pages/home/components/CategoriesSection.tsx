@@ -16,7 +16,7 @@ export function CategoriesSection({ data }: CategoriesSectionProps) {
       {error && <p>Error: {error}</p>}
 
       {!loading && !error && (
-        <ul className="grid grid-cols-4 gap-6">
+        <ul className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {categories.map((category) => (
             <li className="list-none" key={category.id}>
               <Link
