@@ -1,4 +1,4 @@
-import { JSX, ReactNode, useEffect, useRef, useState } from 'react';
+import { JSX, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
 const modalSize = {
   xs: 'max-w-xs',
@@ -28,14 +28,17 @@ export function Modal({ children, onClose, modalTitle, size = 'md', modalId }: M
   const modalRef = useRef<HTMLDivElement>(null);
   const [out, setOut] = useState(false);
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      if (!modalId || (event.target as HTMLElement).dataset.modalId === modalId) {
-        setOut(true);
-        onClose();
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        if (!modalId || (event.target as HTMLElement).dataset.modalId === modalId) {
+          setOut(true);
+          onClose();
+        }
       }
-    }
-  };
+    },
+    [modalId, onClose]
+  );
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -43,12 +46,12 @@ export function Modal({ children, onClose, modalTitle, size = 'md', modalId }: M
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   return (
     <>
       <div
-        className="bg-body/80 animate__animated animate__fadeIn fixed top-0 left-0 z-10 flex h-full w-full items-center justify-center"
+        className="bg-body/80 body-text animate__animated animate__fadeIn fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center"
         data-modal-id={modalId}
         onClick={onClose}
       >

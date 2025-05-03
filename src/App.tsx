@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import './App.css';
-import { StyleGuidePage } from './pages/styleGuide/StyleGuide';
 import GlobalLayout from './partials/layoutGlobal';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
@@ -9,6 +8,8 @@ import { ErrorBoundary } from './partials/ErrorElement';
 import { HomePage } from './pages/home/HomePage';
 import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
+import PasswordRecovery from './pages/auth/PasswordRecovery';
+import PasswordReset from './pages/auth/PasswordReset';
 
 function App() {
   const router = createBrowserRouter([
@@ -28,6 +29,14 @@ function App() {
               path: 'registro',
               element: <Register />,
             },
+            {
+              path: 'recuperar-contrasena',
+              element: <PasswordRecovery />,
+            },
+            {
+              path: 'recuperar-contrasena/:token',
+              element: <PasswordReset />,
+            },
           ],
         },
         {
@@ -36,8 +45,8 @@ function App() {
         },
         {
           path: 'blog/:slug',
-          element: <VistaNoticia />
-        }
+          element: <VistaNoticia />,
+        },
       ],
     },
   ]);
