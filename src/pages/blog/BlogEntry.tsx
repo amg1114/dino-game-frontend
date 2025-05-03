@@ -2,10 +2,18 @@ import { useParams } from 'react-router';
 import { useNews } from './hooks/useNews';
 import { Heart } from 'lucide-react';
 import { NewsCard } from '../../components/NewsCard';
+import { usePageMetadata } from '../../hooks/usePageMetadata';
+import { truncateDescription } from '../../utils/truncateDescription';
 
 export function VistaNoticia() {
   const { slug } = useParams<{ slug: string }>();
   const { news, relatedNews, loading } = useNews(slug || '');
+
+  usePageMetadata({
+    title: news?.titulo || 'Loading',
+    description: truncateDescription(news?.descripcion || ''),
+    image: news?.thumb.url,
+  });
 
   if (loading) return <p>Cargando noticia...</p>;
   if (!news) return <p>No se encontró la noticia</p>;
@@ -42,21 +50,6 @@ export function VistaNoticia() {
           </div>
           <h1 className="mt-2 w-auto text-4xl leading-tight">{news.titulo}</h1>
           <div className="rich-text w-full" dangerouslySetInnerHTML={{ __html: news.descripcion }}></div>
-        </div>
-      </div>
-
-      <div className="text-placeholder-2 mt-5 border-t pt-5">
-        <h2 className="mb-2 text-white">
-          <span className="text-green font-bebas uppercase">dino</span>
-          noticias recientes
-        </h2>
-
-        <div className="mt-5 flex grid-cols-3 space-x-4 overflow-visible overflow-x-auto px-2 md:grid">
-          {relatedNews.slice(0, 3).map((item) => (
-            <div key={item.id} className="max-w-[90%] min-w-[90%] flex-shrink-0">
-              <NewsCard news={item} />
-            </div>
-          ))}
         </div>
       </div>
 
