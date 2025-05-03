@@ -130,6 +130,91 @@
   }
 
   .container {
-    @apply mx-auto w-full px-6 md:max-w-3xl xl:max-w-6xl xl:px-0;
+    @apply mx-auto w-full px-6 md:max-w-3xl 2xl:max-w-6xl 2xl:px-0;
+  }
+
+  .rich-text {
+    @apply space-y-6 text-base leading-relaxed;
+
+    /* Text color and base font */
+    color: var(--color-white);
+    font-family: var(--font-roboto);
+
+    /* Headings */
+    h1,
+    h2,
+    h3,
+    h4 {
+      @apply font-bebas leading-tight;
+      color: var(--color-yellow);
+    }
+
+    h1 {
+      @apply mt-6 mb-3 text-5xl;
+    }
+    h2 {
+      @apply mt-5 mb-2.5 text-4xl;
+    }
+    h3 {
+      @apply mt-4 mb-2 text-3xl;
+    }
+    h4 {
+      @apply mt-3 mb-1.5 text-2xl;
+    }
+
+    /* Paragraphs */
+    p {
+      @apply text-base leading-7 text-white;
+    }
+
+    /* Links */
+    a {
+      @apply text-green hover:text-green-light underline transition-colors;
+    }
+
+    /* Lists */
+    ul {
+      @apply list-disc space-y-2 pl-6;
+    }
+
+    ol {
+      @apply list-decimal space-y-2 pl-6;
+    }
+
+    li {
+      @apply text-base text-white;
+    }
+
+    /* Blockquote */
+    blockquote {
+      @apply border-yellow text-yellow-light border-l-4 pl-4 italic;
+    }
+
+    /* Images */
+    img {
+      @apply my-4 w-full rounded-lg shadow-lg;
+    }
+
+    /* Code block */
+    pre {
+      @apply bg-placeholder-2 overflow-x-auto rounded p-4 font-mono text-sm text-white;
+    }
+
+    code {
+      @apply bg-placeholder-2 text-yellow-light rounded px-1 py-0.5 font-mono text-sm;
+    }
+
+    /* Tables */
+    table {
+      @apply my-6 w-full border-collapse text-left;
+    }
+
+    th {
+      @apply bg-placeholder border-placeholder-2 border-b px-4 py-2 text-white;
+    }
+
+    td {
+      @apply border-placeholder-2 border-b px-4 py-2;
+    }
   }
 }

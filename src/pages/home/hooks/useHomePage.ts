@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { VideoGame } from '../../../models/video-game.interface';
 import { Categoria } from '../../../models/categoria.interface';
 import { BaseFetch } from '../../../models/base-fetch.interface';
+import { News } from '../../../models/news.interface';
 
 export interface FetchResponse<T> extends BaseFetch {
   data: T[];
@@ -15,6 +16,18 @@ export interface SectionData<T> {
 }
 
 export function useHomePage() {
+  const [featuredGames, setFeaturedGames] = useState<SectionData<VideoGame>>({
+    data: [],
+    loading: true,
+    error: null,
+  });
+
+  const [blogNews, setBlogNews] = useState<SectionData<News>>({
+    data: [],
+    loading: true,
+    error: null,
+  });
+
   const [freeGames, setFreeGames] = useState<SectionData<VideoGame>>({
     data: [],
     loading: true,
@@ -58,16 +71,20 @@ export function useHomePage() {
   };
 
   useEffect(() => {
+    fetchData<VideoGame>('/api/video-games?&orderBy=fechaLanzamiento&order=DESC&limit=4', setFeaturedGames);
     fetchData<VideoGame>('/api/video-games?precio=0&orderBy=featured&order=DESC&limit=7', setFreeGames);
     fetchData<VideoGame>(
       '/api/video-games?onlyPaidGames=true&descuentos=false&orderBy=featured&order=DESC&limit=7',
       setPaidGames
     );
     fetchData<VideoGame>('/api/video-games?descuentos=true&orderBy=featured&order=DESC&limit=3', setDiscountedGames);
-    fetchData<Categoria>('/api/categorias', setCategories);
+    fetchData<Categoria>('/api/categorias?limit=8', setCategories);
+    fetchData<News>('/api/noticias?limit=3&order=DESC&orderBy=fecha', setBlogNews);
   }, []);
 
   return {
+    featuredGames,
+    blogNews,
     freeGames,
     paidGames,
     discountedGames,

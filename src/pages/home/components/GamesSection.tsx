@@ -29,12 +29,16 @@ export function GamesSection({ title, data }: GamesSectionProps) {
 
       {!loading && !error && (
         <div className="space-y-9">
-          <div className="grid grid-cols-3 gap-4">
-            {games.slice(0, 3).map((videoGame) => (
-              <GameCardDescription key={videoGame.id} videoGame={videoGame} />
+          <div className="flex h-full grid-cols-3 gap-4 overflow-auto md:grid">
+            {games.map((videoGame, index) => (
+              <GameCardDescription
+                wrapperExtraClasses={`min-w-64 ${index > 2 ? 'md:hidden' : ''}`}
+                key={videoGame.id}
+                videoGame={videoGame}
+              />
             ))}
           </div>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="hidden grid-cols-4 gap-4 md:grid">
             {games.slice(3).map((videoGame) => (
               <GameCardBasic key={videoGame.id} videoGame={videoGame} />
             ))}

@@ -1,14 +1,15 @@
 import { Link } from 'react-router';
 import { VideoGame } from '../../models/video-game.interface';
-import { formatPrice } from '../../utils/formatPrice';
+import { GamePrice } from './GamePrice';
 
 interface GameCardBasicProps {
   videoGame: VideoGame;
+  wrapperExtraClasses?: string;
 }
 
-export function GameCardBasic({ videoGame }: GameCardBasicProps) {
+export function GameCardBasic({ videoGame, wrapperExtraClasses }: GameCardBasicProps) {
   return (
-    <article className="flex h-full flex-col">
+    <article className={`flex h-full flex-col ${wrapperExtraClasses}`}>
       <header className="mb-3">
         <figure className="bg-placeholder aspect-video w-full overflow-hidden rounded">
           <img src={videoGame.thumb.url} alt={videoGame.thumb.title} />
@@ -31,9 +32,7 @@ export function GameCardBasic({ videoGame }: GameCardBasicProps) {
           <li className="text-xs">No hay categorías relacionadas</li>
         )}
       </ul>
-      <Link to={`/video-games/${videoGame.slug}`} className="primary-button primary-button--xs mt-auto w-fit">
-        {formatPrice(videoGame.precio)}
-      </Link>
+      <GamePrice videoGame={videoGame} />
     </article>
   );
 }
