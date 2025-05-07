@@ -1,15 +1,7 @@
 import { useEffect, useMemo, useState, ReactNode } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../utils/authContext';
-
-interface Usuario {
-  id: number;
-  nombre: string;
-  correo: string;
-  fechaNacimiento: Date;
-  pais: string;
-  sexo: string;
-}
+import { Usuario } from '../models/user.interface';
 
 export interface AuthContextType {
   token: string | null;
@@ -36,15 +28,22 @@ function AuthProvider({ child }: AuthProviderProps) {
     setToken(null);
   };
 
+  const logOut = () => {
+    setToken(null);
+    setUsuario(null);
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+  };
+
   const getUsuario = () => {
     axios
-      .get<Usuario>(import.meta.env.API_URL + '/auth/profile')
+      .get<Usuario>('/api/auth/profile')
       .then((response) => {
         setUsuario(response.data);
-        console.log('Usuario cargado desde el contexto:', response.data);
       })
       .catch((error) => {
         console.error('Error al obtener el usuario:', error);
+        logOut();
       })
       .finally(() => {
         setIsLoading(false);
