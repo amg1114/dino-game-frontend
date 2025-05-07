@@ -10,6 +10,8 @@ import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
 import PasswordRecovery from './pages/auth/PasswordRecovery';
 import PasswordReset from './pages/auth/PasswordReset';
+import { ProfileLayout } from './pages/profile/ProfileLayout';
+import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
 
 function App() {
   const router = createBrowserRouter([
@@ -46,6 +48,17 @@ function App() {
         {
           path: 'blog/:slug',
           element: <VistaNoticia />,
+        },
+        {
+          path: 'perfil',
+          element: <ProfileLayout />,
+          children: [
+            {
+              path: '',
+              index: true,
+              element: <ProfileInfo />,
+            },
+          ],
         },
       ],
     },
