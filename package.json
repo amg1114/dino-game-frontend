@@ -9,7 +9,7 @@
     "lint": "npx eslint .",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "prepare": "lefthook install"
+    "prepare": "if [ \"$SKIP_HOOKS\" != \"1\" ]; then lefthook install; fi"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
