@@ -1,0 +1,31 @@
+import { useEffect, useState } from "react";
+import { VideoGame } from "../../../models/video-game.interface";
+import axios from "axios";
+
+interface BestGame {
+    game: VideoGame | null;
+    loading: boolean;
+}
+
+export const useBestGame = (slug: string): BestGame => {
+    const [game, setGame] = useState(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`/api/calificaciones/best-rated-video-game/${slug}`)
+            .then(function (resp) {
+                console.log("esta es la respuesta" + resp.data);
+                const game_data = resp.data;
+                setGame(game_data);
+                setLoading(false);
+            })
+            .catch(function (err) {
+                console.error(err);
+                setLoading(false);
+            });
+    }, [slug]);
+
+    return { game: game, loading };
+};
