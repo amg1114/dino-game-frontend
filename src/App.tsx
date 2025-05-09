@@ -10,6 +10,7 @@ import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
 import PasswordRecovery from './pages/auth/PasswordRecovery';
 import PasswordReset from './pages/auth/PasswordReset';
+import { AboutPage } from './pages/about/AboutPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -47,6 +48,10 @@ function App() {
           path: 'blog/:slug',
           element: <VistaNoticia />,
         },
+        {
+          path: 'about',
+          element: <AboutPage />
+        }
       ],
     },
   ]);
