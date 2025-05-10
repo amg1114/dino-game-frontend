@@ -7,19 +7,9 @@ import { useAuth } from '../../hooks/useAuth';
 import countries from 'world-countries';
 import { StyledInput } from '../../components/StyledInput';
 import { StyledSelect } from '../../components/StyledSelect';
+import { userWithPasswordSchema } from '../../utils/zod/user.validators';
 
-const schema = z.object({
-  nombre: z.string().min(1, 'El nombre es obligatorio'),
-  fechaNacimiento: z
-    .string()
-    .min(1, 'La fecha de nacimiento es obligatoria')
-    .date('La fecha de nacimiento no es válida'),
-  pais: z.string().min(1, 'El país es obligatorio'),
-  sexo: z.string().min(1, 'El género es obligatorio'),
-  correo: z.string().email('Correo electrónico inválido'),
-  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
-});
-
+const schema = userWithPasswordSchema;
 export function Register() {
   const ENDPOINT = '/api/auth/register';
   const navigate = useNavigate();
