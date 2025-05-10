@@ -16,7 +16,7 @@ export function StyledSelect({ id, options, value, onChange, label }: StyledSele
       </label>
       <select
         id={id}
-        className={`bg-placeholder focus:ring-green rounded p-2 focus:ring-2 focus:outline-none ${
+        className={`bg-placeholder focus:ring-green rounded p-4 focus:ring-2 focus:outline-none ${
           !value ? 'text-white/50' : 'text-white'
         }`}
         value={value}
