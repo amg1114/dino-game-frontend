@@ -3,7 +3,7 @@ export interface Usuario {
   nombre: string;
   correo: string;
   tipo: UserType;
-  fechaNacimiento: Date;
+  fechaNacimiento: string;
   pais: string;
   sexo: string;
 }
