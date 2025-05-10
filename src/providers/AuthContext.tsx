@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState, ReactNode } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../utils/authContext';
+import { AuthContext } from '../utils/context/authContext';
 import { Usuario } from '../models/user.interface';
 
 export interface AuthContextType {
@@ -12,7 +12,7 @@ export interface AuthContextType {
 }
 
 interface AuthProviderProps {
-  child: ReactNode;
+  child: React.ReactNode;
 }
 
 function AuthProvider({ child }: AuthProviderProps) {

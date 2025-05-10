@@ -12,6 +12,7 @@ import PasswordRecovery from './pages/auth/PasswordRecovery';
 import PasswordReset from './pages/auth/PasswordReset';
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
+import { AlertProvider } from './providers/AlertContext';
 
 function App() {
   const router = createBrowserRouter([
@@ -64,7 +65,15 @@ function App() {
     },
   ]);
 
-  return <AuthProvider child={<RouterProvider router={router} />} />;
+  return (
+    <AuthProvider
+      child={
+        <AlertProvider>
+          <RouterProvider router={router} />
+        </AlertProvider>
+      }
+    />
+  );
 }
 
 export default App;
