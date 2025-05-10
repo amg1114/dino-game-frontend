@@ -9,7 +9,7 @@
     "lint": "npx eslint .",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "prepare": "if [ \"$SKIP_HOOKS\" != \"1\" ]; then lefthook install; fi"
+    "prepare": "node -e \"if (process.env.SKIP_HOOKS !== '1') require('child_process').execSync('lefthook install', { stdio: 'inherit' })\""
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
