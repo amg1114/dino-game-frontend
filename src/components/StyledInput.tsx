@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { JSX } from 'react';
 
 interface StyledInputProps {
@@ -7,9 +8,20 @@ interface StyledInputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
+  name?: string;
+  errors?: string[];
 }
 
-export function StyledInput({ id, type, placeholder, value, onChange, label }: StyledInputProps): JSX.Element {
+export function StyledInput({
+  id,
+  type,
+  placeholder,
+  value,
+  onChange,
+  label,
+  name,
+  errors,
+}: StyledInputProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-xl text-white">
@@ -18,13 +30,17 @@ export function StyledInput({ id, type, placeholder, value, onChange, label }: S
       <input
         type={type}
         id={id}
-        className={`bg-placeholder focus:ring-green rounded p-2 focus:ring-2 focus:outline-none ${
-          !value ? 'text-white/80' : 'text-white'
-        }`}
+        className={clsx({
+          'bg-placeholder focus:ring-green rounded p-4 text-white focus:ring-2 focus:outline-none': true,
+          'ring-red focus:ring-red ring-2': errors?.length,
+        })}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        name={name || id}
       />
+
+      {errors?.length && <span className="text-red text-sm font-bold">{errors.join(', ')}</span>}
     </div>
   );
 }
