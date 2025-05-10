@@ -17,6 +17,11 @@ export default defineConfig(({ mode }) => {
       },
       cors: true,
       allowedHosts: ['.local'],
+      hmr: env.VITE_HMR_HOST ? {
+        protocol: 'ws',
+        host: env.VITE_HMR_HOST,
+        clientPort: parseInt(env.VITE_HMR_PORT, 10),
+      } : true,
     },
   };
 });
