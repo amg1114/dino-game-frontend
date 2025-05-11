@@ -13,7 +13,7 @@ const schema = userWithPasswordSchema;
 export function Register() {
   const ENDPOINT = '/api/auth/register';
   const navigate = useNavigate();
-  const { usuario, isLoading, updateToken } = useAuth();
+  const { usuario, isLoading, logIn } = useAuth();
   const [formData, setFormData] = useState({
     nombre: '',
     fechaNacimiento: '',
@@ -60,7 +60,7 @@ export function Register() {
       axios
         .post(ENDPOINT, formData)
         .then((response) => {
-          updateToken(response.data.access_token);
+          logIn(response.data.access_token);
           setErrorModal(null);
           setSuccessModal(true);
         })
