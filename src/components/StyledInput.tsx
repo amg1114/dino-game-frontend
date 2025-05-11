@@ -40,7 +40,9 @@ export function StyledInput({
         name={name || id}
       />
 
-      {errors?.length && <span className="text-red text-sm font-bold">{errors.join(', ')}</span>}
+      {errors && errors.length > 0 && (
+        <span className="text-red text-sm font-bold">{errors.slice(0, 2).join(', ')}</span>
+      )}
     </div>
   );
 }
