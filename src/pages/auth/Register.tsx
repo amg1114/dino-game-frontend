@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../hooks/useAuth';
 import countries from 'world-countries';
-import { StyledInput } from '../../components/StyledInput';
-import { StyledSelect } from '../../components/StyledSelect';
+import { StyledInput } from '../../components/forms/StyledInput';
+import { StyledSelect } from '../../components/forms/StyledSelect';
 import { userWithPasswordSchema } from '../../utils/zod/user.validators';
 
 const schema = userWithPasswordSchema;
