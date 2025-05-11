@@ -14,9 +14,8 @@ export const useBestGame = (slug: string): BestGame => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`/api/calificaciones/best-rated-video-game/${slug}`)
-            .then(function (resp) {
-                console.log("esta es la respuesta" + resp.data);
+            .get(`/api/calificaciones/best-video-game/${slug}`)
+            .then((resp) => {
                 const game_data = resp.data;
                 setGame(game_data);
                 setLoading(false);

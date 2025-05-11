@@ -11,6 +11,7 @@ interface GamesSectionProps {
 
 export function GamesSection({ title, data }: GamesSectionProps) {
   const { loading, error, data: games } = data;
+  console.log('Estado de data en GamesSection:', games);
   return (
     <section className="border-t-placeholder space-y-9 border-t pt-9 first:border-t-0 first:pt-0">
       <h2>

@@ -8,8 +8,10 @@ interface GameCardBasicProps {
 }
 
 export function GameCardBasic({ videoGame, wrapperExtraClasses }: GameCardBasicProps) {
+
   return (
     <article className={`flex h-full flex-col ${wrapperExtraClasses}`}>
+
       <header className="mb-3">
         <figure className="bg-placeholder aspect-video w-full overflow-hidden rounded">
           <img src={videoGame.thumb.url} alt={videoGame.thumb.title} />
@@ -21,7 +23,7 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses }: GameCardBasicP
           videoGame.categorias.map((categoria) => (
             <li className="list-none leading-none" key={categoria.id}>
               <Link
-                to={`/categoria/${categoria.slug}`}
+                to={`/categorias/${categoria.slug}`}
                 className="hover:text-green relative z-20 text-xs leading-none text-white uppercase not-hover:no-underline"
               >
                 {categoria.titulo}
@@ -32,7 +34,10 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses }: GameCardBasicP
           <li className="text-xs">No hay categorías relacionadas</li>
         )}
       </ul>
-      <GamePrice videoGame={videoGame} />
+      <div className='h-full flex align-items-end'>
+
+        <GamePrice videoGame={videoGame} />
+      </div>
     </article>
   );
 }

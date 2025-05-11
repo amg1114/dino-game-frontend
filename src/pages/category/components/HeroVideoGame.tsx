@@ -1,13 +1,14 @@
 import { useParams } from "react-router";
-import { useBestGame } from "../../category/hooks/useCategoryPage";
 import { GamePrice } from "../../../components/video-games/GamePrice";
+import { useBestGame } from "../hooks/useBestGame";
 
 export const HeroVideoGame: React.FC = () => {
     const slug = useParams().slug;
     const { game, loading } = useBestGame(slug || "");
+
     return (
         <section className="flex flex-wrap items-start gap-4 xl:justify-center">
-            <div className="md:bg-placeholder relative h-auto w-full overflow-hidden rounded-lg md:aspect-video xl:flex-1 max-w-6xl items-center justify-center">
+            <div className="md:bg-placeholder relative h-auto w-full overflow-hidden rounded-lg md:aspect-video ">
                 {loading && <p>Cargando...</p>}
                 {!loading && game && (
                     <div>
@@ -22,7 +23,7 @@ export const HeroVideoGame: React.FC = () => {
                     </div>
 
                 )}
-                {!loading && !game && <p>No se encontró un juego para esta categoría.</p>}
+                {!game && <></>}
             </div>
         </section>
     );

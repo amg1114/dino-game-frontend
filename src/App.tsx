@@ -10,7 +10,7 @@ import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
 import PasswordRecovery from './pages/auth/PasswordRecovery';
 import PasswordReset from './pages/auth/PasswordReset';
-import { HeroVideoGame } from './pages/category/components/HeroVideoGame';
+import { CategoryPage } from './pages/category/CategoryPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -49,8 +49,8 @@ function App() {
           element: <VistaNoticia />,
         },
         {
-          path: 'category/:slug',
-          element: <HeroVideoGame />
+          path: 'categorias/:slug',
+          element: <CategoryPage />
         }
       ],
     },
