@@ -1,18 +1,27 @@
-import { createBrowserRouter, RouterProvider } from 'react-router';
 import './App.css';
+
+import { createBrowserRouter, RouterProvider } from 'react-router';
+
+import { requireAuth } from './utils/protect';
+
+import AuthProvider from './providers/AuthContext';
+import { AlertProvider } from './providers/AlertContext';
+
 import GlobalLayout from './partials/layoutGlobal';
+import { ErrorBoundary } from './partials/ErrorElement';
+import { Unauthorized } from './partials/Unauthorized';
+
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
-import AuthProvider from './providers/AuthContext';
-import { ErrorBoundary } from './partials/ErrorElement';
+import PasswordRecovery from './pages/auth/PasswordRecovery';
+import PasswordReset from './pages/auth/PasswordReset';
+
 import { HomePage } from './pages/home/HomePage';
 import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
-import PasswordRecovery from './pages/auth/PasswordRecovery';
-import PasswordReset from './pages/auth/PasswordReset';
+
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
-import { AlertProvider } from './providers/AlertContext';
 
 function App() {
   const router = createBrowserRouter([
@@ -52,6 +61,7 @@ function App() {
         },
         {
           path: 'perfil',
+          loader: requireAuth(),
           element: <ProfileLayout />,
           children: [
             {
@@ -61,6 +71,7 @@ function App() {
             },
           ],
         },
+        { path: 'unauthorized', element: <Unauthorized /> },
       ],
     },
   ]);
