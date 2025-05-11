@@ -105,7 +105,6 @@ export function useUpdateProfile() {
       if (Object.keys(updates).length === 0) {
         setErrors({} as ErrorUsuario);
       }
-      console.log('updates', updates);
 
       try {
         userSchema.parse({

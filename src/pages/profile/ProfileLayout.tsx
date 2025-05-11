@@ -13,15 +13,49 @@ import {
   Trash,
   User,
 } from 'lucide-react';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ProfileRoute, ProfileSidebar } from './components/ProfileSidebar';
+import { useAlert } from '../../hooks/useAlert';
 
 export function ProfileLayout() {
-  const { usuario } = useAuth();
+  const navigate = useNavigate();
+  const { showAlert } = useAlert();
+  const { usuario, logOut } = useAuth();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [toggleSidebar, setToggleSidebar] = useState(false);
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const showSidebar = !isMobile || toggleSidebar;
+
+  const handleLogout = useCallback(() => {
+    showAlert({
+      title: 'Cerrar Sesión',
+      message: '¿Estás seguro de que deseas cerrar sesión?',
+      type: 'warning',
+      isConfirm: true,
+      onClose(confirm) {
+        if (confirm) {
+          logOut();
+          navigate('/');
+        }
+      },
+    });
+  }, [showAlert, logOut, navigate]);
+
+  const handleDeleteAccount = useCallback(() => {}, []);
 
   // Memoize routes to avoid recreating them on every render
   const routes: ProfileRoute[] = useMemo(
@@ -94,35 +128,20 @@ export function ProfileLayout() {
       },
       {
         title: 'Cerrar Sesión',
-        path: '/',
+        onClick: handleLogout,
         icon: <LogOut strokeWidth={2.3} />,
         access: ['ESTANDAR', 'DEVELOPER', 'ADMINISTRATOR'],
         placeAtEnd: true,
       },
       {
         title: 'Eliminar Cuenta',
-        path: '/',
+        onClick: handleDeleteAccount,
         icon: <Trash strokeWidth={2.3} />,
         access: ['ESTANDAR', 'DEVELOPER', 'ADMINISTRATOR'],
       },
     ],
-    []
+    [handleLogout, handleDeleteAccount]
   );
-
-  // Handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const showSidebar = !isMobile || toggleSidebar;
-
   return (
     <>
       {usuario && (

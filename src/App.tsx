@@ -22,6 +22,7 @@ import { VistaNoticia } from './pages/blog/BlogEntry';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
+import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
 
 function App() {
   const router = createBrowserRouter([
@@ -68,6 +69,10 @@ function App() {
               path: '',
               index: true,
               element: <ProfileInfo />,
+            },
+            {
+              path: 'restablecer-contrasena',
+              element: <ProfilePasswordReset />,
             },
           ],
         },
