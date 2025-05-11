@@ -1,15 +1,28 @@
-import { createBrowserRouter, RouterProvider } from 'react-router';
 import './App.css';
+
+import { createBrowserRouter, RouterProvider } from 'react-router';
+
+import { requireAuth } from './utils/protect';
+
+import AuthProvider from './providers/AuthContext';
+import { AlertProvider } from './providers/AlertContext';
+
 import GlobalLayout from './partials/layoutGlobal';
+import { ErrorBoundary } from './partials/ErrorElement';
+import { Unauthorized } from './partials/Unauthorized';
+
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
-import AuthProvider from './providers/AuthContext';
-import { ErrorBoundary } from './partials/ErrorElement';
+import PasswordRecovery from './pages/auth/PasswordRecovery';
+import PasswordReset from './pages/auth/PasswordReset';
+
 import { HomePage } from './pages/home/HomePage';
 import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
-import PasswordRecovery from './pages/auth/PasswordRecovery';
-import PasswordReset from './pages/auth/PasswordReset';
+
+import { ProfileLayout } from './pages/profile/ProfileLayout';
+import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
+import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
 
 function App() {
   const router = createBrowserRouter([
@@ -47,11 +60,36 @@ function App() {
           path: 'blog/:slug',
           element: <VistaNoticia />,
         },
+        {
+          path: 'perfil',
+          loader: requireAuth(),
+          element: <ProfileLayout />,
+          children: [
+            {
+              path: '',
+              index: true,
+              element: <ProfileInfo />,
+            },
+            {
+              path: 'restablecer-contrasena',
+              element: <ProfilePasswordReset />,
+            },
+          ],
+        },
+        { path: 'unauthorized', element: <Unauthorized /> },
       ],
     },
   ]);
 
-  return <AuthProvider child={<RouterProvider router={router} />} />;
+  return (
+    <AuthProvider
+      child={
+        <AlertProvider>
+          <RouterProvider router={router} />
+        </AlertProvider>
+      }
+    />
+  );
 }
 
 export default App;

@@ -1,6 +1,9 @@
-import logo from '../../assets/logo.svg'; // Asegúrate de que la ruta sea correcta
+import { Link } from 'react-router';
+import logo from '../../assets/logo.svg';
+import { useAuth } from '../../hooks/useAuth';
 
 export const Footer = () => {
+  const { isLoading, usuario } = useAuth();
   return (
     <footer className="border-t-placeholder border-t pt-6 text-white max-md:text-center">
       <div className="mb-8 flex flex-col items-center justify-between md:flex-row">
@@ -15,16 +18,43 @@ export const Footer = () => {
           <article>
             <h4 className="mb-4 text-lg">USUARIOS</h4>
             <ul className="space-y-2">
-              <li>
-                <a href="/iniciar-sesion" className="no-underline">
-                  INICIAR SESIÓN
-                </a>
-              </li>
-              <li>
-                <a href="/registro" className="no-underline">
-                  REGISTRARSE
-                </a>
-              </li>
+              {(isLoading || !usuario) && (
+                <>
+                  <li>
+                    <Link to="/iniciar-sesion" className="no-underline">
+                      INICIAR SESIÓN
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/registro" className="no-underline">
+                      REGISTRARSE
+                    </Link>
+                  </li>
+                </>
+              )}
+              {!isLoading && usuario && (
+                <>
+                  <li>
+                    <Link to="/perfil" className="no-underline">
+                      PERFIL
+                    </Link>
+                  </li>
+                  {usuario.tipo === 'ESTANDAR' && (
+                    <li>
+                      <Link to="/perfil/solicitud-desarrollador" className="no-underline">
+                        SOLICITUD DESARROLLADOR
+                      </Link>
+                    </li>
+                  )}
+                  {usuario.tipo !== 'ESTANDAR' && (
+                    <li>
+                      <Link to="/perfil/dashboard" className="no-underline">
+                        DASHBOARD
+                      </Link>
+                    </li>
+                  )}
+                </>
+              )}
             </ul>
           </article>
 
@@ -32,24 +62,24 @@ export const Footer = () => {
             <h4 className="mb-4 text-lg">INTERÉS</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/juegos" className="no-underline">
+                <Link to="/juegos" className="no-underline">
                   JUEGOS
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/blog" className="no-underline">
+                <Link to="/blog" className="no-underline">
                   BLOG
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/about" className="no-underline">
+                <Link to="/about" className="no-underline">
                   SOBRE NOSOTROS
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/about#desarrolladores" className="no-underline">
+                <Link to="/about#desarrolladores" className="no-underline">
                   DESARROLLADORES
-                </a>
+                </Link>
               </li>
             </ul>
           </article>

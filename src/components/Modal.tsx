@@ -18,26 +18,32 @@ type modalSize = keyof typeof modalSize;
 
 interface ModalProps {
   children: ReactNode;
-  onClose: () => void;
+  blockClose?: undefined | true;
+  onClose?: () => void;
   modalTitle?: string;
   size?: modalSize;
   modalId?: string;
 }
 
-export function Modal({ children, onClose, modalTitle, size = 'md', modalId }: ModalProps): JSX.Element {
+export function Modal({ children, onClose, modalTitle, size = 'md', modalId, blockClose }: ModalProps): JSX.Element {
   const modalRef = useRef<HTMLDivElement>(null);
   const [out, setOut] = useState(false);
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
+      if (blockClose) return;
+
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         if (!modalId || (event.target as HTMLElement).dataset.modalId === modalId) {
           setOut(true);
-          onClose();
+
+          if (onClose) {
+            onClose();
+          }
         }
       }
     },
-    [modalId, onClose]
+    [modalId, onClose, blockClose]
   );
 
   useEffect(() => {

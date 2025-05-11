@@ -1,26 +1,18 @@
-import { useEffect, useMemo, useState, ReactNode } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../utils/authContext';
-
-interface Usuario {
-  id: number;
-  nombre: string;
-  correo: string;
-  fechaNacimiento: Date;
-  pais: string;
-  sexo: string;
-}
+import { AuthContext } from '../utils/context/authContext';
+import { Usuario } from '../models/user.interface';
 
 export interface AuthContextType {
-  token: string | null;
   usuario: Usuario | null;
   isLoading: boolean;
-  updateToken: (newToken: string | null) => void;
-  deleteToken: () => void;
+  logIn: (token: string | null) => void;
+  logOut: () => void;
+  updateUsuario: (newUser: Partial<Usuario>) => Promise<void>;
 }
 
 interface AuthProviderProps {
-  child: ReactNode;
+  child: React.ReactNode;
 }
 
 function AuthProvider({ child }: AuthProviderProps) {
@@ -28,50 +20,86 @@ function AuthProvider({ child }: AuthProviderProps) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const updateToken = (newToken: string | null) => {
-    setToken(newToken);
-  };
-
-  const deleteToken = () => {
+  const logOut = useCallback(() => {
     setToken(null);
-  };
+    setUsuario(null);
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+  }, []);
 
-  const getUsuario = () => {
+  const updateToken = useCallback(
+    (newToken: string | null) => {
+      setToken(newToken);
+      if (newToken) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        localStorage.setItem('token', newToken);
+      } else {
+        logOut();
+      }
+    },
+    [logOut]
+  );
+
+  const logIn = useCallback(
+    (newToken: string | null) => {
+      updateToken(newToken);
+    },
+    [updateToken]
+  );
+
+  const getUsuario = useCallback(() => {
     axios
-      .get<Usuario>(import.meta.env.API_URL + '/auth/profile')
+      .get<Usuario>('/api/auth/profile')
       .then((response) => {
         setUsuario(response.data);
-        console.log('Usuario cargado desde el contexto:', response.data);
       })
       .catch((error) => {
         console.error('Error al obtener el usuario:', error);
+        logOut();
       })
       .finally(() => {
         setIsLoading(false);
       });
-  };
+  }, [logOut]);
+
+  const updateUsuario = useCallback(
+    async (newUser: Partial<Usuario>) => {
+      try {
+        await axios.patch('/api/users/' + usuario!.id, newUser);
+        getUsuario();
+        return Promise.resolve();
+      } catch (error) {
+        console.error('Error al actualizar el usuario:', error);
+      }
+    },
+    [usuario, getUsuario]
+  );
 
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       localStorage.setItem('token', token);
-      getUsuario();
+
+      if (!usuario) {
+        setIsLoading(true);
+        getUsuario();
+      }
     } else {
       delete axios.defaults.headers.common['Authorization'];
       localStorage.removeItem('token');
       setUsuario(null);
     }
-  }, [token]);
+  }, [token, usuario, getUsuario]);
 
   const contextValue = useMemo<AuthContextType>(() => {
     return {
-      token,
       usuario,
       isLoading,
-      updateToken,
-      deleteToken,
+      updateUsuario,
+      logOut,
+      logIn,
     };
-  }, [token, isLoading, usuario]);
+  }, [isLoading, usuario, updateUsuario, logOut, logIn]);
 
   return <AuthContext.Provider value={contextValue}>{child}</AuthContext.Provider>;
 }

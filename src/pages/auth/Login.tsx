@@ -12,7 +12,7 @@ const schema = z.object({
 
 export function Login() {
   const ENDPOINT = '/api/auth/login';
-  const { usuario, updateToken, isLoading } = useAuth();
+  const { usuario, logIn, isLoading } = useAuth();
   const [data, setData] = useState({
     correo: '',
     password: '',
@@ -59,7 +59,7 @@ export function Login() {
       axios
         .post(ENDPOINT, data)
         .then((response) => {
-          updateToken(response.data.access_token);
+          logIn(response.data.access_token);
           setSuccessModal(true);
         })
         .catch((e) => {
