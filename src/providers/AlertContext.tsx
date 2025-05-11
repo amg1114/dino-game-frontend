@@ -12,7 +12,7 @@ export interface ConfirmOptions {
 
 export const AlertProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
-  const [alertToast, setAlertToast] = useState<AlertToast | null>(null);
+  const [alertToast, setAlertToast] = useState<VisibleAlertToast | null>(null);
 
   const icons: Record<AlertType, React.ReactNode> = {
     info: <Info className="text-blue" />,
@@ -46,14 +46,24 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
     }, toast.duration || 2000);
   };
 
-  const showAlert = (toast: AlertToast) => {
-    setAlertToast(toast);
-    return {
-      ...alertToast,
+  const showAlert = (toast: AlertToast): VisibleAlertToast => {
+    const visibleAlertToast: VisibleAlertToast = {
+      ...toast,
       close: () => {
         setAlertToast(null);
+        if (toast.onClose) {
+          toast.onClose(visibleAlertToast.confirmValue);
+        }
       },
-    } as VisibleAlertToast;
+    };
+
+    setAlertToast(visibleAlertToast);
+
+    if (toast.duration && toast.duration > 0) {
+      setTimeout(() => visibleAlertToast.close(), toast.duration);
+    }
+
+    return visibleAlertToast;
   };
 
   return (
@@ -84,13 +94,31 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
             </figure>
             <h4 className="my-4 text-center">{alertToast.title}</h4>
             <p className="text-center">{alertToast.message}</p>
+            {alertToast.isConfirm && (
+              <footer className="mt-10 flex justify-center gap-4">
+                <button
+                  className="primary-button"
+                  onClick={() => {
+                    alertToast.confirmValue = true;
+                    alertToast.close();
+                  }}
+                >
+                  {alertToast.confirmText || 'Aceptar'}
+                </button>
+                <button
+                  className="secondary-button"
+                  onClick={() => {
+                    alertToast.confirmValue = false;
+                    alertToast.close();
+                  }}
+                >
+                  {alertToast.cancelText || 'Cancelar'}
+                </button>
+              </footer>
+            )}
           </div>
         </Modal>
       )}
-
-      <section className="bg-yellow-light text-blue fixed top-0 left-0 p-4">
-        {alertToast && <p>Mounted Alert toast</p>}
-      </section>
     </AlertContext.Provider>
   );
 };

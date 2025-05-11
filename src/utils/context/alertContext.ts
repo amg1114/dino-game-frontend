@@ -8,11 +8,16 @@ export interface Toast {
   duration?: number;
 }
 
-export interface AlertToast extends Exclude<Toast, 'duration'> {
+export interface AlertToast extends Toast {
   title: string;
+  isConfirm?: boolean;
+  confirmText?: string;
+  cancelText?: string;
+  onClose?: (confirm?: boolean) => void;
 }
 
 export interface VisibleAlertToast extends AlertToast {
+  confirmValue?: boolean;
   close: () => void;
 }
 
