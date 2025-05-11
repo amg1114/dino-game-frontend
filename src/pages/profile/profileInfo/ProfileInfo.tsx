@@ -16,7 +16,7 @@ export function ProfileInfo() {
       {usuario && (
         <section className="space-y-4">
           <h1>Mis datos personales</h1>
-          <form className="grid gap-8 md:grid-cols-2" onSubmit={(e) => handleSubmit(e)}>
+          <form className="grid gap-8 lg:grid-cols-2" onSubmit={(e) => handleSubmit(e)}>
             <StyledInput
               id="nombre"
               label="Nombre"
