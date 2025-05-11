@@ -7,6 +7,7 @@ export const userSchema = z.object({
   fechaNacimiento: z
     .string()
     .min(1, 'La fecha de nacimiento es obligatoria')
+    .nonempty('La fecha de nacimiento no puede estar vacía')
     .date('La fecha de nacimiento no es válida')
     .refine(
       (date) => {
@@ -26,9 +27,13 @@ export const userSchema = z.object({
         message: `Debes tener al menos ${MINIMUM_AGE} años.`,
       }
     ),
-  pais: z.string().min(1, 'El país es obligatorio'),
-  sexo: z.string().min(1, 'El género es obligatorio'),
-  correo: z.string().email('Correo electrónico inválido'),
+  pais: z.string().min(1, 'El país es obligatorio').nonempty('El país es obligatorio'),
+  sexo: z.string().min(1, 'El género es obligatorio').nonempty('El género es obligatorio'),
+  correo: z
+    .string()
+    .email('Correo electrónico inválido')
+    .min(1, 'El correo electrónico es obligatorio')
+    .nonempty('El correo electrónico no puede estar vacío'),
 });
 
 export const userWithPasswordSchema = userSchema.extend({
