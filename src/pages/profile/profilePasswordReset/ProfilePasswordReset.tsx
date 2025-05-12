@@ -1,4 +1,4 @@
-import { StyledInput } from '../../../components/StyledInput';
+import { StyledInput } from '../../../components/forms/StyledInput';
 import { useProfilePasswordReset } from '../hooks/useProfilePasswordReset';
 
 export function ProfilePasswordReset() {

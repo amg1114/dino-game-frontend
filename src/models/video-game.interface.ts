@@ -15,3 +15,12 @@ export interface VideoGame {
   descuentos: Descuento[];
   puntaje: number;
 }
+
+export interface UserVideoGame {
+  id: number;
+  createdAt: Date;
+  deletedAt: null;
+  fechaCompra: Date;
+  precio: number;
+  videoGame: VideoGame;
+}

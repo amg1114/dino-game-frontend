@@ -23,6 +23,8 @@ import { VistaNoticia } from './pages/blog/BlogEntry';
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
 import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
+import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
+import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 
 function App() {
   const router = createBrowserRouter([
@@ -73,6 +75,14 @@ function App() {
             {
               path: 'restablecer-contrasena',
               element: <ProfilePasswordReset />,
+            },
+            {
+              path: 'biblioteca',
+              element: <ProfileLibrary />,
+            },
+            {
+              path: 'solicitud-desarrollador',
+              element: <SolicitudDesarrollador />,
             },
           ],
         },

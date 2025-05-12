@@ -1,34 +1,22 @@
 import clsx from 'clsx';
-import React, { JSX } from 'react';
+import { StyledInputProps } from './StyledInput';
 
-interface StyledInputProps {
-  id: string;
-  type: string;
-  placeholder: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  label: string;
-  name?: string;
-  errors?: string[];
+type BaseStyledInputProps = Omit<StyledInputProps, 'type' | 'onChange'>;
+interface StyledTextAreaProps extends BaseStyledInputProps {
+  rows?: number;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export function StyledInput({
-  id,
-  type,
-  placeholder,
-  value,
-  onChange,
-  label,
-  name,
-  errors,
-}: StyledInputProps): JSX.Element {
+export function StyledTextArea({ id, placeholder, value, onChange, label, name, errors }: StyledTextAreaProps) {
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="text-xl text-white">
-        {label}
-      </label>
-      <input
-        type={type}
+      {label && (
+        <label htmlFor={id} className="text-xl text-white">
+          {label}
+        </label>
+      )}
+      <textarea
+        rows={4}
         id={id}
         className={clsx({
           'bg-placeholder focus:ring-green rounded p-4 text-white focus:ring-2 focus:outline-none': true,

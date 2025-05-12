@@ -9,6 +9,7 @@ export interface AuthContextType {
   logIn: (token: string | null) => void;
   logOut: () => void;
   updateUsuario: (newUser: Partial<Usuario>) => Promise<void>;
+  deleteAccount: () => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -75,6 +76,15 @@ function AuthProvider({ child }: AuthProviderProps) {
     [usuario, getUsuario]
   );
 
+  const deleteAccount = useCallback(async () => {
+    try {
+      await axios.delete('/api/users/' + usuario!.id);
+      logOut();
+    } catch (error) {
+      console.error('Error al eliminar la cuenta:', error);
+    }
+  }, [usuario, logOut]);
+
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -96,10 +106,11 @@ function AuthProvider({ child }: AuthProviderProps) {
       usuario,
       isLoading,
       updateUsuario,
+      deleteAccount,
       logOut,
       logIn,
     };
-  }, [isLoading, usuario, updateUsuario, logOut, logIn]);
+  }, [isLoading, usuario, updateUsuario, logOut, logIn, deleteAccount]);
 
   return <AuthContext.Provider value={contextValue}>{child}</AuthContext.Provider>;
 }

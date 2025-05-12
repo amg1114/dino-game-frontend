@@ -5,15 +5,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../hooks/useAuth';
 import countries from 'world-countries';
-import { StyledInput } from '../../components/StyledInput';
-import { StyledSelect } from '../../components/StyledSelect';
+import { StyledInput } from '../../components/forms/StyledInput';
+import { StyledSelect } from '../../components/forms/StyledSelect';
 import { userWithPasswordSchema } from '../../utils/zod/user.validators';
 
 const schema = userWithPasswordSchema;
 export function Register() {
   const ENDPOINT = '/api/auth/register';
   const navigate = useNavigate();
-  const { usuario, isLoading, updateToken } = useAuth();
+  const { usuario, isLoading, logIn } = useAuth();
   const [formData, setFormData] = useState({
     nombre: '',
     fechaNacimiento: '',
@@ -60,7 +60,7 @@ export function Register() {
       axios
         .post(ENDPOINT, formData)
         .then((response) => {
-          updateToken(response.data.access_token);
+          logIn(response.data.access_token);
           setErrorModal(null);
           setSuccessModal(true);
         })

@@ -1,5 +1,5 @@
-import { StyledInput } from '../../../components/StyledInput';
-import { StyledSelect } from '../../../components/StyledSelect';
+import { StyledInput } from '../../../components/forms/StyledInput';
+import { StyledSelect } from '../../../components/forms/StyledSelect';
 import { useUpdateProfile } from '../hooks/useUpdateProfile';
 import countries from 'world-countries';
 

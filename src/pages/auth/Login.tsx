@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import axios from 'axios';
-import { StyledInput } from '../../components/StyledInput';
+import { StyledInput } from '../../components/forms/StyledInput';
 
 const schema = z.object({
   correo: z.string().email('Correo electrónico inválido'),

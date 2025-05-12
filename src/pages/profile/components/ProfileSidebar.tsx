@@ -38,7 +38,7 @@ export function ProfileSidebar({ routes, usuario }: { routes: ProfileRoute[]; us
                   <button
                     type="button"
                     onClick={() => route.onClick?.()}
-                    className="font-bebas hover:text-green text-inherit uppercase no-underline"
+                    className="font-bebas hover:text-green cursor-pointer text-inherit uppercase no-underline"
                   >
                     {route.title}
                   </button>

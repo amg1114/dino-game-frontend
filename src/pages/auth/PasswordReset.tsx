@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Modal } from '../../components/Modal';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import { StyledInput } from '../../components/StyledInput';
+import { StyledInput } from '../../components/forms/StyledInput';
 import { z } from 'zod';
 import axios from 'axios';
 

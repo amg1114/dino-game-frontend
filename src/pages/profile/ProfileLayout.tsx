@@ -22,7 +22,7 @@ import { useAlert } from '../../hooks/useAlert';
 export function ProfileLayout() {
   const navigate = useNavigate();
   const { showAlert } = useAlert();
-  const { usuario, logOut } = useAuth();
+  const { usuario, logOut, deleteAccount } = useAuth();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
@@ -55,7 +55,44 @@ export function ProfileLayout() {
     });
   }, [showAlert, logOut, navigate]);
 
-  const handleDeleteAccount = useCallback(() => {}, []);
+  const handleDeleteAccount = useCallback(() => {
+    showAlert({
+      title: 'Cerrar Sesión',
+      message: '¿Estás seguro de que deseas cerrar sesión? Esto eliminará tu cuenta y no podrás recuperarla.',
+      type: 'warning',
+      isConfirm: true,
+      onClose(confirm) {
+        if (confirm) {
+          deleteAccount()
+            .then(() => {
+              showAlert({
+                title: 'Éxito',
+                message: 'Tu cuenta ha sido eliminada con éxito.',
+                type: 'success',
+                duration: 2000,
+              });
+              navigate('/');
+            })
+            .catch(() => {
+              showAlert({
+                title: 'Error',
+                message: 'Hubo un error al eliminar tu cuenta. Por favor, inténtalo de nuevo más tarde.',
+                type: 'error',
+              });
+            });
+
+          return;
+        }
+
+        showAlert({
+          title: 'Cancelado',
+          message: 'La eliminación de la cuenta ha sido cancelada.',
+          type: 'info',
+          duration: 2000,
+        });
+      },
+    });
+  }, [deleteAccount, showAlert, navigate]);
 
   // Memoize routes to avoid recreating them on every render
   const routes: ProfileRoute[] = useMemo(
@@ -156,7 +193,7 @@ export function ProfileLayout() {
           </header>
           {showSidebar && <ProfileSidebar routes={routes} usuario={usuario} />}
           {(!isMobile || (!showSidebar && isMobile)) && (
-            <main className="border-placeholder-2 flex-1 max-md:w-full md:border-l-2 md:pl-12">
+            <main className="border-placeholder-2 relative flex-1 max-md:w-full md:border-l-2 md:pl-12">
               <Outlet />
             </main>
           )}
