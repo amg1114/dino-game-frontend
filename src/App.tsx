@@ -17,6 +17,7 @@ import PasswordRecovery from './pages/auth/PasswordRecovery';
 import PasswordReset from './pages/auth/PasswordReset';
 
 import { HomePage } from './pages/home/HomePage';
+import { AboutPage } from './pages/about/AboutPage';
 import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
 
@@ -54,6 +55,10 @@ function App() {
               element: <PasswordReset />,
             },
           ],
+        },
+        {
+          path: 'about',
+          element: <AboutPage />,
         },
         {
           path: 'blog',
