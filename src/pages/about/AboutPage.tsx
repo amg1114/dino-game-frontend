@@ -84,7 +84,9 @@ export function AboutPage() {
         </div>
       </div>
 
-      <h2 className="mt-8 text-center">equipo de desarrollo</h2>
+      <h2 className="mt-8 text-center" id="desarrolladores">
+        Equipo de desarrollo
+      </h2>
 
       <div className="flex flex-wrap items-center justify-center gap-8 p-8">
         <div className="flex w-full flex-col items-center text-center md:w-1/3 lg:w-1/4">
