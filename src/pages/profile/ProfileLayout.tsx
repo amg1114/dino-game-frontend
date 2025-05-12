@@ -193,7 +193,7 @@ export function ProfileLayout() {
           </header>
           {showSidebar && <ProfileSidebar routes={routes} usuario={usuario} />}
           {(!isMobile || (!showSidebar && isMobile)) && (
-            <main className="border-placeholder-2 flex-1 max-md:w-full md:border-l-2 md:pl-12">
+            <main className="border-placeholder-2 relative flex-1 max-md:w-full md:border-l-2 md:pl-12">
               <Outlet />
             </main>
           )}
