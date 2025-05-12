@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
-import { StyledInput } from '../../components/StyledInput';
+import { StyledInput } from '../../components/forms/StyledInput';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { z } from 'zod';
