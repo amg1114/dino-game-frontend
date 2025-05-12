@@ -12,9 +12,11 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@tailwindcss/vite": "^4.1.4",
     "animate.css": "^4.1.1",
     "axios": "^1.8.4",
+    "chart.js": "^4.4.9",
     "clsx": "^2.1.1",
     "lefthook": "^1.11.9",
     "lucide": "^0.488.0",
@@ -22,6 +24,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.3",
+    "recharts": "^2.15.3",
+    "rxjs": "^7.8.2",
     "tailwindcss": "^4.1.4",
     "truncate-html": "^1.2.1",
     "world-countries": "^5.1.0",
