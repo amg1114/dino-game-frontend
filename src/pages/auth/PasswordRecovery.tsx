@@ -6,7 +6,7 @@ import axios from 'axios';
 import { z } from 'zod';
 import { useAuth } from '../../hooks/useAuth';
 
-export default function PasswordRecovery() {
+export function PasswordRecovery() {
   const navigate = useNavigate();
   const [correo, setCorreo] = useState<string>('');
   const { usuario, isLoading } = useAuth();

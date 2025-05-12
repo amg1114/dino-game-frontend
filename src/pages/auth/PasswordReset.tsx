@@ -6,7 +6,7 @@ import { StyledInput } from '../../components/forms/StyledInput';
 import { z } from 'zod';
 import axios from 'axios';
 
-export default function PasswordReset() {
+export function PasswordReset() {
   const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
   const { usuario, isLoading } = useAuth();

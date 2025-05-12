@@ -3,7 +3,7 @@ import logo from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router';
 
-export default function Header() {
+export function Header() {
   const { isLoading, usuario } = useAuth();
   return (
     <header className="flex items-center justify-between text-white">
