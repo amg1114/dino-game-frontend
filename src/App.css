@@ -102,7 +102,7 @@
   .primary-button,
   .secondary-button,
   .thertiary-button {
-    @apply font-oswald cursor-pointer rounded px-3 py-2 text-base font-semibold tracking-wide uppercase no-underline outline-4 outline-transparent transition-transform hover:scale-110;
+    @apply font-oswald rounded px-3 py-2 text-base font-semibold tracking-wide uppercase no-underline outline-4 outline-transparent transition-transform not-disabled:cursor-pointer not-disabled:hover:scale-110 disabled:opacity-60;
   }
 
   .primary-button--sm,
@@ -118,15 +118,15 @@
   }
 
   .primary-button {
-    @apply bg-green active:outline-green/40 rounded-md px-4 py-2 text-white;
+    @apply bg-green not-disabled:active:outline-green/40 rounded-md px-4 py-2 text-white;
   }
 
   .secondary-button {
-    @apply bg-placeholder active:outline-placeholder/40 rounded-md px-4 py-2 text-white;
+    @apply bg-placeholder not-disabled:active:outline-placeholder/40 rounded-md px-4 py-2 text-white;
   }
 
   .thertiary-button {
-    @apply text-green rounded-md bg-white px-4 py-2 active:outline-white/40;
+    @apply text-green rounded-md bg-white px-4 py-2 not-disabled:active:outline-white/40;
   }
 
   .container {

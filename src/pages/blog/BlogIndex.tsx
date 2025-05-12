@@ -3,7 +3,7 @@ import { HeroNoticia } from './components/HeroNoticia';
 import { useLastNews } from './hooks/useNews';
 import { useResponsiveItems } from '../../hooks/pagination/useItemsPerPage';
 import { usePagination } from '../../hooks/pagination/usePagination';
-import { Pagination } from '../../components/pagination';
+import { Pagination } from '../../components/wrong-pagination';
 import { NewsCard } from '../../components/NewsCard';
 import { usePageMetadata } from '../../hooks/usePageMetadata';
 

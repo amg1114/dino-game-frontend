@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import axios from 'axios';
-import { StyledInput } from '../../components/StyledInput';
+import { StyledInput } from '../../components/forms/StyledInput';
 
 const schema = z.object({
   correo: z.string().email('Correo electrónico inválido'),
@@ -12,7 +12,7 @@ const schema = z.object({
 
 export function Login() {
   const ENDPOINT = '/api/auth/login';
-  const { usuario, updateToken, isLoading } = useAuth();
+  const { usuario, logIn, isLoading } = useAuth();
   const [data, setData] = useState({
     correo: '',
     password: '',
@@ -59,7 +59,7 @@ export function Login() {
       axios
         .post(ENDPOINT, data)
         .then((response) => {
-          updateToken(response.data.access_token);
+          logIn(response.data.access_token);
           setSuccessModal(true);
         })
         .catch((e) => {
