@@ -1,6 +1,7 @@
 import { ResponsiveContainer, AreaChart, XAxis, YAxis, Tooltip, Legend, CartesianAxis, Area } from 'recharts';
 import { NormalizedSalesData } from '../../../utils/statistics';
 import { Sale, SalesType, Statistics } from '../../../models/statistics.interface';
+import { CustomTooltip } from './CustomChartTooltip';
 
 interface ChartProps {
   currentLabel: string;
@@ -15,16 +16,10 @@ export function SalesChart({ prevLabel, currentLabel, data, salesUnit, normalize
   return (
     <ResponsiveContainer width="100%" height={300}>
       <AreaChart data={normalizedData}>
-        <XAxis dataKey="unit" />
+        <XAxis dataKey="unit" label={{ value: 'Días', position: 'insideBottomRight', offset: 0 }} />
         <YAxis label={{ value: 'Nro de Ventas', angle: -90, position: 'insideLeft' }} />
         <Tooltip
-          contentStyle={{
-            backgroundColor: '#303030',
-            border: 'none',
-            borderRadius: '8px',
-            padding: '10px',
-            textAlign: 'center',
-          }}
+          content={<CustomTooltip />}
           formatter={(value: number) => {
             return [`${value}`, 'Ventas'];
           }}
