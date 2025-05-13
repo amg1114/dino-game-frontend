@@ -8,6 +8,7 @@ import { useStatistics } from '../hooks/useStatistics';
 import { useDashboardConfig } from '../hooks/useDashboradConfig';
 import { DashboardUnit } from '../../../utils/statistics';
 import { SalesChart } from '../components/dashboard/SalesChart';
+import clsx from 'clsx';
 
 export function ProfileDashboard() {
   const { dashboardConfig, season, dashboardUnitsOptions, handleDashboardUnitChange, hanldeSeasonChange } =
@@ -16,6 +17,12 @@ export function ProfileDashboard() {
 
   if (!dashboardConfig || !season || !data) return <p>Cargando</p>;
 
+  const hasSalesData =
+    data[dashboardConfig.salesUnit].currentSales.sales.length > 0 ||
+    data[dashboardConfig.salesUnit].prevSales.sales.length > 0;
+
+  const hasBestSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.mostSoldVideoGame.sales > 0;
+  const hasLeasSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame.sales > 0;
   return (
     <>
       <section className="borderb border-b-placeholder pb-12">
@@ -42,10 +49,6 @@ export function ProfileDashboard() {
             />
           </div>
         </header>
-        <p>
-          Show data by {dashboardConfig.showBy}, at month {season.month} {season.year}{' '}
-        </p>
-
         <SalesChart
           prevLabel="Mes Anterior"
           currentLabel="Mes Actual"
@@ -54,20 +57,35 @@ export function ProfileDashboard() {
           normalizer={dashboardConfig.chartConfig.normalizer}
         />
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <SoldGamesWidget data={data[dashboardConfig.salesUnit]} timeUnit={dashboardConfig.showBy} />
-          <ProfitWidget data={data[dashboardConfig.salesUnit]} timeUnit={dashboardConfig.showBy} />
-          <SoldGameWidget
-            game={data[dashboardConfig.salesUnit].bestWorstSellingGames.mostSoldVideoGame}
-            unit={dashboardConfig.showBy}
-            type="best"
-          />
-          <SoldGameWidget
-            game={data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame}
-            unit={dashboardConfig.showBy}
-            type="worst"
-          />
-        </div>
+        {hasSalesData && (
+          <div
+            className={clsx('mt-12 grid grid-cols-1 gap-6 md:grid-cols-2', {
+              'lg:grid-cols-4': hasBestSoldGame || hasLeasSoldGame,
+            })}
+          >
+            <SoldGamesWidget data={data[dashboardConfig.salesUnit]} timeUnit={dashboardConfig.showBy} />
+            <ProfitWidget data={data[dashboardConfig.salesUnit]} timeUnit={dashboardConfig.showBy} />
+            {hasBestSoldGame && (
+              <SoldGameWidget
+                game={data[dashboardConfig.salesUnit].bestWorstSellingGames.mostSoldVideoGame}
+                unit={dashboardConfig.showBy}
+                type="best"
+              />
+            )}
+            {hasLeasSoldGame && (
+              <SoldGameWidget
+                game={data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame}
+                unit={dashboardConfig.showBy}
+                type="worst"
+              />
+            )}
+          </div>
+        )}
+        {!hasSalesData && (
+          <p className="bg-placeholder text-body mt-12 rounded p-4 text-center uppercase">
+            No hay ventas disponibles en el periodo seleccionado
+          </p>
+        )}
       </section>
     </>
   );
