@@ -8,12 +8,14 @@ import countries from 'world-countries';
 import { StyledInput } from '../../components/forms/StyledInput';
 import { StyledSelect } from '../../components/forms/StyledSelect';
 import { userWithPasswordSchema } from '../../utils/zod/user.validators';
+import { useAlert } from '../../hooks/useAlert';
 
 const schema = userWithPasswordSchema;
 export function Register() {
   const ENDPOINT = '/api/auth/register';
   const navigate = useNavigate();
   const { usuario, isLoading, logIn } = useAuth();
+  const { showToast } = useAlert();
   const [formData, setFormData] = useState({
     nombre: '',
     fechaNacimiento: '',
@@ -22,8 +24,6 @@ export function Register() {
     correo: '',
     password: '',
   });
-  const [errorModal, setErrorModal] = useState<string | null>(null);
-  const [successModal, setSuccessModal] = useState<boolean>(false);
 
   const onClose = (): void => {
     setTimeout(() => {
@@ -40,18 +40,7 @@ export function Register() {
     if (!isLoading && usuario) {
       navigate('/');
     }
-    if (errorModal) {
-      setTimeout(() => {
-        setErrorModal(null);
-      }, 3000);
-    }
-    if (successModal) {
-      setTimeout(() => {
-        setSuccessModal(false);
-        navigate('/');
-      }, 3000);
-    }
-  }, [isLoading, usuario, errorModal, successModal, navigate]);
+  }, [isLoading, usuario, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,15 +50,27 @@ export function Register() {
         .post(ENDPOINT, formData)
         .then((response) => {
           logIn(response.data.access_token);
-          setErrorModal(null);
-          setSuccessModal(true);
+          showToast({
+            type: 'success',
+            message: 'Registro exitoso',
+            duration: 2000,
+          });
+          onClose();
         })
         .catch((error) => {
-          setErrorModal(error.response.data.message);
+          showToast({
+            type: 'error',
+            message: error.response.data.message,
+            duration: 2000,
+          });
         });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrorModal(error.errors[0].message);
+        showToast({
+          type: 'error',
+          message: error.errors[0].message,
+          duration: 2000,
+        });
       }
     }
   };
@@ -144,26 +145,6 @@ export function Register() {
           </div>
         </form>
       </Modal>
-      {errorModal && (
-        <Modal
-          onClose={() => setTimeout(() => setErrorModal(null), 500)}
-          modalTitle="Error"
-          size="xs"
-          modalId="error-modal"
-        >
-          <p className="text-red">{errorModal}</p>
-        </Modal>
-      )}
-      {successModal && (
-        <Modal
-          onClose={() => setTimeout(() => setSuccessModal(false), 500)}
-          modalTitle="Éxito"
-          size="xs"
-          modalId="success-modal"
-        >
-          <p className="text-green">Registro Exitoso</p>
-        </Modal>
-      )}
     </>
   );
 }

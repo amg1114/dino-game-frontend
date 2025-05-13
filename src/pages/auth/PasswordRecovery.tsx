@@ -5,13 +5,16 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { z } from 'zod';
 import { useAuth } from '../../hooks/useAuth';
+import { useAlert } from '../../hooks/useAlert';
+import { emailSchema } from '../../utils/zod/user.validators';
 
 export function PasswordRecovery() {
   const navigate = useNavigate();
   const [correo, setCorreo] = useState<string>('');
   const { usuario, isLoading } = useAuth();
-  const [errorModal, setErrorModal] = useState<string | null>(null);
-  const [successModal, setSuccessModal] = useState<boolean>(false);
+  const { showToast } = useAlert();
+
+  //para preguntar
   const [isLoadingPetition, setIsLoadingPetition] = useState(false);
 
   const handleChangeCorreo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,27 +38,37 @@ export function PasswordRecovery() {
     e.preventDefault();
 
     try {
-      z.string().email('Correo electrónico inválido').parse(correo);
-      z.string().min(1, 'El correo es requerido').parse(correo);
+      emailSchema.parse(correo);
       setIsLoadingPetition(true);
 
       axios
         .post(`/api/auth/request-password-reset?email=${correo}`)
         .then(() => {
-          setSuccessModal(true);
-          setErrorModal(null);
+          showToast({
+            type: 'success',
+            message: 'Se ha enviado un enlace de recuperación a su correo',
+            duration: 2000,
+          });
           setIsLoadingPetition(false);
           setTimeout(() => {
             navigate('/iniciar-sesion');
           }, 3000);
         })
         .catch((error) => {
-          setErrorModal(error.response.data.message);
+          showToast({
+            type: 'error',
+            message: error.response.data.message,
+            duration: 2000,
+          });
           setIsLoadingPetition(false);
         });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrorModal(error.errors[0].message);
+        showToast({
+          type: 'error',
+          message: error.errors[0].message,
+          duration: 2000,
+        });
       }
       setIsLoadingPetition(false);
     }
@@ -98,16 +111,6 @@ export function PasswordRecovery() {
         <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
           <div className="h-12 w-12 animate-spin rounded-full border-t-4 border-b-4 border-green-500"></div>
         </div>
-      )}
-      {errorModal && (
-        <Modal onClose={() => setErrorModal(null)} modalTitle="Error" size="xs" modalId="error-modal">
-          <p className="text-red">{errorModal}</p>
-        </Modal>
-      )}
-      {successModal && (
-        <Modal onClose={() => setSuccessModal(false)} modalTitle="Éxito" size="xs" modalId="success-modal">
-          <p className="text-green">Se envio un enlace de recuperación a su correo</p>
-        </Modal>
       )}
     </>
   );

@@ -5,18 +5,19 @@ import { useAuth } from '../../hooks/useAuth';
 import { StyledInput } from '../../components/forms/StyledInput';
 import { z } from 'zod';
 import axios from 'axios';
+import { passwordResetSchema } from '../../utils/zod/user.validators';
+import { useAlert } from '../../hooks/useAlert';
 
 export function PasswordReset() {
   const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
+  const { showToast } = useAlert();
   const { usuario, isLoading } = useAuth();
   const [data, setData] = useState({
     token: '',
     newPassword: '',
   });
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [errorModal, setErrorModal] = useState<string | null>(null);
-  const [successModal, setSuccessModal] = useState<boolean>(false);
 
   const ENDPOINT = `/api/auth/reset-password`;
 
@@ -40,27 +41,40 @@ export function PasswordReset() {
     e.preventDefault();
     try {
       if (data.newPassword !== confirmPassword) {
-        setErrorModal('Las contraseñas no coinciden');
+        showToast({
+          type: 'error',
+          message: 'Las contraseñas no coinciden',
+          duration: 2000,
+        });
         return;
       }
-      z.string().min(8, 'La contraseña debe tener al menos 8 caracteres').parse(data.newPassword);
-      z.string().min(1, 'El token es requerido').parse(token);
-
+      passwordResetSchema.parse(data);
       await axios
         .post(ENDPOINT, { token, newPassword: data.newPassword })
         .then(() => {
-          setSuccessModal(true);
-          setErrorModal(null);
-          setTimeout(() => {
-            navigate('/iniciar-sesion');
-          }, 900);
+          showToast({
+            type: 'success',
+            message: 'Contraseña actualizada con éxito',
+            duration: 2000,
+          });
+          setData({ token: '', newPassword: '' });
+          setConfirmPassword('');
+          onclose();
         })
         .catch((error) => {
-          setErrorModal(error.response?.data?.message || 'Error al cambiar la contraseña');
+          showToast({
+            type: 'error',
+            message: error.response.data.message,
+            duration: 2000,
+          });
         });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrorModal(error.errors[0].message);
+        showToast({
+          type: 'error',
+          message: error.errors[0].message,
+          duration: 2000,
+        });
       }
     }
   };
@@ -101,16 +115,6 @@ export function PasswordReset() {
           </div>
         </form>
       </Modal>
-      {errorModal && (
-        <Modal onClose={() => setErrorModal(null)} modalTitle="Error" size="xs" modalId="error-modal">
-          <p className="text-red">{errorModal}</p>
-        </Modal>
-      )}
-      {successModal && (
-        <Modal onClose={() => setSuccessModal(false)} modalTitle="Éxito" size="xs" modalId="success-modal">
-          <p className="text-green">Contraseña actualizada con éxito</p>
-        </Modal>
-      )}
     </>
   );
 }

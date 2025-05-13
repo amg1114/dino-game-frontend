@@ -5,20 +5,17 @@ import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import axios from 'axios';
 import { StyledInput } from '../../components/forms/StyledInput';
-
-const schema = z.object({
-  correo: z.string().email('Correo electrónico inválido'),
-});
+import { useAlert } from '../../hooks/useAlert';
+import { loginSchema } from '../../utils/zod/user.validators';
 
 export function Login() {
   const ENDPOINT = '/api/auth/login';
   const { usuario, logIn, isLoading } = useAuth();
+  const { showToast } = useAlert();
   const [data, setData] = useState({
     correo: '',
     password: '',
   });
-  const [errorModal, setErrorModal] = useState<string | null>(null);
-  const [successModal, setSuccessModal] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -39,35 +36,37 @@ export function Login() {
     if (!isLoading && usuario) {
       navigate('/');
     }
-    if (errorModal) {
-      setTimeout(() => {
-        setErrorModal(null);
-      }, 3000);
-    }
-    if (successModal) {
-      setTimeout(() => {
-        setSuccessModal(false);
-        navigate('/');
-      }, 3000);
-    }
-  }, [usuario, isLoading, errorModal, successModal, navigate]);
+  }, [usuario, isLoading, navigate]);
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      schema.parse(data);
+      loginSchema.parse(data);
       axios
         .post(ENDPOINT, data)
         .then((response) => {
           logIn(response.data.access_token);
-          setSuccessModal(true);
+          showToast({
+            type: 'success',
+            message: 'Inicio de sesión exitoso',
+            duration: 2000,
+          });
+          onclose();
         })
         .catch((e) => {
-          setErrorModal(e.response.data.message);
+          showToast({
+            type: 'error',
+            message: e.response.data.message,
+            duration: 2000,
+          });
         });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrorModal(error.errors[0].message);
+        showToast({
+          type: 'error',
+          message: error.errors[0].message,
+          duration: 2000,
+        });
       }
     }
   };
@@ -113,16 +112,6 @@ export function Login() {
           </div>
         </form>
       </Modal>
-      {errorModal && (
-        <Modal onClose={() => setErrorModal(null)} modalTitle="Error" size="xs" modalId="error-modal">
-          <p className="text-red">{errorModal}</p>
-        </Modal>
-      )}
-      {successModal && (
-        <Modal onClose={() => setSuccessModal(false)} modalTitle="Éxito" size="xs" modalId="success-modal">
-          <p className="text-green">Inicio de sesión exitoso</p>
-        </Modal>
-      )}
     </>
   );
 }
