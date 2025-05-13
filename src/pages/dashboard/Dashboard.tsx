@@ -22,7 +22,7 @@ export function Dashboard() {
     data[dashboardConfig.salesUnit].prevSales.sales.length > 0;
 
   const hasBestSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.mostSoldVideoGame.sales > 0;
-  const hasLeasSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame.sales > 0;
+  const hasLeastSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame.sales > 0;
   return (
     <>
       <section className="borderb border-b-placeholder pb-12">
@@ -60,19 +60,19 @@ export function Dashboard() {
         {hasSalesData && (
           <div
             className={clsx('mt-12 grid grid-cols-1 gap-6 md:grid-cols-2', {
-              'lg:grid-cols-4': hasBestSoldGame || hasLeasSoldGame,
+              'lg:grid-cols-4': hasBestSoldGame || hasLeastSoldGame,
             })}
           >
             <SoldGamesWidget data={data[dashboardConfig.salesUnit]} timeUnit={dashboardConfig.showBy} />
             <ProfitWidget data={data[dashboardConfig.salesUnit]} timeUnit={dashboardConfig.showBy} />
-            {hasBestSoldGame && (
+            {(hasBestSoldGame || hasLeastSoldGame) && (
               <SoldGameWidget
                 game={data[dashboardConfig.salesUnit].bestWorstSellingGames.mostSoldVideoGame}
                 unit={dashboardConfig.showBy}
                 type="best"
               />
             )}
-            {hasLeasSoldGame && (
+            {(hasLeastSoldGame || hasBestSoldGame) && (
               <SoldGameWidget
                 game={data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame}
                 unit={dashboardConfig.showBy}
