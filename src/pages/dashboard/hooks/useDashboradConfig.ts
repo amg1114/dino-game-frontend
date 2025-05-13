@@ -67,6 +67,7 @@ export function useDashboardConfig() {
         ...prev,
         options: unit === 'mes' ? getMonthOptions(prev.year) : getYearOptions(),
         value: unit === 'mes' ? prev.month : prev.year.toString(),
+        title: getSeasonTitle(prev.month, prev.year, unit),
       };
     });
   };
