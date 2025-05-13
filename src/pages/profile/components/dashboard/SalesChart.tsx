@@ -1,20 +1,22 @@
 import { ResponsiveContainer, AreaChart, XAxis, YAxis, Tooltip, Legend, CartesianAxis, Area } from 'recharts';
-import { NormalizedMonthSalesData, NormalizedYearSalesData } from '../../../../utils/statistics';
+import { NormalizedSalesData } from '../../../../utils/statistics';
+import { Sale, SalesType, Statistics } from '../../../../models/statistics.interface';
 
 interface ChartProps {
-  data: NormalizedYearSalesData[] | NormalizedMonthSalesData[];
-  axisKey: string;
-  prevKey: string;
-  currentKey: string;
-  currentName: string;
-  prevName: string;
+  currentLabel: string;
+  prevLabel: string;
+  data: Statistics;
+  salesUnit: SalesType;
+  normalizer: (currentSales: Sale[], prevSales: Sale[]) => NormalizedSalesData[];
 }
-export function SalesChart({ data, axisKey, prevKey, currentKey, prevName, currentName }: ChartProps) {
+export function SalesChart({ prevLabel, currentLabel, data, salesUnit, normalizer }: ChartProps) {
+  const normalizedData = normalizer(data[salesUnit].currentSales.sales, data[salesUnit].prevSales.sales);
+
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <AreaChart data={data}>
-        <XAxis dataKey={axisKey} />
-        <YAxis />
+      <AreaChart data={normalizedData}>
+        <XAxis dataKey="unit" />
+        <YAxis label={{ value: 'Nro de Ventas', angle: -90, position: 'insideLeft' }} />
         <Tooltip
           contentStyle={{
             backgroundColor: '#303030',
@@ -29,8 +31,8 @@ export function SalesChart({ data, axisKey, prevKey, currentKey, prevName, curre
         />
         <Legend />
         <CartesianAxis axisLine={false} tickLine={false} />
-        <Area type="monotone" dataKey={prevKey} stroke="#faeab3" fill="#faeab3" name={prevName} />
-        <Area type="monotone" dataKey={currentKey} stroke="#3dab7b" fill="#3dab7b" name={currentName} />
+        <Area type="monotone" dataKey="prev" stroke="#faeab3" fill="#faeab3" name={prevLabel} />
+        <Area type="monotone" dataKey="current" stroke="#3dab7b" fill="#3dab7b" name={currentLabel} />
       </AreaChart>
     </ResponsiveContainer>
   );

@@ -1,13 +1,36 @@
-import { Sale, Sales } from '../models/statistics.interface';
+import { Sale, SalesDelta, UnitSales } from '../models/statistics.interface';
+import { StatisticsSeason } from '../pages/profile/hooks/useDashboradConfig';
+import { getSeasonTitle } from './date';
 
 const monthLabels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
-export interface NormalizedYearSalesData {
-  month: string;
-  currentYear: number;
-  prevYear: number;
+export type DashboardUnit = 'mes' | 'año';
+
+export interface SeasonOption {
+  value: string;
+  label: string;
 }
-export function normalizeYearSalesData(currentSales: Sale[], prevSales: Sale[]): NormalizedYearSalesData[] {
+
+export interface NormalizedSalesData {
+  unit: string;
+  current: number;
+  prev: number;
+}
+
+export interface NormalizedWidgetData {
+  difference: number;
+  percent: number;
+  delta: SalesDelta;
+}
+
+export interface NormalizedSoldGamesData extends NormalizedWidgetData {
+  soldGames: number;
+}
+export interface NormalizedProfitData extends NormalizedWidgetData {
+  profit: number;
+}
+
+export function normalizeYearSalesData(currentSales: Sale[], prevSales: Sale[]): NormalizedSalesData[] {
   const monthsData = [];
 
   for (let i = 0; i < 12; i++) {
@@ -15,21 +38,16 @@ export function normalizeYearSalesData(currentSales: Sale[], prevSales: Sale[]):
     const prevMonthData = prevSales.find((sale) => Number(sale.unit) === i + 1);
 
     monthsData.push({
-      month: monthLabels[i],
-      currentYear: currentMonthData ? currentMonthData.amount : 0,
-      prevYear: prevMonthData ? prevMonthData.amount : 0,
+      unit: monthLabels[i],
+      current: currentMonthData ? currentMonthData.amount : 0,
+      prev: prevMonthData ? prevMonthData.amount : 0,
     });
   }
 
   return monthsData;
 }
 
-export interface NormalizedMonthSalesData {
-  day: string;
-  currentMonth: number;
-  prevMonth: number;
-}
-export function normalizeMonthSalesData(currentSales: Sale[], prevSales: Sale[]): NormalizedMonthSalesData[] {
+export function normalizeMonthSalesData(currentSales: Sale[], prevSales: Sale[]): NormalizedSalesData[] {
   const today = new Date();
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth(); // mes actual en base 0
@@ -44,39 +62,79 @@ export function normalizeMonthSalesData(currentSales: Sale[], prevSales: Sale[])
     const prevDayData = prevSales.find((sale) => Number(sale.unit) === i);
 
     daysData.push({
-      day: i.toString(),
-      currentMonth: currentDayData ? currentDayData.amount : 0,
-      prevMonth: prevDayData ? prevDayData.amount : 0,
+      unit: i.toString(),
+      current: currentDayData ? currentDayData.amount : 0,
+      prev: prevDayData ? prevDayData.amount : 0,
     });
   }
 
   return daysData;
 }
 
-export function normalizeSoldGamesData(curentSales: Sales, prevSales: Sales) {
-  const soldGames = curentSales.count;
+export function normalizeSoldGamesData(data: UnitSales): NormalizedSoldGamesData {
+  const { currentSales, prevSales } = data;
+
+  const soldGames = currentSales.count;
   const difference = soldGames - prevSales.count;
   const percent = Math.ceil((difference / prevSales.count) * 100);
-  const isMajor = percent > 0;
+  const delta = percent > 0 ? 'increase' : percent < 0 ? 'decrease' : 'same';
 
   return {
     soldGames,
     difference: Math.abs(difference),
     percent,
-    isMajor,
+    delta,
   };
 }
 
-export function normalizeProfitData(currentSales: Sales, prevSales: Sales) {
+export function normalizeProfitData(data: UnitSales): NormalizedProfitData {
+  const { currentSales, prevSales } = data;
+
   const profit = currentSales.profit;
   const difference = profit - prevSales.profit;
   const percent = Math.ceil((difference / prevSales.profit) * 100);
-  const isMajor = percent > 0;
+  const delta = percent > 0 ? 'increase' : percent < 0 ? 'decrease' : 'same';
 
   return {
     profit,
     difference: Math.abs(difference),
     percent,
-    isMajor,
+    delta,
   };
 }
+
+export const getInitialSeason = (): StatisticsSeason => {
+  const now = new Date();
+  const currentMonth = now.toLocaleString('default', { month: '2-digit' });
+  const currentYear = now.getFullYear();
+
+  return {
+    title: getSeasonTitle(currentMonth, currentYear, 'mes'),
+    month: currentMonth,
+    year: currentYear,
+    value: currentMonth,
+    options: getMonthOptions(currentYear),
+  };
+};
+
+export const getMonthOptions = (year: number): SeasonOption[] => {
+  return Array.from({ length: 12 }, (_, i) => {
+    const date = new Date(year, i);
+    const label = date.toLocaleString('es-CO', { month: 'long' });
+    return {
+      value: date.toLocaleString('default', { month: '2-digit' }),
+      label: label.charAt(0).toUpperCase() + label.slice(1),
+    };
+  });
+};
+
+export const getYearOptions = (startYear = 2023): SeasonOption[] => {
+  const currentYear = new Date().getFullYear();
+  return Array.from({ length: currentYear - startYear + 1 }, (_, i) => {
+    const year = startYear + i;
+    return {
+      value: year.toString(),
+      label: year.toString(),
+    };
+  });
+};

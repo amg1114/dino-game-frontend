@@ -13,7 +13,7 @@ export function SoldGameWidget({
 }) {
   return (
     <article className="bg-placeholder space-y-4 rounded p-6">
-      <h4>{game.titulo}</h4>
+      <h4 className="truncate">{game.titulo}</h4>
       <span className="font-bebas bg-placeholder-2 flex w-fit items-center gap-4 rounded px-3 py-1 text-xl">
         <span className="text-4xl">{game.sales}</span>
         <span
@@ -26,7 +26,7 @@ export function SoldGameWidget({
         </span>
       </span>
       <p>
-        Juego con {type === 'best' ? 'más' : 'menos'} <br /> ventas del {unit}
+        Juego con la {type === 'best' ? 'mayor' : 'menor'} cantidad de ventas del {unit}
       </p>
     </article>
   );

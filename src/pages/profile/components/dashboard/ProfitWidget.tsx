@@ -1,19 +1,11 @@
 import clsx from 'clsx';
-import { Sales } from '../../../../models/statistics.interface';
-import { normalizeProfitData } from '../../../../utils/statistics';
-import { TrendingDown, TrendingUp } from 'lucide-react';
+import { UnitSales } from '../../../../models/statistics.interface';
+import { DashboardUnit, normalizeProfitData } from '../../../../utils/statistics';
+import { Equal, TrendingDown, TrendingUp } from 'lucide-react';
 import { formatPrice } from '../../../../utils/formatPrice';
 
-export function ProfitWidget({
-  currentSales,
-  prevSales,
-  timeUnit,
-}: {
-  currentSales: Sales;
-  prevSales: Sales;
-  timeUnit: 'mes' | 'año';
-}) {
-  const { profit, percent, isMajor } = normalizeProfitData(currentSales, prevSales);
+export function ProfitWidget({ data, timeUnit }: { data: UnitSales; timeUnit: DashboardUnit }) {
+  const { profit, percent, delta } = normalizeProfitData(data);
 
   return (
     <article className="bg-placeholder space-y-4 rounded p-6">
@@ -22,20 +14,23 @@ export function ProfitWidget({
         <span className="text-4xl">{formatPrice(profit, false)}</span>
         <span
           className={clsx({
-            'text-green': isMajor,
-            'text-red': !isMajor,
+            'text-green': delta === 'increase',
+            'text-red': delta === 'decrease',
             'bg-placeholder-2 flex items-center gap-2 rounded px-3': true,
           })}
         >
-          {isMajor ? <TrendingUp /> : <TrendingDown />}
+          {delta === 'increase' ? <TrendingUp /> : delta === 'decrease' ? <TrendingDown /> : <Equal />}
           <span className="text-white">{percent}</span>%
         </span>
       </div>
 
-      <p>
-        Las Ganancias {isMajor ? 'aumentaron' : 'disminuyeron'} en un <strong>{percent}%</strong> respecto al {timeUnit}{' '}
-        pasado
-      </p>
+      {delta !== 'same' && (
+        <p>
+          Las Ganancias {delta === 'increase' ? 'aumentaron' : 'disminuyeron'} en un <strong>{percent}%</strong>{' '}
+          respecto al {timeUnit} pasado
+        </p>
+      )}
+      {delta === 'same' && <p>Las ganancias fueron las mismas que el {timeUnit} pasado</p>}
     </article>
   );
 }

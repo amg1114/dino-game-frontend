@@ -1,12 +1,13 @@
 export interface Statistics {
-  yearSales: YearSales;
-  monthSales: MonthSales;
+  season: { month: string; year: string };
+  yearSales: UnitSales;
+  monthSales: UnitSales;
   totalVideoGames: number;
 }
 
-export interface MonthSales {
-  currentMonthSales: Sales;
-  prevMonthSales: Sales;
+export interface UnitSales {
+  currentSales: Sales;
+  prevSales: Sales;
   bestWorstSellingGames: BestWorstSellingGames;
 }
 
@@ -21,8 +22,6 @@ export interface StSoldVideoGame {
   sales: number;
 }
 
-export type SalesType = YearSales | MonthSales;
-
 export interface Sales {
   sales: Sale[];
   count: number;
@@ -34,9 +33,5 @@ export interface Sale {
   profit: number;
   amount: number;
 }
-
-export interface YearSales {
-  currentYearSales: Sales;
-  prevYearSales: Sales;
-  bestWorstSellingGames: BestWorstSellingGames;
-}
+export type SalesType = keyof Omit<Statistics, 'season' | 'totalVideoGames'>;
+export type SalesDelta = 'increase' | 'same' | 'decrease';
