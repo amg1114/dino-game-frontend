@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { StSoldVideoGame } from '../../../../models/statistics.interface';
+import { StSoldVideoGame } from '../../../models/statistics.interface';
 import { ArrowDownNarrowWide, ArrowUpNarrowWide } from 'lucide-react';
 
 export function SoldGameWidget({

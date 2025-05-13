@@ -31,7 +31,6 @@ export function useStatistics(dashboardConfig: DashboardConfig | null, season: S
         onmessage(ev) {
           if (ev.data) {
             const parsedData = JSON.parse(ev.data);
-            console.log('Data (SSE):', parsedData.season);
             setData(parsedData);
           }
         },

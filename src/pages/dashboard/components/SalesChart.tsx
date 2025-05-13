@@ -1,6 +1,6 @@
 import { ResponsiveContainer, AreaChart, XAxis, YAxis, Tooltip, Legend, CartesianAxis, Area } from 'recharts';
-import { NormalizedSalesData } from '../../../../utils/statistics';
-import { Sale, SalesType, Statistics } from '../../../../models/statistics.interface';
+import { NormalizedSalesData } from '../../../utils/statistics';
+import { Sale, SalesType, Statistics } from '../../../models/statistics.interface';
 
 interface ChartProps {
   currentLabel: string;

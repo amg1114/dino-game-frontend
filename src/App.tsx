@@ -26,7 +26,7 @@ import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
 import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
-import { ProfileDashboard } from './pages/profile/profileDashboard/ProfileDashboard';
+import { Dashboard } from './pages/dashboard/Dashboard';
 
 function App() {
   const router = createBrowserRouter([
@@ -98,7 +98,7 @@ function App() {
           children: [
             {
               index: true,
-              element: <ProfileDashboard />,
+              element: <Dashboard />,
             },
           ],
         },

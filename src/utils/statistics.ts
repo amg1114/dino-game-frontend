@@ -1,5 +1,5 @@
 import { Sale, SalesDelta, UnitSales } from '../models/statistics.interface';
-import { StatisticsSeason } from '../pages/profile/hooks/useDashboradConfig';
+import { StatisticsSeason } from '../pages/dashboard/hooks/useDashboradConfig';
 import { getSeasonTitle } from './date';
 
 const monthLabels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];

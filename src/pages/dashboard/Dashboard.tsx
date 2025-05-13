@@ -1,16 +1,16 @@
-import { ProfitWidget } from '../components/dashboard/ProfitWidget';
-import { SoldGamesWidget } from '../components/dashboard/SoldGamesWidget';
-import { SoldGameWidget } from '../components/dashboard/SoldGameWidget';
+import { ProfitWidget } from './components/ProfitWidget';
+import { SoldGamesWidget } from './components/SoldGamesWidget';
+import { SoldGameWidget } from './components/SoldGameWidget';
 // import { useProfileDashboard } from '../hooks/useProfileDashboard';
 // import { SalesChart } from '../components/dashboard/SalesChart';
-import { StyledSelect } from '../../../components/forms/StyledSelect';
-import { useStatistics } from '../hooks/useStatistics';
-import { useDashboardConfig } from '../hooks/useDashboradConfig';
-import { DashboardUnit } from '../../../utils/statistics';
-import { SalesChart } from '../components/dashboard/SalesChart';
+import { StyledSelect } from '../../components/forms/StyledSelect';
+import { useStatistics } from './hooks/useStatistics';
+import { useDashboardConfig } from './hooks/useDashboradConfig';
+import { DashboardUnit } from '../../utils/statistics';
+import { SalesChart } from './components/SalesChart';
 import clsx from 'clsx';
 
-export function ProfileDashboard() {
+export function Dashboard() {
   const { dashboardConfig, season, dashboardUnitsOptions, handleDashboardUnitChange, hanldeSeasonChange } =
     useDashboardConfig();
   const { data } = useStatistics(dashboardConfig, season);
