@@ -26,8 +26,8 @@ export function SalesChart({ prevLabel, currentLabel, data, salesUnit, normalize
         />
         <Legend />
         <CartesianAxis axisLine={false} tickLine={false} />
-        <Area type="monotone" dataKey="prev" stroke="#faeab3" fill="#faeab3" name={prevLabel} />
-        <Area type="monotone" dataKey="current" stroke="#3dab7b" fill="#3dab7b" name={currentLabel} />
+        <Area type="monotone" dataKey="prev" stroke="#faeab3" fill="#faeab3" fillOpacity={1} name={prevLabel} />
+        <Area type="monotone" dataKey="current" stroke="#3dab7b" fill="#3dab7b" fillOpacity={1} name={currentLabel} />
       </AreaChart>
     </ResponsiveContainer>
   );
