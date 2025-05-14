@@ -1,29 +1,19 @@
 import { useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
-import { z } from 'zod';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useAuth } from '../../hooks/useAuth';
-import countries from 'world-countries';
 import { StyledInput } from '../../components/forms/StyledInput';
 import { StyledSelect } from '../../components/forms/StyledSelect';
-import { userWithPasswordSchema } from '../../utils/zod/user.validators';
-import { useAlert } from '../../hooks/useAlert';
+import { useRegister } from './hooks/useRegister';
 
-const schema = userWithPasswordSchema;
 export function Register() {
-  const ENDPOINT = '/api/auth/register';
+  const {
+    formData,
+    errors,
+    handleChange,
+    handleSubmit,
+    countries,
+  } = useRegister();
+
   const navigate = useNavigate();
-  const { usuario, isLoading, logIn } = useAuth();
-  const { showToast } = useAlert();
-  const [formData, setFormData] = useState({
-    nombre: '',
-    fechaNacimiento: '',
-    pais: '',
-    sexo: '',
-    correo: '',
-    password: '',
-  });
 
   const onClose = (): void => {
     setTimeout(() => {
@@ -31,54 +21,10 @@ export function Register() {
     }, 800);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
-
-  useEffect(() => {
-    if (!isLoading && usuario) {
-      navigate('/');
-    }
-  }, [isLoading, usuario, navigate]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      schema.parse(formData);
-      axios
-        .post(ENDPOINT, formData)
-        .then((response) => {
-          logIn(response.data.access_token);
-          showToast({
-            type: 'success',
-            message: 'Registro exitoso',
-            duration: 2000,
-          });
-          onClose();
-        })
-        .catch((error) => {
-          showToast({
-            type: 'error',
-            message: error.response.data.message,
-            duration: 2000,
-          });
-        });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        showToast({
-          type: 'error',
-          message: error.errors[0].message,
-          duration: 2000,
-        });
-      }
-    }
-  };
-
   return (
     <>
       <Modal onClose={onClose} modalTitle="Registrarse" size="lg" modalId="register-modal">
-        <form className="mt-4 flex max-h-screen flex-col gap-4 overflow-y-auto px-4">
+        <form className="mt-4 flex max-h-screen flex-col gap-4 px-4">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <StyledInput
               id="nombre"
@@ -87,6 +33,7 @@ export function Register() {
               value={formData.nombre}
               onChange={handleChange}
               label="nombre"
+              errors={errors.nombre ? errors.nombre : []}
             />
             <StyledInput
               id="fechaNacimiento"
@@ -95,6 +42,7 @@ export function Register() {
               value={formData.fechaNacimiento}
               onChange={handleChange}
               label="fecha de nacimiento"
+              errors={errors.fechaNacimiento ? errors.fechaNacimiento : []}
             />
             <StyledSelect
               id="pais"
@@ -102,6 +50,7 @@ export function Register() {
               value={formData.pais}
               onChange={handleChange}
               label="país"
+              errors={errors.pais ? errors.pais : []}
             />
             <StyledSelect
               id="sexo"
@@ -113,6 +62,7 @@ export function Register() {
               value={formData.sexo}
               onChange={handleChange}
               label="género"
+              errors={errors.sexo ? errors.sexo : []}
             />
           </div>
           <StyledInput
@@ -122,6 +72,7 @@ export function Register() {
             value={formData.correo}
             onChange={handleChange}
             label="correo electrónico"
+            errors={errors.correo ? errors.correo : []}
           />
           <StyledInput
             id="password"
@@ -130,6 +81,7 @@ export function Register() {
             value={formData.password}
             onChange={handleChange}
             label="contraseña"
+            errors={errors.password ? errors.password : []}
           />
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-1">
             <button type="submit" className="primary-button w-full uppercase sm:w-auto" onClick={handleSubmit}>

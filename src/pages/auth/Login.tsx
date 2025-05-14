@@ -1,74 +1,22 @@
 import { Link, useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
-import { useAuth } from '../../hooks/useAuth';
-import { useEffect, useState } from 'react';
-import { z } from 'zod';
-import axios from 'axios';
 import { StyledInput } from '../../components/forms/StyledInput';
-import { useAlert } from '../../hooks/useAlert';
-import { loginSchema } from '../../utils/zod/user.validators';
+import { useLogin } from './hooks/useLogin';
 
 export function Login() {
-  const ENDPOINT = '/api/auth/login';
-  const { usuario, logIn, isLoading } = useAuth();
-  const { showToast } = useAlert();
-  const [data, setData] = useState({
-    correo: '',
-    password: '',
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
+  const {
+    data,
+    errorCorreo,
+    errorPassword,
+    handleChange,
+    login,
+  } = useLogin();
 
   const navigate = useNavigate();
   const onclose = (): void => {
     setTimeout(() => {
       navigate('/');
     }, 800);
-  };
-
-  useEffect(() => {
-    if (!isLoading && usuario) {
-      navigate('/');
-    }
-  }, [usuario, isLoading, navigate]);
-
-  const login = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      loginSchema.parse(data);
-      axios
-        .post(ENDPOINT, data)
-        .then((response) => {
-          logIn(response.data.access_token);
-          showToast({
-            type: 'success',
-            message: 'Inicio de sesión exitoso',
-            duration: 2000,
-          });
-          onclose();
-        })
-        .catch((e) => {
-          showToast({
-            type: 'error',
-            message: e.response.data.message,
-            duration: 2000,
-          });
-        });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        showToast({
-          type: 'error',
-          message: error.errors[0].message,
-          duration: 2000,
-        });
-      }
-    }
   };
 
   return (
@@ -83,6 +31,7 @@ export function Login() {
               value={data.correo}
               onChange={handleChange}
               label="Correo electrónico"
+              errors={errorCorreo ? [errorCorreo] : []}
             />
             <StyledInput
               id="password"
@@ -91,6 +40,7 @@ export function Login() {
               value={data.password}
               onChange={handleChange}
               label="Contraseña"
+              errors={errorPassword ? [errorPassword] : []}
             />
           </div>
           <div className="flex justify-end">
