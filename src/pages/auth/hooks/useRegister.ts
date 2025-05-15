@@ -29,6 +29,26 @@ export function useRegister() {
         setFormData((prev) => ({ ...prev, [id]: value }));
     };
 
+    useEffect(() => {
+        if (Object.values(formData).every((v) => v.length === 0)) {
+            setErrors({} as ErrorUsuario);
+            return;
+        }
+        try {
+            userWithPasswordSchema.parse(formData);
+            setErrors({} as ErrorUsuario);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                const newErrors: ErrorUsuario = {} as ErrorUsuario;
+                for (const issue of error.issues) {
+                    const field = issue.path[0] as keyof typeof formData;
+                    newErrors[field] = [issue.message];
+                }
+                setErrors(newErrors);
+            }
+        }
+    }, [formData]);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -86,5 +106,6 @@ export function useRegister() {
         handleChange,
         handleSubmit,
         countries,
+        navigate
     };
 }

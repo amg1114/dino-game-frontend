@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
 import { StyledInput } from '../../components/forms/StyledInput';
 import { usePasswordRecovery } from './hooks/usePasswordRecovery';
@@ -10,19 +9,12 @@ export function PasswordRecovery() {
     isLoadingPetition,
     handleChangeCorreo,
     handleSubmit,
+    navigate
   } = usePasswordRecovery();
-
-  const navigate = useNavigate();
-
-  const onclose = (): void => {
-    setTimeout(() => {
-      navigate('/');
-    }, 800);
-  };
 
   return (
     <>
-      <Modal onClose={onclose} modalTitle="Recuperar contraseña" size="sm" modalId="passwordRecovery">
+      <Modal onClose={() => navigate('/')} modalTitle="Recuperar contraseña" size="sm" modalId="passwordRecovery">
         <form className="mt-4 flex flex-col gap-4 px-4">
           <StyledInput
             id="correo"

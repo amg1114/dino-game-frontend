@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router';
 import { Modal } from '../../components/Modal';
 import { StyledInput } from '../../components/forms/StyledInput';
 import { StyledSelect } from '../../components/forms/StyledSelect';
@@ -11,19 +10,12 @@ export function Register() {
     handleChange,
     handleSubmit,
     countries,
+    navigate
   } = useRegister();
-
-  const navigate = useNavigate();
-
-  const onClose = (): void => {
-    setTimeout(() => {
-      navigate('/');
-    }, 800);
-  };
 
   return (
     <>
-      <Modal onClose={onClose} modalTitle="Registrarse" size="lg" modalId="register-modal">
+      <Modal onClose={() => navigate('/')} modalTitle="Registrarse" size="lg" modalId="register-modal">
         <form className="mt-4 flex max-h-screen flex-col gap-4 px-4">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <StyledInput

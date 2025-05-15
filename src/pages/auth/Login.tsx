@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { Modal } from '../../components/Modal';
 import { StyledInput } from '../../components/forms/StyledInput';
 import { useLogin } from './hooks/useLogin';
@@ -10,18 +10,12 @@ export function Login() {
     errorPassword,
     handleChange,
     login,
+    navigate
   } = useLogin();
-
-  const navigate = useNavigate();
-  const onclose = (): void => {
-    setTimeout(() => {
-      navigate('/');
-    }, 800);
-  };
 
   return (
     <>
-      <Modal onClose={onclose} modalTitle="INICIAR SESIÓN" size="sm" modalId="login-modal">
+      <Modal onClose={() => navigate('/')} modalTitle="INICIAR SESIÓN" size="sm" modalId="login-modal">
         <form className="mt-4 flex flex-col gap-4 px-4">
           <div className="flex flex-col gap-7">
             <StyledInput

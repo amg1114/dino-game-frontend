@@ -82,14 +82,21 @@ export function usePasswordReset() {
     useEffect(() => {
         if (data.newPassword.length === 0) {
             setErrorPassword('');
-        }
-        if (data.newPassword !== confirmPassword && confirmPassword.length > 0) {
-            setErrorConfirmPassword('Las contraseñas no coinciden');
+        } else {
+            try {
+                passwordResetSchema.parse(data);
+                setErrorPassword('');
+            } catch (error) {
+                if (error instanceof z.ZodError) {
+                    setErrorPassword(error.errors[0]?.message || 'Error en la contraseña');
+                }
+            }
         }
         if (confirmPassword.length === 0) {
             setErrorConfirmPassword('');
-        }
-        if (data.newPassword === confirmPassword) {
+        } else if (data.newPassword !== confirmPassword) {
+            setErrorConfirmPassword('Las contraseñas no coinciden');
+        } else if (data.newPassword === confirmPassword) {
             setErrorConfirmPassword('');
         }
     }, [data.newPassword, confirmPassword]);
@@ -102,5 +109,6 @@ export function usePasswordReset() {
         handleChangePassword,
         handleChangeConfirmPassword,
         handleSubmit,
+        navigate
     };
 }

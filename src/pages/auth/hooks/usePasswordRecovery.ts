@@ -19,6 +19,21 @@ export function usePasswordRecovery() {
         setCorreo(value);
     };
 
+    useEffect(() => {
+        if (correo.length === 0) {
+            setErrorCorreo('');
+            return;
+        }
+        try {
+            emailSchema.parse(correo);
+            setErrorCorreo('');
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                setErrorCorreo(error.issues[0]?.message || 'Error en el correo');
+            }
+        }
+    }, [correo]);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -88,5 +103,6 @@ export function usePasswordRecovery() {
         isLoadingPetition,
         handleChangeCorreo,
         handleSubmit,
+        navigate
     };
 }
