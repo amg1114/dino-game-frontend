@@ -17,7 +17,7 @@ interface AuthProviderProps {
   child: React.ReactNode;
 }
 
-function AuthProvider({ child }: AuthProviderProps) {
+export function AuthProvider({ child }: AuthProviderProps) {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token') || null);
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -117,4 +117,3 @@ function AuthProvider({ child }: AuthProviderProps) {
   return <AuthContext.Provider value={contextValue}>{child}</AuthContext.Provider>;
 }
 
-export default AuthProvider;

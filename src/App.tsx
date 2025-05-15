@@ -4,17 +4,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import { requireAuth } from './utils/protect';
 
-import AuthProvider from './providers/AuthContext';
+import { AuthProvider } from './providers/AuthContext';
 import { AlertProvider } from './providers/AlertContext';
 
-import GlobalLayout from './partials/layoutGlobal';
+import { GlobalLayout } from './partials/layoutGlobal';
 import { ErrorBoundary } from './partials/ErrorElement';
 import { Unauthorized } from './partials/Unauthorized';
 
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
-import PasswordRecovery from './pages/auth/PasswordRecovery';
-import PasswordReset from './pages/auth/PasswordReset';
+import { PasswordRecovery } from './pages/auth/PasswordRecovery';
+import { PasswordReset } from './pages/auth/PasswordReset';
 
 import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
@@ -28,7 +28,7 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 
-function App() {
+export function App() {
   const router = createBrowserRouter([
     {
       element: <GlobalLayout />,
@@ -117,5 +117,3 @@ function App() {
     />
   );
 }
-
-export default App;

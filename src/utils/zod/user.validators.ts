@@ -18,6 +18,21 @@ export const passwordSchema = z
     message: 'La contraseña debe tener al menos un carácter especial',
   });
 
+export const passwordResetSchema = z.object({
+  token: z.string().min(1, 'El token es requerido').nonempty('El token no puede estar vacío'),
+  newPassword: passwordSchema,
+});
+export const emailSchema = z
+  .string()
+  .email('Correo electrónico inválido')
+  .min(1, 'El correo electrónico es obligatorio')
+  .nonempty('El correo electrónico no puede estar vacío');
+
+export const passwordLoginSchema = z
+  .string()
+  .min(1, 'La contraseña es obligatoria')
+  .nonempty('La contraseña no puede estar vacía')
+
 export const userSchema = z.object({
   nombre: z.string().min(1, 'El nombre es obligatorio'),
   fechaNacimiento: z
@@ -54,4 +69,8 @@ export const userSchema = z.object({
 
 export const userWithPasswordSchema = userSchema.extend({
   password: passwordSchema,
+});
+export const loginSchema = z.object({
+  correo: emailSchema,
+  password: passwordLoginSchema,
 });
