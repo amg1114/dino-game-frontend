@@ -1,19 +1,19 @@
 import { HeroNoticia } from './components/HeroNoticia';
-import { useLastNews } from './hooks/useNews';
+import { useLastPost } from './hooks/useNews';
 import { Pagination } from '../../components/pagination';
 import { NewsCard } from '../../components/NewsCard';
 import { usePageMetadata } from '../../hooks/usePageMetadata';
 
 export function NewsPage() {
   const {
-    news,
-    relatedNews,
+    post,
+    relatedPosts,
     loading,
     page,
     setPage,
     itemsPerPage,
     totalItems,
-  } = useLastNews();
+  } = useLastPost();
 
 
   usePageMetadata({
@@ -22,12 +22,12 @@ export function NewsPage() {
   });
 
   if (loading) return <p>Cargando Blog</p>;
-  if (!news) return <p>No se encuentra la noticia</p>;
+  if (!post) return <p>No se encuentra la noticia</p>;
 
   return (
     <div className="mx-auto flex w-full flex-col">
       <div>
-        <HeroNoticia title={news.titulo} description={news.descripcion} image={news.thumb.url} slug={news.slug} />
+        <HeroNoticia title={post.titulo} description={post.descripcion} image={post.thumb.url} slug={post.slug} />
       </div>
       <section className="text-placeholder-2 mt-10 border-t pb-10">
         <h1 className="mt-10 mb-10 text-white">
@@ -35,8 +35,8 @@ export function NewsPage() {
         </h1>
 
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          {relatedNews.map((noticia) => (
-            <NewsCard key={noticia.id} news={noticia} />
+          {relatedPosts.map((noticia) => (
+            <NewsCard key={noticia.id} post={noticia} />
           ))}
         </div>
 

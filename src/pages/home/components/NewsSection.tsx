@@ -19,7 +19,7 @@ export function NewsSection({ data }: { data: SectionData<News> }) {
           <div className="flex grid-cols-3 gap-4 max-md:overflow-x-scroll md:grid">
             {news.map((newsItem) => (
               <div className="min-w-64" key={newsItem.id}>
-                <NewsCard news={newsItem} />
+                <NewsCard post={newsItem} />
               </div>
             ))}
           </div>

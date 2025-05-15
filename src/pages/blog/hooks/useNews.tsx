@@ -4,13 +4,13 @@ import { News } from '../../../models/news.interface';
 import { usePagination } from '../../../hooks/usePagination';
 
 interface NoticiaRetornada {
-  news: News | null;
-  relatedNews: News[];
+  post: News | null;
+  relatedPosts: News[];
   loading: boolean;
 }
 export const useNews = (slug: string): NoticiaRetornada => {
-  const [news, setNews] = useState<News | null>(null);
-  const [newss, setNewss] = useState<News[]>([]);
+  const [post, setPost] = useState<News | null>(null);
+  const [posts, setPosts] = useState<News[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -18,18 +18,18 @@ export const useNews = (slug: string): NoticiaRetornada => {
     axios
       .get(`/api/noticias/noticia/${slug}`)
       .then(function (resp) {
-        const news_data = resp.data;
+        const post_data = resp.data;
         axios
           .get('/api/noticias?limit=4')
           .then(function (resp) {
-            const allNews = resp.data.data;
-            const sortNews = allNews.slice().sort((a: News, b: News) => {
+            const all_posts = resp.data.data;
+            const sort_posts = all_posts.slice().sort((a: News, b: News) => {
               return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
             });
-            const filteredNews = sortNews.filter((news: News) => news.id !== news_data.id);
+            const filtered_posts = sort_posts.filter((news: News) => news.id !== post_data.id);
 
-            setNewss(filteredNews);
-            setNews(news_data);
+            setPosts(filtered_posts);
+            setPost(post_data);
             setLoading(false);
           })
           .catch(function (err) {
@@ -43,22 +43,22 @@ export const useNews = (slug: string): NoticiaRetornada => {
       });
   }, [slug]);
 
-  return { news: news, relatedNews: newss, loading };
+  return { post: post, relatedPosts: posts, loading };
 };
 
 interface NoticiaRetornadaIndex {
-  news: News | null;
-  relatedNews: News[];
+  post: News | null;
+  relatedPosts: News[];
   loading: boolean;
   page: number;
   itemsPerPage: number;
   setPage: (page: number) => void;
   totalItems: number;
 }
-export const useLastNews = (): NoticiaRetornadaIndex => {
+export const useLastPost = (): NoticiaRetornadaIndex => {
   const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 3, windowWidth: 768 }], 9)
-  const [newss, setNewss] = useState<News[]>([]);
-  const [news, setNews] = useState<News | null>(null);
+  const [posts, setPosts] = useState<News[]>([]);
+  const [post, setPost] = useState<News | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalItems, setTotalItems] = useState(0);
   const ENDPOINT = `/api/noticias?limit=${itemsPerPage}&offset=${page}`;
@@ -68,15 +68,15 @@ export const useLastNews = (): NoticiaRetornadaIndex => {
     axios
       .get(ENDPOINT)
       .then(function (resp) {
-        const noticiasList = resp.data.data;
+        const postsList = resp.data.data;
         setTotalItems(resp.data.total);
-        const sortNews = noticiasList.slice().sort((a: News, b: News) => {
+        const sortPosts = postsList.slice().sort((a: News, b: News) => {
           return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
         });
-        const lastNews = sortNews[0];
-        const filteredNews = sortNews.filter((news: News) => news.id !== lastNews.id);
-        setNewss(filteredNews);
-        setNews(lastNews);
+        const lastPost = sortPosts[0];
+        const filteredNews = sortPosts.filter((news: News) => news.id !== lastPost.id);
+        setPosts(filteredNews);
+        setPost(lastPost);
         setLoading(false);
       })
       .catch(function (err) {
@@ -85,5 +85,5 @@ export const useLastNews = (): NoticiaRetornadaIndex => {
       });
   }, [page, itemsPerPage]);
 
-  return { news: news, relatedNews: newss, loading, page, itemsPerPage, setPage, totalItems };
+  return { post: post, relatedPosts: posts, loading, page, itemsPerPage, setPage, totalItems };
 };
