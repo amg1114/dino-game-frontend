@@ -23,10 +23,19 @@ export function useRegister() {
         correo: '',
         password: '',
     });
+    const [touched, setTouched] = useState({
+        nombre: false,
+        fechaNacimiento: false,
+        pais: false,
+        sexo: false,
+        correo: false,
+        password: false,
+    });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
         setFormData((prev) => ({ ...prev, [id]: value }));
+        setTouched((prev) => ({ ...prev, [id]: true }));
     };
 
     useEffect(() => {
@@ -42,12 +51,14 @@ export function useRegister() {
                 const newErrors: ErrorUsuario = {} as ErrorUsuario;
                 for (const issue of error.issues) {
                     const field = issue.path[0] as keyof typeof formData;
-                    newErrors[field] = [issue.message];
+                    if (touched[field]) {
+                        newErrors[field] = [issue.message];
+                    }
                 }
                 setErrors(newErrors);
             }
         }
-    }, [formData]);
+    }, [formData, touched]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

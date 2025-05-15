@@ -11,12 +11,14 @@ export function usePasswordRecovery() {
     const [correo, setCorreo] = useState<string>('');
     const [errorCorreo, setErrorCorreo] = useState<string>('');
     const [isLoadingPetition, setIsLoadingPetition] = useState(false);
+    const [touched, setTouched] = useState(false);
     const { usuario, isLoading } = useAuth();
     const { showToast, showAlert } = useAlert();
 
     const handleChangeCorreo = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         setCorreo(value);
+        setTouched(true);
     };
 
     useEffect(() => {
@@ -28,11 +30,11 @@ export function usePasswordRecovery() {
             emailSchema.parse(correo);
             setErrorCorreo('');
         } catch (error) {
-            if (error instanceof z.ZodError) {
+            if (error instanceof z.ZodError && touched) {
                 setErrorCorreo(error.issues[0]?.message || 'Error en el correo');
             }
         }
-    }, [correo]);
+    }, [correo, touched]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

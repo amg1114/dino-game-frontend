@@ -18,6 +18,7 @@ export function useLogin() {
         correo: '',
         password: '',
     });
+    const [touched, setTouched] = useState({ correo: false, password: false });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
@@ -25,6 +26,7 @@ export function useLogin() {
             ...prevData,
             [id]: value,
         }));
+        setTouched((prev) => ({ ...prev, [id]: true }));
     };
 
     useEffect(() => {
@@ -43,6 +45,54 @@ export function useLogin() {
                 setErrorCorreo('');
                 setErrorPassword('');
                 for (const err of error.errors) {
+                    if (err.path[0] === 'correo' && touched.correo) {
+                        setErrorCorreo(err.message);
+                    } else if (err.path[0] === 'password' && touched.password) {
+                        setErrorPassword(err.message);
+                    }
+                }
+            }
+        }
+    }, [data, touched]);
+
+    const login = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            loginSchema.parse(data);
+            setErrorCorreo('');
+            setErrorPassword('');
+            axios
+                .post(ENDPOINT, data)
+                .then((response) => {
+                    logIn(response.data.access_token);
+                    showToast({
+                        type: 'success',
+                        message: 'Inicio de sesión exitoso',
+                        duration: 2000,
+                    });
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 800);
+                })
+                .catch((e) => {
+                    if (e.response?.status === 401) {
+                        setErrorPassword('contraseña incorrecta');
+                        setErrorCorreo('');
+                    } else if (e.response?.status === 404) {
+                        setErrorCorreo('Correo no existente');
+                        setErrorPassword('');
+                    } else {
+                        showAlert({
+                            type: 'error',
+                            title: 'Error',
+                            message: e.response?.data?.message || 'Error interno del servidor',
+                            duration: 2000,
+                        });
+                    }
+                });
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                for (const err of error.errors) {
                     if (err.path[0] === 'correo') {
                         setErrorCorreo(err.message);
                     } else if (err.path[0] === 'password') {
@@ -51,39 +101,6 @@ export function useLogin() {
                 }
             }
         }
-    }, [data]);
-
-    const login = async (e: React.FormEvent) => {
-        e.preventDefault();
-        axios
-            .post(ENDPOINT, data)
-            .then((response) => {
-                logIn(response.data.access_token);
-                showToast({
-                    type: 'success',
-                    message: 'Inicio de sesión exitoso',
-                    duration: 2000,
-                });
-                setTimeout(() => {
-                    navigate('/');
-                }, 800);
-            })
-            .catch((e) => {
-                if (e.response?.status === 401) {
-                    setErrorPassword('contraseña incorrecta');
-                    setErrorCorreo('');
-                } else if (e.response?.status === 404) {
-                    setErrorCorreo('Correo no existente');
-                    setErrorPassword('');
-                } else {
-                    showAlert({
-                        type: 'error',
-                        title: 'Error',
-                        message: e.response?.data?.message || 'Error interno del servidor',
-                        duration: 2000,
-                    });
-                }
-            });
     };
 
     useEffect(() => {

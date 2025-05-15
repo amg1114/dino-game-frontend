@@ -19,17 +19,20 @@ export function usePasswordReset() {
         newPassword: '',
     });
     const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [touched, setTouched] = useState({ newPassword: false, confirmPassword: false });
 
     const ENDPOINT = `/api/auth/reset-password`;
 
     const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         setData((prev) => ({ ...prev, newPassword: value }));
+        setTouched((prev) => ({ ...prev, newPassword: true }));
     };
 
     const handleChangeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         setConfirmPassword(value);
+        setTouched((prev) => ({ ...prev, confirmPassword: true }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -87,19 +90,19 @@ export function usePasswordReset() {
                 passwordResetSchema.parse(data);
                 setErrorPassword('');
             } catch (error) {
-                if (error instanceof z.ZodError) {
+                if (error instanceof z.ZodError && touched.newPassword) {
                     setErrorPassword(error.errors[0]?.message || 'Error en la contraseña');
                 }
             }
         }
         if (confirmPassword.length === 0) {
             setErrorConfirmPassword('');
-        } else if (data.newPassword !== confirmPassword) {
+        } else if (data.newPassword !== confirmPassword && touched.confirmPassword) {
             setErrorConfirmPassword('Las contraseñas no coinciden');
         } else if (data.newPassword === confirmPassword) {
             setErrorConfirmPassword('');
         }
-    }, [data.newPassword, confirmPassword]);
+    }, [data.newPassword, confirmPassword, touched]);
 
     return {
         data,
