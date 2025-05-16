@@ -28,6 +28,7 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
+import { VideoGamesPage } from './pages/videogames/VideoGamesPage';
 
 export function App() {
   const router = createBrowserRouter([
@@ -106,6 +107,10 @@ export function App() {
               element: <Dashboard />,
             },
           ],
+        },
+        {
+          path: 'juegos',
+          element: <VideoGamesPage />,
         },
         { path: 'unauthorized', element: <Unauthorized /> },
       ],
