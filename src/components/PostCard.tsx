@@ -1,25 +1,25 @@
 import { SquareArrowOutUpRight } from 'lucide-react';
 import { Link } from 'react-router';
-import { News } from '../models/news.interface';
+import { News } from '../models/post.interface';
 import { truncateDescription } from '../utils/truncateDescription';
 
-export function NewsCard({ news }: { news: News }) {
+export function PostCard({ post }: { post: News }) {
   return (
     <div>
       <div className="md:w-mb bg-body aspect-[16/9] w-full">
-        {news.thumb.url ? (
+        {post.thumb.url ? (
           <img
             className="bg-placeholder-2 mb-2 aspect-[16/9] w-full rounded-md object-cover"
-            src={news.thumb.url}
+            src={post.thumb.url}
             alt="news image"
           />
         ) : (
           <></>
         )}
         <div className="min-h-auto">
-          <h3 className="w-full leading-none text-white uppercase">{news.titulo}</h3>
-          <p className="text-sm text-white">{truncateDescription(news.descripcion)}</p>
-          <Link className="text-green mt-1 flex flex-row" to={'/blog/' + news.slug}>
+          <h3 className="w-full leading-none text-white uppercase">{post.titulo}</h3>
+          <p className="text-sm text-white">{truncateDescription(post.descripcion)}</p>
+          <Link className="text-green mt-1 flex flex-row" to={'/blog/' + post.slug}>
             Ver más
             <SquareArrowOutUpRight className="stroke-green mt-2 size-3 stroke-2" />
           </Link>

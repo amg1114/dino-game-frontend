@@ -2,14 +2,14 @@ import { SquareArrowOutUpRight } from 'lucide-react';
 import { Link } from 'react-router';
 import { truncateDescription } from '../../../utils/truncateDescription';
 
-interface HeroNoticiaProps {
+interface HeroPostProps {
   title: string;
   description: string;
   image: string;
   slug: string;
 }
 
-export function HeroNoticia({ title, description, image, slug }: HeroNoticiaProps) {
+export function HeroPost({ title, description, image, slug }: HeroPostProps) {
   return (
     <div>
       <div className="relative aspect-[16/9] w-full">

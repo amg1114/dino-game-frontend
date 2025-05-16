@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { VideoGame } from '../../../models/video-game.interface';
 import { Categoria } from '../../../models/categoria.interface';
 import { BaseFetch } from '../../../models/base-fetch.interface';
-import { News } from '../../../models/news.interface';
+import { News } from '../../../models/post.interface';
 
 export interface FetchResponse<T> extends BaseFetch {
   data: T[];
