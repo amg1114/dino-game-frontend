@@ -20,12 +20,14 @@ import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
 import { BlogPage } from './pages/blog/BlogIndex';
 import { BlogEntry } from './pages/blog/BlogEntry';
+import { CategoryPage } from './pages/category/CategoryPage';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
 import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
+
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { DashboardVideoGames } from './pages/dashboard/video-games/DashboardVideoGames';
 
@@ -68,6 +70,10 @@ export function App() {
         {
           path: 'blog/:slug',
           element: <BlogEntry />,
+        },
+        {
+          path: 'categorias/:slug',
+          element: <CategoryPage />,
         },
         {
           path: 'perfil',

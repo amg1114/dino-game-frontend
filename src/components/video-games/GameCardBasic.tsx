@@ -25,7 +25,7 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses, adminPermissions
           videoGame.categorias.map((categoria) => (
             <li className="list-none leading-none" key={categoria.id}>
               <Link
-                to={`/categoria/${categoria.slug}`}
+                to={`/categorias/${categoria.slug}`}
                 className="hover:text-green relative z-20 text-xs leading-none text-white uppercase not-hover:no-underline"
               >
                 {categoria.titulo}
@@ -37,6 +37,7 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses, adminPermissions
         )}
       </ul>
       {!adminPermissions && <GamePrice videoGame={videoGame} />}
+
       {adminPermissions && (
         <footer className="flex flex-wrap gap-2">
           <Link
