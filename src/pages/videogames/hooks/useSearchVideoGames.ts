@@ -11,7 +11,7 @@ export function useSearchVideoGames() {
     };
 
     const handleFocus = () => setFocus(true);
-    const handleBlur = () => setFocus(false);
+    const handleBlur = () => setTimeout(() => setFocus(false), 200);
 
     return {
         dataBySearch,

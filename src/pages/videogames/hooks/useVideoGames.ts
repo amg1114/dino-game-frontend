@@ -48,11 +48,6 @@ export function useVideoGames() {
 
     useEffect(() => {
         if (inputTitle.length <= 0) {
-            if ([...inputTitle].some(char => char !== " ")) {
-                setInputTitle(inputTitle.trim());
-            } else {
-                setInputTitle("");
-            }
             setDataBySearch([]);
             return;
         }

@@ -22,7 +22,7 @@ export function SearchVideoGamesInput() {
                     errors={[]}
                 />
             </div>
-            {dataBySearch.length > 0 && (
+            {focus && dataBySearch.length > 0 && (
                 <div className="absolute 
                 bg-placeholder
                 rounded-md mt-16 z-100 
@@ -34,7 +34,7 @@ export function SearchVideoGamesInput() {
                 break-words
                 p-2
                 ">
-                    {focus && dataBySearch.map((videoGame) => (
+                    {dataBySearch.map((videoGame) => (
                         <VideoGameInfoTarget
                             key={videoGame.id}
                             videoGame={videoGame}
