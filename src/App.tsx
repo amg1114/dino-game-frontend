@@ -27,6 +27,7 @@ import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/Profi
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { CategoryPage } from './pages/category/CategoryPage';
 
 export function App() {
   const router = createBrowserRouter([
@@ -67,6 +68,10 @@ export function App() {
         {
           path: 'blog/:slug',
           element: <BlogEntry />,
+        },
+        {
+          path: 'categorias/:slug',
+          element: <CategoryPage />
         },
         {
           path: 'perfil',
