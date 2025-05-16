@@ -1,6 +1,6 @@
-import { News } from '../../../models/news.interface';
+import { News } from '../../../models/post.interface';
 import { SectionData } from '../hooks/useHomePage';
-import { NewsCard } from '../../../components/NewsCard';
+import { PostCard } from '../../../components/PostCard';
 
 export function NewsSection({ data }: { data: SectionData<News> }) {
   const { loading, error, data: news } = data;
@@ -19,7 +19,7 @@ export function NewsSection({ data }: { data: SectionData<News> }) {
           <div className="flex grid-cols-3 gap-4 max-md:overflow-x-scroll md:grid">
             {news.map((newsItem) => (
               <div className="min-w-64" key={newsItem.id}>
-                <NewsCard news={newsItem} />
+                <PostCard post={newsItem} />
               </div>
             ))}
           </div>

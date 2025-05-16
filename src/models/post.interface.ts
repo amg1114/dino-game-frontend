@@ -1,4 +1,4 @@
-export interface News {
+export interface Post {
   id: number;
   titulo: string;
   descripcion: string;

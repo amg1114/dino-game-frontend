@@ -8,6 +8,7 @@ export interface Usuario {
   sexo: string;
   calificacion?: number;
   likes?: { noticiaID: number }[];
+  password?: string;
 }
 
 export type UserType = 'ESTANDAR' | 'ADMINISTRATOR' | 'DEVELOPER';

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useWindowDimensions from './useWindowDimensions';
+import { useWindowDimensions } from './useWindowDimensions';
 
 export interface PaginationConfig {
   itemsPerPage: number;

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { JSX } from 'react';
 
 interface StyledSelectProps {
@@ -6,9 +7,10 @@ interface StyledSelectProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   label: string;
+  errors?: string[];
 }
 
-export function StyledSelect({ id, options, value, onChange, label }: StyledSelectProps): JSX.Element {
+export function StyledSelect({ id, options, value, onChange, label, errors }: StyledSelectProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-xl text-white">
@@ -16,9 +18,10 @@ export function StyledSelect({ id, options, value, onChange, label }: StyledSele
       </label>
       <select
         id={id}
-        className={`bg-placeholder focus:ring-green rounded p-4 focus:ring-2 focus:outline-none ${
-          !value ? 'text-white/50' : 'text-white'
-        }`}
+        className={clsx({
+          'bg-placeholder focus:ring-green rounded p-4 text-white focus:ring-2 focus:outline-none': true,
+          'ring-red focus:ring-red ring-2': errors?.length,
+        })}
         value={value}
         onChange={onChange}
       >
@@ -31,6 +34,9 @@ export function StyledSelect({ id, options, value, onChange, label }: StyledSele
           </option>
         ))}
       </select>
+      {errors && errors.length > 0 && (
+        <span className="text-red text-sm font-bold">{errors.slice(0, 2).join(', ')}</span>
+      )}
     </div>
   );
 }

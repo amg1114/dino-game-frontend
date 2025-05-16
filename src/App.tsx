@@ -4,22 +4,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import { requireAuth } from './utils/protect';
 
-import AuthProvider from './providers/AuthContext';
+import { AuthProvider } from './providers/AuthContext';
 import { AlertProvider } from './providers/AlertContext';
 
-import GlobalLayout from './partials/layoutGlobal';
+import { GlobalLayout } from './partials/layoutGlobal';
 import { ErrorBoundary } from './partials/ErrorElement';
 import { Unauthorized } from './partials/Unauthorized';
 
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
-import PasswordRecovery from './pages/auth/PasswordRecovery';
-import PasswordReset from './pages/auth/PasswordReset';
+import { PasswordRecovery } from './pages/auth/PasswordRecovery';
+import { PasswordReset } from './pages/auth/PasswordReset';
 
 import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
-import { NewsPage } from './pages/blog/BlogIndex';
-import { VistaNoticia } from './pages/blog/BlogEntry';
+import { BlogPage } from './pages/blog/BlogIndex';
+import { BlogEntry } from './pages/blog/BlogEntry';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
@@ -29,7 +29,7 @@ import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/S
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
 
-function App() {
+export function App() {
   const router = createBrowserRouter([
     {
       element: <GlobalLayout />,
@@ -63,11 +63,11 @@ function App() {
         },
         {
           path: 'blog',
-          element: <NewsPage />,
+          element: <BlogPage />,
         },
         {
           path: 'blog/:slug',
-          element: <VistaNoticia />,
+          element: <BlogEntry />,
         },
         {
           path: 'categorias/:slug',
@@ -122,5 +122,3 @@ function App() {
     />
   );
 }
-
-export default App;
