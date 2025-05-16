@@ -13,7 +13,7 @@ export function useCategoria(slug: string) {
     const [categoria, setCategoria] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 4, windowWidth: 768 }], 8)
+    const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 4, windowWidth: 768 }], 9)
     const [totalItems, setTotalItems] = useState(0);
 
 
