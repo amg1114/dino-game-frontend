@@ -17,6 +17,7 @@ import PasswordRecovery from './pages/auth/PasswordRecovery';
 import PasswordReset from './pages/auth/PasswordReset';
 
 import { HomePage } from './pages/home/HomePage';
+import { AboutPage } from './pages/about/AboutPage';
 import { NewsPage } from './pages/blog/BlogIndex';
 import { VistaNoticia } from './pages/blog/BlogEntry';
 
@@ -25,6 +26,7 @@ import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
 import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
+import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
 
 function App() {
@@ -54,6 +56,10 @@ function App() {
               element: <PasswordReset />,
             },
           ],
+        },
+        {
+          path: 'about',
+          element: <AboutPage />,
         },
         {
           path: 'blog',
@@ -88,6 +94,16 @@ function App() {
             {
               path: 'solicitud-desarrollador',
               element: <SolicitudDesarrollador />,
+            },
+          ],
+        },
+        {
+          path: 'dashboard',
+          element: <ProfileLayout />,
+          children: [
+            {
+              index: true,
+              element: <Dashboard />,
             },
           ],
         },

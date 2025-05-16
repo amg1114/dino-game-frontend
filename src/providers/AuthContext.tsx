@@ -6,6 +6,7 @@ import { Usuario } from '../models/user.interface';
 export interface AuthContextType {
   usuario: Usuario | null;
   isLoading: boolean;
+  token: string | null;
   logIn: (token: string | null) => void;
   logOut: () => void;
   updateUsuario: (newUser: Partial<Usuario>) => Promise<void>;
@@ -104,13 +105,14 @@ function AuthProvider({ child }: AuthProviderProps) {
   const contextValue = useMemo<AuthContextType>(() => {
     return {
       usuario,
+      token,
       isLoading,
       updateUsuario,
       deleteAccount,
       logOut,
       logIn,
     };
-  }, [isLoading, usuario, updateUsuario, logOut, logIn, deleteAccount]);
+  }, [isLoading, usuario, token, updateUsuario, logOut, logIn, deleteAccount]);
 
   return <AuthContext.Provider value={contextValue}>{child}</AuthContext.Provider>;
 }

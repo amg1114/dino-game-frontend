@@ -15,7 +15,7 @@ export function ProfileSidebar({ routes, usuario }: { routes: ProfileRoute[]; us
   const location = useLocation();
 
   return (
-    <nav className="flex flex-col max-md:w-full">
+    <nav className="sticky top-4 flex flex-col self-start max-md:w-full">
       <ul className="flex flex-1 flex-col gap-6">
         {routes.map(
           (route, index) =>
