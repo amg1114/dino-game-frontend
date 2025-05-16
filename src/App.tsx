@@ -28,6 +28,7 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
+import { ReportList } from './pages/reports/components/ReportList';
 
 export function App() {
   const router = createBrowserRouter([
@@ -105,6 +106,10 @@ export function App() {
               index: true,
               element: <Dashboard />,
             },
+            {
+              path: 'reportes',
+              element: <ReportList />,
+            }
           ],
         },
         { path: 'unauthorized', element: <Unauthorized /> },
