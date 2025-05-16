@@ -6,21 +6,36 @@ import { usePagination } from "../../../hooks/usePagination";
 export function useVideoGames() {
     const [data, setData] = useState<VideoGame[]>([]);
     const [dataBySearch, setDataBySearch] = useState<VideoGame[]>([]);
+    const [totalItems, setTotalItems] = useState<number>(0);
 
     const [loading, setLoading] = useState<boolean>(true);
     const [inputTitle, setInputTitle] = useState<string>("");
-    const [inputPrice, setInputPrice] = useState<number>(0);
+    const [inputPrice, setInputPrice] = useState<string>("");
     const [inputCategoria, setInputCategoria] = useState<string>("");
     const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 4, windowWidth: 768 }], 9)
 
 
     useEffect(() => {
-        const ENDPOINT = `/api/videogames?limit=${itemsPerPage}&offset=${page}` + (inputPrice ? `&precio=${inputPrice}` : "") + (inputCategoria ? `&categoria=${inputCategoria}` : "");
+        console.log("inputCategoria", inputCategoria);
+        console.log("inputPrice", inputPrice);
+        let ENDPOINT = `/api/video-games?limit=${itemsPerPage}&offset=${page}`;
+
+        if (inputCategoria) {
+            ENDPOINT += `&categoria=${inputCategoria}`;
+        }
+        const priceNumber = Number(inputPrice);
+        if (inputPrice !== "" && !isNaN(priceNumber) && priceNumber > 0) {
+            ENDPOINT += `&precio=${priceNumber}`;
+        }
+
+        console.log(ENDPOINT);
         setLoading(true);
 
-        axios.get<VideoGame[]>(ENDPOINT)
+        axios.get(ENDPOINT)
             .then((response) => {
-                setData(response.data);
+                setData(response.data.data);
+                setTotalItems(response.data.total);
+                console.log(response.data);
             }
             )
             .catch((error) => {
@@ -32,20 +47,29 @@ export function useVideoGames() {
     }, [page, itemsPerPage, inputPrice, inputCategoria]);
 
     useEffect(() => {
-        const ENDPOINT = `/api/videogames?titulo=${inputTitle}`;
+        if (inputTitle.length <= 0) {
+            if ([...inputTitle].some(char => char !== " ")) {
+                setInputTitle(inputTitle.trim());
+            } else {
+                setInputTitle("");
+            }
+            setDataBySearch([]);
+            return;
+        }
+        const ENDPOINT = `/api/video-games?search=${inputTitle}`;
         setLoading(true);
-        axios.get<VideoGame[]>(ENDPOINT)
+        axios.get(ENDPOINT)
             .then((response) => {
-                setDataBySearch(response.data);
+                setDataBySearch(response.data.data);
             }
             )
-            .catch((error) => {
+            .catch(() => {
                 setLoading(false);
                 setDataBySearch([]);
-                console.error("Error fetching data:", error);
             }
             );
     }, [inputTitle]);
+    const handleInputPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputPrice(e.target.value);
     return {
         data,
         loading,
@@ -60,6 +84,8 @@ export function useVideoGames() {
         setInputCategoria,
         setPage,
         setDataBySearch,
+        handleInputPriceChange,
+        totalItems
     };
 
 }

@@ -3,30 +3,41 @@ import { VideoGameInfoTarget } from "./VideoGameInfoTarget";
 import { useSearchVideoGames } from "../hooks/useSearchVideoGames";
 
 export function SearchVideoGamesInput() {
-    const { inputTitle, handleFocus, handleInputChange, focus, dataBySearch } = useSearchVideoGames()
-
+    const { inputTitle, handleFocus, handleInputChange, focus, dataBySearch, handleBlur } = useSearchVideoGames()
+    console.log(focus)
     return (
-        <div className="flex items-center justify-center relative">
-            <StyledInput
-                type="text"
-                placeholder="Buscar videojuego"
-                value={inputTitle}
-                onChange={handleInputChange}
-                onFocus={handleFocus}
-                id="search-video-game"
-                label="Buscar videojuego"
-                name="search-video-game"
-                errors={[]}
-            />
-            {focus && dataBySearch.length > 0 && (
-                <div className="absolute bg-white border border-gray-300 rounded-md mt-1 w-full max-w-xs">
-                    {dataBySearch.map((videoGame) => (
+        <div className="flex relative flex-col items-start justify-start w-full">
+            <div className="-mt-8 w-full">
+
+                <StyledInput
+                    type="text"
+                    placeholder="Búscar Juegos"
+                    value={inputTitle}
+                    onChange={handleInputChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    id="search-video-game"
+                    label="Buscar"
+                    name="search-video-game"
+                    errors={[]}
+                />
+            </div>
+            {dataBySearch.length > 0 && (
+                <div className="absolute 
+                bg-placeholder
+                rounded-md mt-16 z-100 
+                shadow-lg max-h-96 
+                h-fit
+                overflow-y-auto
+                overflow-x-hidden
+                w-full
+                break-words
+                p-2
+                ">
+                    {focus && dataBySearch.map((videoGame) => (
                         <VideoGameInfoTarget
-                            titulo={videoGame.titulo}
-                            precio={videoGame.precio}
-                            descripcion={videoGame.descripcion}
-                            slug={videoGame.slug}
-                            thumb={videoGame.thumb}
+                            key={videoGame.id}
+                            videoGame={videoGame}
                         />
                     ))}
                 </div>

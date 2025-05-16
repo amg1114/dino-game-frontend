@@ -5,12 +5,13 @@ export interface StyledInputProps {
   id: string;
   type: string;
   placeholder: string;
-  value: string;
+  value: string | number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   name?: string;
   errors?: string[];
   onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export function StyledInput({
@@ -23,6 +24,7 @@ export function StyledInput({
   name,
   errors,
   onFocus,
+  onBlur
 }: StyledInputProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1">
@@ -43,6 +45,7 @@ export function StyledInput({
         onChange={onChange}
         name={name || id}
         onFocus={onFocus}
+        onBlur={onBlur}
       />
 
       {errors && errors.length > 0 && (

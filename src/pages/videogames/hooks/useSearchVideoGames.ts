@@ -11,6 +11,7 @@ export function useSearchVideoGames() {
     };
 
     const handleFocus = () => setFocus(true);
+    const handleBlur = () => setFocus(false);
 
     return {
         dataBySearch,
@@ -19,5 +20,6 @@ export function useSearchVideoGames() {
         handleInputChange,
         handleFocus,
         focus,
+        handleBlur,
     };
 }
