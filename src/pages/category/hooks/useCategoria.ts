@@ -24,7 +24,6 @@ export function useCategoria(slug: string) {
             .get(`/api/video-games?categoria=${slug}&limit=${itemsPerPage}&offset=${page}`)
             .then(function (resp) {
                 const data = resp.data.data;
-                console.log("esta es la respuesta: ", JSON.stringify(data, null, 2));
                 setData(data);
                 setLoading(false);
                 setTotalItems(resp.data.total);
