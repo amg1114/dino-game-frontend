@@ -5,7 +5,7 @@ import { Pagination } from '../../../components/pagination';
 
 const CategoriaList: React.FC = () => {
     const { slug } = useParams();
-    const { data, loading, error, itemsPerPage, totalItems, page, setPage } = useCategoria(slug || "");
+    const { data, categoria, loading, error, itemsPerPage, totalItems, page, setPage } = useCategoria(slug || "");
 
     return (
         <section>
@@ -20,7 +20,7 @@ const CategoriaList: React.FC = () => {
             {!loading && data.length > 0 && (<>
                 <h2>
                     <span className="text-green">Dino</span>
-                    {slug}
+                    {categoria}
                 </h2>
                 <div className="space-y-9">
                     <div className=" grid-cols-4 gap-4 md:grid sx:gap-6">
