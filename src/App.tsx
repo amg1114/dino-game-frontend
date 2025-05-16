@@ -18,8 +18,8 @@ import PasswordReset from './pages/auth/PasswordReset';
 
 import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
-import { NewsPage } from './pages/blog/BlogIndex';
-import { VistaNoticia } from './pages/blog/BlogEntry';
+import { BlogPage } from './pages/blog/BlogIndex';
+import { BlogEntry } from './pages/blog/BlogEntry';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
@@ -62,11 +62,11 @@ function App() {
         },
         {
           path: 'blog',
-          element: <NewsPage />,
+          element: <BlogPage />,
         },
         {
           path: 'blog/:slug',
-          element: <VistaNoticia />,
+          element: <BlogEntry />,
         },
         {
           path: 'perfil',

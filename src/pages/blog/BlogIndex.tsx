@@ -1,20 +1,11 @@
-import { HeroNoticia } from './components/HeroNoticia';
-import { useLastPost } from './hooks/useNews';
+import { HeroPost } from './components/HeroPost';
+import { useLastPost } from './hooks/useBlog';
 import { Pagination } from '../../components/pagination';
-import { NewsCard } from '../../components/NewsCard';
+import { PostCard } from '../../components/PostCard';
 import { usePageMetadata } from '../../hooks/usePageMetadata';
 
-export function NewsPage() {
-  const {
-    post,
-    relatedPosts,
-    loading,
-    page,
-    setPage,
-    itemsPerPage,
-    totalItems,
-  } = useLastPost();
-
+export function BlogPage() {
+  const { post, relatedPosts, loading, page, setPage, itemsPerPage, totalItems } = useLastPost();
 
   usePageMetadata({
     title: 'Dino Noticias',
@@ -27,7 +18,7 @@ export function NewsPage() {
   return (
     <div className="mx-auto flex w-full flex-col">
       <div>
-        <HeroNoticia title={post.titulo} description={post.descripcion} image={post.thumb.url} slug={post.slug} />
+        <HeroPost title={post.titulo} description={post.descripcion} image={post.thumb.url} slug={post.slug} />
       </div>
       <section className="text-placeholder-2 mt-10 border-t pb-10">
         <h1 className="mt-10 mb-10 text-white">
@@ -36,15 +27,11 @@ export function NewsPage() {
 
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {relatedPosts.map((noticia) => (
-            <NewsCard key={noticia.id} post={noticia} />
+            <PostCard key={noticia.id} post={noticia} />
           ))}
         </div>
 
-        <Pagination
-          itemsPerPage={itemsPerPage}
-          page={page}
-          setPage={setPage}
-          totalItems={totalItems} />
+        <Pagination itemsPerPage={itemsPerPage} page={page} setPage={setPage} totalItems={totalItems} />
       </section>
     </div>
   );

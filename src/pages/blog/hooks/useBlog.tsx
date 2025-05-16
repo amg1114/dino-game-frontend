@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { News } from '../../../models/news.interface';
+import { Post } from '../../../models/post.interface';
 import { usePagination } from '../../../hooks/usePagination';
 
 interface NoticiaRetornada {
-  post: News | null;
-  relatedPosts: News[];
+  post: Post | null;
+  relatedPosts: Post[];
   loading: boolean;
 }
-export const useNews = (slug: string): NoticiaRetornada => {
-  const [post, setPost] = useState<News | null>(null);
-  const [posts, setPosts] = useState<News[]>([]);
+export const useBlog = (slug: string): NoticiaRetornada => {
+  const [post, setPost] = useState<Post | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,10 +23,10 @@ export const useNews = (slug: string): NoticiaRetornada => {
           .get('/api/noticias?limit=4')
           .then(function (resp) {
             const all_posts = resp.data.data;
-            const sort_posts = all_posts.slice().sort((a: News, b: News) => {
+            const sort_posts = all_posts.slice().sort((a: Post, b: Post) => {
               return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
             });
-            const filtered_posts = sort_posts.filter((news: News) => news.id !== post_data.id);
+            const filtered_posts = sort_posts.filter((post: Post) => post.id !== post_data.id);
 
             setPosts(filtered_posts);
             setPost(post_data);
@@ -47,8 +47,8 @@ export const useNews = (slug: string): NoticiaRetornada => {
 };
 
 interface NoticiaRetornadaIndex {
-  post: News | null;
-  relatedPosts: News[];
+  post: Post | null;
+  relatedPosts: Post[];
   loading: boolean;
   page: number;
   itemsPerPage: number;
@@ -56,9 +56,9 @@ interface NoticiaRetornadaIndex {
   totalItems: number;
 }
 export const useLastPost = (): NoticiaRetornadaIndex => {
-  const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 3, windowWidth: 768 }], 9)
-  const [posts, setPosts] = useState<News[]>([]);
-  const [post, setPost] = useState<News | null>(null);
+  const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 3, windowWidth: 768 }], 9);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalItems, setTotalItems] = useState(0);
   const ENDPOINT = `/api/noticias?limit=${itemsPerPage}&offset=${page}`;
@@ -70,11 +70,11 @@ export const useLastPost = (): NoticiaRetornadaIndex => {
       .then(function (resp) {
         const postsList = resp.data.data;
         setTotalItems(resp.data.total);
-        const sortPosts = postsList.slice().sort((a: News, b: News) => {
+        const sortPosts = postsList.slice().sort((a: Post, b: Post) => {
           return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
         });
         const lastPost = sortPosts[0];
-        const filteredNews = sortPosts.filter((news: News) => news.id !== lastPost.id);
+        const filteredNews = sortPosts.filter((news: Post) => news.id !== lastPost.id);
         setPosts(filteredNews);
         setPost(lastPost);
         setLoading(false);

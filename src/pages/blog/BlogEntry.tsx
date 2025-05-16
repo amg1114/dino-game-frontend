@@ -1,13 +1,13 @@
 import { useParams } from 'react-router';
-import { useNews } from './hooks/useNews';
+import { useBlog } from './hooks/useBlog';
 import { Heart } from 'lucide-react';
-import { NewsCard } from '../../components/NewsCard';
+import { PostCard } from '../../components/PostCard';
 import { usePageMetadata } from '../../hooks/usePageMetadata';
 import { truncateDescription } from '../../utils/truncateDescription';
 
-export function VistaNoticia() {
+export function BlogEntry() {
   const { slug } = useParams<{ slug: string }>();
-  const { post, relatedPosts, loading } = useNews(slug || '');
+  const { post, relatedPosts, loading } = useBlog(slug || '');
 
   usePageMetadata({
     title: post?.titulo || 'Loading',
@@ -62,7 +62,7 @@ export function VistaNoticia() {
         <div className="mt-5 flex grid-cols-3 space-x-4 overflow-visible overflow-x-auto px-2 md:grid">
           {relatedPosts.slice(0, 3).map((item) => (
             <div key={item.id} className="max-w-[90%] min-w-[90%] flex-shrink-0">
-              <NewsCard post={item} />
+              <PostCard post={item} />
             </div>
           ))}
         </div>

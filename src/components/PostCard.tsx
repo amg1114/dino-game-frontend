@@ -1,9 +1,9 @@
 import { SquareArrowOutUpRight } from 'lucide-react';
 import { Link } from 'react-router';
-import { News } from '../models/news.interface';
+import { News } from '../models/post.interface';
 import { truncateDescription } from '../utils/truncateDescription';
 
-export function NewsCard({ post }: { post: News }) {
+export function PostCard({ post }: { post: News }) {
   return (
     <div>
       <div className="md:w-mb bg-body aspect-[16/9] w-full">
