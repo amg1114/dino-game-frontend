@@ -27,6 +27,7 @@ import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/Profi
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { DashboardVideoGames } from './pages/dashboard/video-games/DashboardVideoGames';
 
 export function App() {
   const router = createBrowserRouter([
@@ -99,6 +100,10 @@ export function App() {
             {
               index: true,
               element: <Dashboard />,
+            },
+            {
+              path: 'juegos',
+              element: <DashboardVideoGames />,
             },
           ],
         },
