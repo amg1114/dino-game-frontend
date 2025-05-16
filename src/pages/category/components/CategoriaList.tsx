@@ -28,7 +28,6 @@ const CategoriaList: React.FC = () => {
                             <GameCardBasic key={videoGame.id} videoGame={videoGame} wrapperExtraClasses='py-4' />
                         ))}
                     </div>
-
                 </div>
                 <Pagination
                     itemsPerPage={itemsPerPage}
