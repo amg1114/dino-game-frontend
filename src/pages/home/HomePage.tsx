@@ -2,11 +2,11 @@ import { Outlet } from 'react-router';
 import { CategoriesSection } from './components/CategoriesSection';
 import { GamesSection } from './components/GamesSection';
 import { useHomePage } from './hooks/useHomePage';
-import { NewsSection } from './components/NewsSection';
+import { PostsSection } from './components/PostsSection';
 import { GamesSlider } from './components/GamesSlider';
 import { usePageMetadata } from '../../hooks/usePageMetadata';
 export function HomePage() {
-  const { blogNews, freeGames, paidGames, discountedGames, categories, featuredGames } = useHomePage();
+  const { blogPosts, freeGames, paidGames, discountedGames, categories, featuredGames } = useHomePage();
 
   usePageMetadata({
     title: 'Home',
@@ -16,7 +16,7 @@ export function HomePage() {
   return (
     <div className="space-y-9">
       <GamesSlider data={featuredGames} />
-      <NewsSection data={blogNews} />
+      <PostsSection data={blogPosts} />
       <GamesSection title="Destacados Gratuitos" data={freeGames} />
       <GamesSection title="Destacados de Pago" data={paidGames} />
       <GamesSection title="Descuentos" data={discountedGames} />
