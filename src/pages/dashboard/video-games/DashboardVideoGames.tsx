@@ -1,7 +1,9 @@
+import { Plus } from 'lucide-react';
 import { StyledInput } from '../../../components/forms/StyledInput';
 import { Pagination } from '../../../components/pagination';
 import { GameCardBasic } from '../../../components/video-games/GameCardBasic';
 import { useDashboardGames } from './hooks/useDashboardGames';
+import { Link } from 'react-router';
 
 export function DashboardVideoGames() {
   const { games, totalGames, itemsPerPage, page, searchTerm, permissions, setPage, setSearchTerm, handleDelete } =
@@ -10,7 +12,12 @@ export function DashboardVideoGames() {
     <>
       <section className="space-y-6">
         <header className="grid grid-cols-3 gap-6">
-          <h1 className="col-span-full">Juegos en la tienda</h1>
+          <div className="col-span-full flex items-center gap-6">
+            <h1>Juegos en la tienda</h1>
+            <Link to="/dashboard/juegos/crear" className="primary-button group">
+              <Plus strokeWidth={4} />
+            </Link>
+          </div>
           <div className="col-span-full lg:col-span-2">
             <StyledInput
               id="search"
