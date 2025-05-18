@@ -1,13 +1,17 @@
-import { useReportesPage } from "./hooks/useReportesPage";
+
+import { ReportList } from "./components/ReportList";
+import SearchReport from "./components/SearchReport";
+import { ReportesProvider } from "./hooks/useReportsContext";
 
 export function Reports() {
-    const { data } = useReportesPage();
-
-    if (!data) return <p>Cargando</p>;
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className=" gap-2">
             <h1 className="text-2xl font-bold">Reportes</h1>
+            <ReportesProvider>
+                <SearchReport />
+                <ReportList />
+            </ReportesProvider>
         </div>
     );
 

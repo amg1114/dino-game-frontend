@@ -28,7 +28,7 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
-import { ReportList } from './pages/reports/components/ReportList';
+import { Reports } from './pages/reports/Reports';
 
 export function App() {
   const router = createBrowserRouter([
@@ -108,7 +108,7 @@ export function App() {
             },
             {
               path: 'reportes',
-              element: <ReportList />,
+              element: <Reports />,
             }
           ],
         },

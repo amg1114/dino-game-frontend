@@ -3,6 +3,7 @@ import { Report } from "../../../models/report.interface";
 import { useAlert } from "../../../hooks/useAlert";
 import { useCallback } from "react";
 import { useUpdateReport } from "../hooks/useUpdateReport";
+import { useReportes } from "../hooks/useReportsContext";
 
 
 
@@ -15,6 +16,7 @@ interface ReportCardProps {
 export function ReportCard({ report, wrapperExtraClasses }: ReportCardProps) {
     const { showAlert } = useAlert();
     const { updateReport } = useUpdateReport();
+    const { refetch } = useReportes();
 
     const handleAccept = useCallback(() => {
         showAlert({
@@ -28,6 +30,7 @@ export function ReportCard({ report, wrapperExtraClasses }: ReportCardProps) {
                 if (confirm) {
                     try {
                         await updateReport(report.id, { state: "APPROVED" });
+                        refetch();
                         showAlert({
                             title: 'Reporte',
                             message: 'El reporte ha sido aceptado correctamente.',
@@ -61,6 +64,7 @@ export function ReportCard({ report, wrapperExtraClasses }: ReportCardProps) {
                 if (confirm) {
                     try {
                         await updateReport(report.id, { state: "REJECTED" });
+                        refetch();
                         showAlert({
                             title: 'Reporte',
                             message: 'El reporte ha sido rechazado correctamente.',

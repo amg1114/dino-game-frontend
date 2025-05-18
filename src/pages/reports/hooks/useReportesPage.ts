@@ -12,17 +12,19 @@ export function useReportesPage() {
     const [data, setData] = useState<Report[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [search, setSearch] = useState<string>('');
     const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 4, windowWidth: 768 }], 15)
     const [totalItems, setTotalItems] = useState(0);
 
-    useEffect(() => {
+    const fetchData = () => {
         setLoading(true);
         setError(null)
         axios
-            .get(`/api/reports?limit=${itemsPerPage}&offset=${page}`)
+            .get(`/api/reports?limit=${itemsPerPage}&offset=${page}&search=${search}`)
             .then(function (resp) {
                 const data = resp.data.data;
                 console.log(data);
+                console.log('este es el search: ' + search)
                 setData(data);
                 setLoading(false);
                 setTotalItems(resp.data.total);
@@ -30,7 +32,22 @@ export function useReportesPage() {
             .catch(function (err) {
                 console.error(err);
             });
-    }, [page, itemsPerPage])
+    }
 
-    return { data, loading, error, itemsPerPage, totalItems, page, setPage };
+    useEffect(() => {
+        fetchData();
+    }, [page, itemsPerPage, search]);
+
+    return {
+        data,
+        loading,
+        error,
+        itemsPerPage,
+        totalItems,
+        page,
+        setPage,
+        search,
+        setSearch,
+        refetch: fetchData
+    };
 }
