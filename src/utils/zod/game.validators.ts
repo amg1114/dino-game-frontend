@@ -18,6 +18,36 @@ async function loadImage(file: File): Promise<HTMLImageElement> {
   });
 }
 
+const versionFileSchema = z
+  .custom<File | null>()
+  .refine((file) => file !== null, {
+    message: 'Debes subir un archivo.',
+  })
+  .superRefine(async (file, ctx) => {
+    if (!file) return;
+    // Validar tamaño
+    if (file.size > MAX_SIZE) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'El archivo debe pesar menos de 10MB.',
+      });
+    }
+    // Validar tipo MIME
+    if (!file.type.startsWith('application/')) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Solo se permiten archivos.',
+      });
+      return;
+    }
+    if (!['application/zip', 'application/x-zip-compressed'].includes(file.type)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Formato de archivo no permitido. Solo se permiten ZIP.',
+      });
+    }
+  });
+
 const imageSchema = z
   .custom<File | null>()
   .refine((file) => file !== null, {
@@ -72,7 +102,7 @@ const imageSchema = z
 const multipleImagesSchema = z
   .custom<FileList | null>()
   .transform((fileList) => (fileList ? Array.from(fileList) : [])) // Convertir FileList a File[]
-  .refine((files) => files && files.length !== MAX_FILES, {
+  .refine((files) => files && files.length === MAX_FILES, {
     message: `Debes subir exactamente ${MAX_FILES} imágenes.`,
   })
   .superRefine(async (files, ctx) => {
@@ -89,6 +119,13 @@ const multipleImagesSchema = z
     }
   });
 
+export const versionFormSchema = z.object({
+  version: z.string().min(1, 'La versión es obligatoria').nonempty('La versión no puede estar vacía'),
+  descripcion: z.string().min(1, 'La descripción es obligatoria').nonempty('La descripción no puede estar vacía'),
+  requirements: z.array(z.string()).min(1, 'Los requisitos son obligatorios'),
+  file: versionFileSchema,
+});
+
 export const gameFormSchema = z.object({
   titulo: z.string().min(1, 'El título es obligatorio').nonempty('El título no puede estar vacío'),
   descripcion: z.string().min(1, 'La descripción es obligatoria').nonempty('La descripción no puede estar vacía'),
@@ -97,4 +134,5 @@ export const gameFormSchema = z.object({
   thumb: imageSchema,
   hero: imageSchema,
   assets: multipleImagesSchema,
+  version: z.array(versionFormSchema).min(1, 'Debes subir al menos una versión'),
 });

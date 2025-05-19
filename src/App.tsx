@@ -30,6 +30,7 @@ import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/S
 
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { DashboardVideoGames } from './pages/dashboard/video-games/DashboardVideoGames';
+import { CreateVideoGame } from './pages/dashboard/video-games/create/CreateVideoGame';
 
 export function App() {
   const router = createBrowserRouter([
@@ -110,6 +111,10 @@ export function App() {
             {
               path: 'juegos',
               element: <DashboardVideoGames />,
+            },
+            {
+              path: 'juegos/crear',
+              element: <CreateVideoGame />,
             },
           ],
         },

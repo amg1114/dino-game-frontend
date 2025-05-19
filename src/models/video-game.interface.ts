@@ -14,6 +14,7 @@ export interface VideoGame {
   categorias: Categoria[];
   descuentos: Descuento[];
   puntaje: number;
+  versiones?: Version[];
 }
 
 export interface UserVideoGame {
@@ -23,4 +24,12 @@ export interface UserVideoGame {
   fechaCompra: Date;
   precio: number;
   videoGame: VideoGame;
+}
+
+export interface Version {
+  version: string;
+  descripcion: string;
+  id: number;
+  createdAt: Date;
+  deletedAt: null;
 }
