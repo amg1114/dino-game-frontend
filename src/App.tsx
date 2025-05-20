@@ -28,6 +28,8 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
+import { DescuentoList } from './pages/descuentos/components/DescuentoList';
+import { DescuentoPage } from './pages/descuentos/DescuentoPage';
 
 export function App() {
   const router = createBrowserRouter([
@@ -105,6 +107,16 @@ export function App() {
               index: true,
               element: <Dashboard />,
             },
+            {
+              path: 'juegos/:id/descuentos',
+              element: <DescuentoList />,
+              children: [
+                {
+                  path: 'nuevo',
+                  element: <DescuentoPage />,
+                }]
+            }
+
           ],
         },
         { path: 'unauthorized', element: <Unauthorized /> },
