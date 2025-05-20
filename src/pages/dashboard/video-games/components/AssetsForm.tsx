@@ -6,7 +6,7 @@ export function AssetsForm(props: GameFormStepProps) {
   return (
     <>
       <p>Las imágenes deben tener una relación de aspecto de 16x9. Se recomienda un tamaño de 1280x720px.</p>
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-4 max-md:flex-col">
         <StyledFileInput file={form.thumb} name="thumb" id="thumb" onChange={(e) => props.handleChange(e)} />
         <div>
           <h3 className="leading-none">Miniatura</h3>
@@ -17,7 +17,7 @@ export function AssetsForm(props: GameFormStepProps) {
         </div>
       </div>
 
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-4 max-md:flex-col">
         <StyledFileInput file={form.hero} name="hero" id="hero" onChange={(e) => props.handleChange(e)} />
         <div>
           <h3 className="leading-none">Imágen Principal</h3>
