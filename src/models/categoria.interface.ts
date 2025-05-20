@@ -1,6 +1,6 @@
 export interface Categoria {
   id: number;
   titulo: string;
-  descripcion: null;
+  descripcion: string;
   slug: string;
 }

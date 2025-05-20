@@ -27,6 +27,11 @@ import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/Profi
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { ManageCategories } from './pages/manageCategories/ManageCategories';
+import { CreateCategory } from './pages/manageCategories/CreateCategoria';
+import { UpdateCategory } from './pages/manageCategories/UpdateCategory';
+
+
 
 export function App() {
   const router = createBrowserRouter([
@@ -99,6 +104,20 @@ export function App() {
             {
               index: true,
               element: <Dashboard />,
+            },
+            {
+              path: 'categorias',
+              element: <ManageCategories />,
+              children: [
+                {
+                  path: 'create',
+                  element: <CreateCategory />
+                },
+                {
+                  path: 'update/:slugCategoria',
+                  element: <UpdateCategory />
+                }
+              ]
             },
           ],
         },
