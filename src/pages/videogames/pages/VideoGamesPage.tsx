@@ -1,9 +1,10 @@
-import { StyledInput } from "../../components/forms/StyledInput";
-import { Pagination } from "../../components/pagination";
-import { GameCardBasic } from "../../components/video-games/GameCardBasic";
-import { CategoryFilterVideoGamesInput } from "./components/CategoryFilterVideoGamesInput";
-import { SearchVideoGamesInput } from "./components/SearchVideoGamesInput";
-import { useVideoGames } from "./hooks/useVideoGames";
+import { StyledInput } from "../../../components/forms/StyledInput";
+import { Pagination } from "../../../components/pagination";
+import { GameCardBasic } from "../../../components/video-games/GameCardBasic";
+import { CategoryFilterVideoGamesInput } from "../components/CategoryFilterVideoGamesInput";
+import { SearchVideoGamesInput } from "../components/SearchVideoGamesInput";
+import { useVideoGames } from "../hooks/useVideoGames";
+import { Link } from "react-router";
 
 export function VideoGamesPage() {
 
@@ -37,7 +38,9 @@ export function VideoGamesPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-4">
                 {data.map((videoGame) => (
-                    <GameCardBasic videoGame={videoGame} key={videoGame.id} />
+                    <Link to={`/juegos/${videoGame.slug}`} key={videoGame.id} className="no-underline">
+                        <GameCardBasic videoGame={videoGame} key={videoGame.id} />
+                    </Link>
                 ))}
             </div>
             <Pagination

@@ -28,7 +28,8 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
-import { VideoGamesPage } from './pages/videogames/VideoGamesPage';
+import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
+import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
 
 export function App() {
   const router = createBrowserRouter([
@@ -111,6 +112,10 @@ export function App() {
         {
           path: 'juegos',
           element: <VideoGamesPage />,
+        },
+        {
+          path: 'juegos/:slug',
+          element: <VideoGamePageInfo />,
         },
         { path: 'unauthorized', element: <Unauthorized /> },
       ],

@@ -1,6 +1,8 @@
 import { Asset } from './asset.interface';
 import { Categoria } from './categoria.interface';
 import { Descuento } from './descuento.interface';
+import { Usuario } from './user.interface';
+import { Version } from './version.interface';
 
 export interface VideoGame {
   id: number;
@@ -14,6 +16,9 @@ export interface VideoGame {
   categorias: Categoria[];
   descuentos: Descuento[];
   puntaje: number;
+  assets: Asset[];
+  developer: Usuario;
+  versions: Version[]
 }
 
 export interface UserVideoGame {
