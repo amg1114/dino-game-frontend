@@ -5,7 +5,7 @@ export interface StyledInputProps {
   id: string;
   type: string;
   placeholder: string;
-  value: string;
+  value: string | number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   name?: string;

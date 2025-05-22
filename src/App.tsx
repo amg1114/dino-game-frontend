@@ -29,7 +29,7 @@ import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/S
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
 import { DescuentoList } from './pages/descuentos/components/DescuentoList';
-import { DescuentoPage } from './pages/descuentos/DescuentoPage';
+import { DescuentoForm } from './pages/descuentos/components/DescuentoForm';
 
 export function App() {
   const router = createBrowserRouter([
@@ -113,7 +113,7 @@ export function App() {
               children: [
                 {
                   path: 'nuevo',
-                  element: <DescuentoPage />,
+                  element: <DescuentoForm />,
                 }]
             }
 

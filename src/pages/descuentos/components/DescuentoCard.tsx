@@ -2,6 +2,7 @@
 import { CalendarCheck, CalendarX, Trash2 } from "lucide-react";
 import { Descuento } from "../../../models/descuento.interface";
 import { formatPrice } from "../../../utils/formatPrice";
+import { useDeleteDescuento } from "../hooks/useDeleteDescuento";
 
 interface DescuentoCardProps {
     descuento: Descuento;
@@ -9,6 +10,7 @@ interface DescuentoCardProps {
 }
 
 export function DescuentoCard({ descuento }: DescuentoCardProps) {
+    const handleDelete = useDeleteDescuento(descuento.videoGame.id, descuento.id);
     return (
         <div className="grid grid-cols-6 gap-5 items-center border-t border-placeholder-2 p-4">
             <div className="flex items-center gap-2">
@@ -39,7 +41,10 @@ export function DescuentoCard({ descuento }: DescuentoCardProps) {
                 </span>
             </div>
             <div className="flex items-center justify-end">
-                <Trash2 className="rounded-sm p-1 bg-red h-7 w-10" />
+                <button onClick={handleDelete} className="hover:scale-110" >
+                    <Trash2 className="rounded-sm p-1 bg-red h-7 w-10" />
+                </button>
+
             </div>
         </div>
     );

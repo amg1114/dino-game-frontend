@@ -1,25 +1,36 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export function useNewDescuento(id: number | string | null) {
+    const navigate = useNavigate();
     const [descuento, setDescuento] = useState({
         porcentaje: 0,
-        fecha_inicio: "",
-        fecha_fin: "",
-        video_game_id: id,
+        fechaInicio: "",
+        fechaFin: "",
     });
 
-    useEffect(() => {
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        console.log("este es setDescuento", setDescuento)
+        setDescuento((prevDescuento) => ({
+            ...prevDescuento,
+            [id]: value,
+        }));
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
         axios
-            .post(`api/video-games/${id}/descuentos`)
+            .post(`/api/video-games/${id}/descuentos`, descuento)
             .then((res) => {
-                const data = res.data;
-                console.log(data);
-                setDescuento(data);
+                console.log(res.data);
+                navigate(`/dashboard/juegos/${id}/descuentos`);
             })
             .catch((err) => {
                 console.error(err);
-            })
-    }, [])
-    return { descuento };
+            });
+    };
+    return { descuento, handleChange, navigate, handleSubmit };
 }
