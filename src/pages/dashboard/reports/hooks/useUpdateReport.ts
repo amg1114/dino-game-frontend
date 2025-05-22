@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Report } from "../../../models/report.interface";
+import { Report } from "../../../../models/report.interface";
 
 
 

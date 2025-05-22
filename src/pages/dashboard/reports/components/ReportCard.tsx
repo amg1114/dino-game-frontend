@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import { Report } from "../../../models/report.interface";
-import { useAlert } from "../../../hooks/useAlert";
+import { Report } from "../../../../models/report.interface";
+import { useAlert } from "../../../../hooks/useAlert";
 import { useCallback } from "react";
 import { useUpdateReport } from "../hooks/useUpdateReport";
 import { useReportes } from "../hooks/useReportsContext";

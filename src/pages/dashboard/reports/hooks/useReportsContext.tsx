@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { useReportesPage } from "../hooks/useReportesPage";
+import { useReportesPage } from "./useReportesPage";
 import { ReactNode } from "react";
 
 type ReportesContextType = ReturnType<typeof useReportesPage>;

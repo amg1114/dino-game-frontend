@@ -1,4 +1,4 @@
-import { Pagination } from "../../../components/pagination";
+import { Pagination } from "../../../../components/pagination";
 import { useReportes } from "../hooks/useReportsContext";
 import { ReportCard } from "./ReportCard";
 import { ReportPlaceHolder } from "./ReportPlaceHolder";

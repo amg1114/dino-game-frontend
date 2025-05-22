@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Report } from "../../../models/report.interface";
-import { usePagination } from "../../../hooks/usePagination";
+import { Report } from "../../../../models/report.interface";
+import { usePagination } from "../../../../hooks/usePagination";
 
 export interface FetchResponse<T> {
     data: T[];

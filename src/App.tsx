@@ -28,7 +28,7 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
-import { Reports } from './pages/reports/Reports';
+import { Reports } from './pages/dashboard/reports/Reports';
 
 export function App() {
   const router = createBrowserRouter([

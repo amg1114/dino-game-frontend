@@ -1,4 +1,4 @@
-import { StyledInput } from '../../../components/forms/StyledInput';
+import { StyledInput } from '../../../../components/forms/StyledInput';
 import { useReportes } from '../hooks/useReportsContext';
 
 function SearchReport() {
