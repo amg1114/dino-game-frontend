@@ -1,6 +1,13 @@
-import { TypeReport } from "./type-report";
 import { Usuario } from "./user.interface";
 import { VideoGame } from "./video-game.interface";
+
+export interface TypeReport {
+    id: number;
+    createdAt: Date;
+    deletedAt: null;
+    description: string;
+    title: string;
+}
 
 export interface Report {
     id: number;
@@ -11,3 +18,4 @@ export interface Report {
     user?: Usuario
     videoGame?: VideoGame
 }
+

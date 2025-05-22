@@ -4,6 +4,7 @@ import { useAlert } from "../../../hooks/useAlert";
 import { useCallback } from "react";
 import { useUpdateReport } from "../hooks/useUpdateReport";
 import { useReportes } from "../hooks/useReportsContext";
+import { CircleX, SquareCheck } from "lucide-react";
 
 
 
@@ -89,26 +90,15 @@ export function ReportCard({ report, wrapperExtraClasses }: ReportCardProps) {
 
 
     return (
-        <article className={`flex h-full flex-col bg-placeholder rounded-sm p-2 ${wrapperExtraClasses}`}>
+        <article className={`flex h-full flex-col bg-placeholder rounded-sm p-5 ${wrapperExtraClasses}`}>
             <section className="flex justify-between mb-2">
                 <h3 className="leading-none md:text-2xl">REPORT #{report.id}</h3>
                 <div className="flex gap-2">
-                    <button className="cursor-pointer" onClick={handleReject}>
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_647_2595)">
-                                <path d="M11.25 6.75L6.75 11.25M6.75 6.75L11.25 11.25M16.5 9C16.5 13.1421 13.1421 16.5 9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9Z" stroke="#3DAB7B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_647_2595">
-                                    <rect width="18" height="18" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
+                    <button className="cursor-pointer hover:scale-110" onClick={handleReject}>
+                        <CircleX className="text-green" />
                     </button>
-                    <button className="cursor-pointer" onClick={handleAccept}>
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.75 9L8.25 10.5L11.25 7.5M3.75 2.25H14.25C15.0784 2.25 15.75 2.92157 15.75 3.75V14.25C15.75 15.0784 15.0784 15.75 14.25 15.75H3.75C2.92157 15.75 2.25 15.0784 2.25 14.25V3.75C2.25 2.92157 2.92157 2.25 3.75 2.25Z" stroke="#B95959" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                    <button className="cursor-pointer hover:scale-110" onClick={handleAccept}>
+                        <SquareCheck className="text-red " />
                     </button>
 
                 </div>

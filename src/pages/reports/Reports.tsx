@@ -7,7 +7,7 @@ export function Reports() {
 
     return (
         <div className=" gap-2">
-            <h1 className="text-2xl font-bold">Reportes</h1>
+            <h1>Reportes</h1>
             <ReportesProvider>
                 <SearchReport />
                 <ReportList />
