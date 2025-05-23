@@ -34,11 +34,9 @@ export function useCategories(): CategoriaRetornada & { refetch: () => void } {
     }
 
     useEffect(() => {
-
         fecthCategories();
 
-
-    }, [page]);
+    }, [page, itemsPerPage]);
 
     return { categories: categories, loading, page, itemsPerPage, setPage, totalItems, refetch: fecthCategories }
 }
