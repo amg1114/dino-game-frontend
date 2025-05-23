@@ -16,7 +16,7 @@ export function ManageCategories() {
             refetch();
             window.history.replaceState({}, document.title);
         }
-    }, [location.state, refetch]);
+    }, [location.state]);
 
     if (loading) return <p>Cargando Categorias</p>;
     if (!categories) return <p>No hay categorias</p>;

@@ -44,7 +44,7 @@ export function useUpdateCategory(slug: string) {
                 });
                 navigate('/dashboard/categorias');
             });
-    }, [slug, navigate, showAlert]);
+    }, [slug]);
 
     useEffect(() => {
         if (data.titulo.length === 0 && data.descripcion.length === 0) {
