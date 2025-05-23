@@ -1,16 +1,26 @@
 import { SquarePlus } from "lucide-react";
 import { CategoriaCard } from "./components/CategoriaCard";
-import { Pagination } from "../../components/pagination";
+import { Pagination } from "../../../components/pagination";
 import { useSearchCategory, useCategories } from "./hooks/useCategories";
-import { StyledInput } from "../../components/forms/StyledInput";
-import { Link, Outlet } from "react-router";
+import { StyledInput } from "../../../components/forms/StyledInput";
+import { Link, Outlet, useLocation } from "react-router";
+import { useEffect } from "react";
 
 export function ManageCategories() {
-    const { categories, loading, page, itemsPerPage, setPage, totalItems } = useCategories();
+    const { categories, loading, page, itemsPerPage, setPage, totalItems, refetch } = useCategories();
     const { query, setQuery, result, } = useSearchCategory()
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.needsRefresh) {
+            refetch();
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state, refetch]);
 
     if (loading) return <p>Cargando Categorias</p>;
     if (!categories) return <p>No hay categorias</p>;
+
 
     return (
         <div>
@@ -21,7 +31,7 @@ export function ManageCategories() {
                 </Link>
             </div>
             <h4 className="my-3">buscar</h4>
-            <div className="mt-2 mb-4">
+            <div className="mt-2 mb-4 md:w-1/2">
                 <StyledInput
                     id="searchCategory"
                     type="input"

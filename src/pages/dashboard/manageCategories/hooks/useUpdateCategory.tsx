@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import { useAlert } from "../../../hooks/useAlert";
+import { useAlert } from "../../../../hooks/useAlert";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { InputFormsSchema } from "../../../utils/zod/user.validators";
 import { z } from "zod";
+import { InputFormsSchema } from "../../../../utils/zod/category.validator";
 
 export function useUpdateCategory(slug: string) {
     const { showToast, showAlert } = useAlert();
@@ -14,7 +14,8 @@ export function useUpdateCategory(slug: string) {
     const [data, setData] = useState({
         id: "",
         titulo: "",
-        descripcion: ""
+        descripcion: "",
+        videoGames: []
     });
 
     const [touched, setTouched] = useState({ titulo: false, descripcion: false });
@@ -43,7 +44,7 @@ export function useUpdateCategory(slug: string) {
                 });
                 navigate('/dashboard/categorias');
             });
-    }, [slug]);
+    }, [slug, navigate, showAlert]);
 
     useEffect(() => {
         if (data.titulo.length === 0 && data.descripcion.length === 0) {
@@ -72,13 +73,20 @@ export function useUpdateCategory(slug: string) {
 
     const updateCategoria = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!data.titulo || !data.descripcion) {
+            showAlert({
+                type: 'error',
+                title: 'Campos vacíos',
+                message: 'No pueden haber campos vacíos',
+                duration: 2000
+            })
+        }
         try {
             InputFormsSchema.parse(data);
             setErrorTitulo("");
             setErrorDescripcion("");
 
             axios
-
                 .patch(`/api/categorias/${data.id}`, {
                     titulo: data.titulo,
                     descripcion: data.descripcion
@@ -87,17 +95,13 @@ export function useUpdateCategory(slug: string) {
                     showToast({
                         type: 'success',
                         message: 'Categoría actualizada correctamente',
-                        duration: 4000
+                        duration: 3000
                     });
                     setTimeout(() => {
-                        navigate('/dashboard/categorias');
+                        navigate('/dashboard/categorias', { state: { needsRefresh: true } });
                     }, 800);
                 })
                 .catch((e) => {
-                    console.log('actualizando con datoos:  ', data);
-                    console.log('slug enviado-->>', slug);
-                    console.log('id enviado-->>', data.id);
-                    console.log('error', e);
                     if (e.response?.status === 404) {
                         setErrorTitulo('La categoría no fue encontrada');
                         setErrorDescripcion("");
@@ -129,6 +133,5 @@ export function useUpdateCategory(slug: string) {
         errorDescripcion,
         handleChange,
         updateCategoria,
-        navigate
     };
 }

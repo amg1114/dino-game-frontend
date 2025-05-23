@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import { useAlert } from "../../../hooks/useAlert";
+import { useAlert } from "../../../../hooks/useAlert";
 import { useEffect, useState } from "react";
-import { InputFormsSchema } from "../../../utils/zod/user.validators";
 import { z } from "zod";
 import axios from "axios";
+import { InputFormsSchema } from "../../../../utils/zod/category.validator";
 
 export function useCreateCategory() {
     const ENDPOINT = '/api/categorias';
@@ -56,6 +56,19 @@ export function useCreateCategory() {
 
     const createCategoria = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        setTouched({ titulo: true, descripcion: true })
+
+        if (!data.descripcion.trim()) {
+            showAlert({
+                type: 'error',
+                title: 'Falta la descripción',
+                message: "Debes añadir una descripción a la categoria",
+                duration: 3000
+            })
+            setErrorDescripcion("La descripción no puede estar vacía")
+        }
+
         try {
             InputFormsSchema.parse(data);
             setErrorTitulo("");
@@ -66,13 +79,14 @@ export function useCreateCategory() {
                 .post(ENDPOINT, data)
                 .then((resp) => {
                     setData(resp.data);
+
                     showToast({
                         type: 'success',
                         message: 'Se creó la categoría existosamente',
                         duration: 4000
                     });
                     setTimeout(() => {
-                        navigate('/dashboard/categorias');
+                        navigate('/dashboard/categorias', { state: { needsRefresh: true } });
                     }, 800);
                 })
                 .catch((e) => {
@@ -92,15 +106,13 @@ export function useCreateCategory() {
             if (error instanceof z.ZodError) {
                 console.log('error de validacion zod:', error.errors)
                 for (const err of error.errors) {
-                    if (err.path[0] === 'titulo' && touched.titulo) {
+                    if (err.path[0] === 'titulo') {
                         setErrorTitulo(err.message);
-
                     } else if (err.path[0] === 'descripcion' && touched.descripcion) {
-                        setErrorDescripcion(err.message);
+                        setErrorDescripcion('La categoría no puede estar vacía')
                     }
                 }
             };
-
         }
     }
 

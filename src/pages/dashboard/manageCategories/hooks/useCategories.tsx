@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { usePagination } from "../../../hooks/usePagination";
-import { Categoria } from "../../../models/categoria.interface";
+import { usePagination } from "../../../../hooks/usePagination";
+import { Categoria } from "../../../../models/categoria.interface";
 
 interface CategoriaRetornada {
     categories: Categoria[];
@@ -11,13 +11,14 @@ interface CategoriaRetornada {
     setPage: (page: number) => void;
     totalItems: number;
 }
-export function useCategories(): CategoriaRetornada {
+
+export function useCategories(): CategoriaRetornada & { refetch: () => void } {
     const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 3, windowWidth: 760 }], 9);
     const [categories, setCategories] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+    const fecthCategories = () => {
         setLoading(true);
         axios
             .get(`/api/categorias?limit=${itemsPerPage}&offset=${page}`)
@@ -30,9 +31,16 @@ export function useCategories(): CategoriaRetornada {
                 console.error(err);
                 setLoading(false);
             });
-    }, [page, itemsPerPage]);
+    }
 
-    return { categories: categories, loading, page, itemsPerPage, setPage, totalItems }
+    useEffect(() => {
+
+        fecthCategories();
+
+
+    }, [page]);
+
+    return { categories: categories, loading, page, itemsPerPage, setPage, totalItems, refetch: fecthCategories }
 }
 
 interface searchProps {

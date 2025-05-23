@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { InputFormsComponent } from "../../components/InputForms";
+import { CategoryFormsComponent } from "./components/CategoryForms";
 import { useUpdateCategory } from "./hooks/useUpdateCategory";
 
 export function UpdateCategory() {
@@ -10,7 +10,7 @@ export function UpdateCategory() {
     if (!slugCategoria) return <p>Categoría no encontrada </p>;
     return (
         <div>
-            <InputFormsComponent
+            <CategoryFormsComponent
                 modalId="update-category"
                 modalTitle="Actualiza la categoría"
                 redirecTo="/dashboard/categorias"

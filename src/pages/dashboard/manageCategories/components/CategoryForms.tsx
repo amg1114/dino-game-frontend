@@ -1,9 +1,9 @@
-import { StyledInput } from "./forms/StyledInput";
-import { StyledTextArea } from "./forms/StyledTextArea";
-import { Modal } from "./Modal";
+import { StyledInput } from "../../../../components/forms/StyledInput";
+import { StyledTextArea } from "../../../../components/forms/StyledTextArea";
+import { Modal } from "../../../../components/Modal";
 import { useNavigate } from "react-router";
 
-interface InputFormsProps {
+interface FormsProps {
     modalId: string;
     modalTitle: string;
     redirecTo: string;
@@ -17,11 +17,11 @@ interface InputFormsProps {
     };
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    buttonLabel?: string;
-    buttonLabelTwo?: string;
+    saveButton?: string;
+    exitButton?: string;
 }
 
-export function InputFormsComponent({
+export function CategoryFormsComponent({
     modalId,
     modalTitle,
     redirecTo,
@@ -29,9 +29,9 @@ export function InputFormsComponent({
     errors = {},
     onChange,
     onSubmit,
-    buttonLabel = "Guardar",
-    buttonLabelTwo = "Salir"
-}: InputFormsProps) {
+    saveButton = "Guardar",
+    exitButton = "Cancelar"
+}: FormsProps) {
 
     const navigate = useNavigate();
 
@@ -63,13 +63,15 @@ export function InputFormsComponent({
                             errors={errors?.descripcion}
                         />
                     </div>
+                    <div className="flex flex-col w-1/4">
+                        <button type="submit" className="mb-4 text-white font-medium bg-green mt-4 rounded p-2 hover:cursor-pointer hover:bg-white hover:text-green">
+                            {saveButton}
+                        </button>
+                        <button onClick={salir} className="bg-white p-2 rounded text-green hover:cursor-pointer hover:bg-green hover:text-white">
+                            {exitButton}
+                        </button>
+                    </div>
 
-                    <button type="submit" className="text-white bg-green mt-4 rounded p-2 hover:cursor-pointer hover:bg-white hover:text-green">
-                        {buttonLabel}
-                    </button>
-                    <button onClick={salir} className="ml-6 bg-green p-2 rounded text-white hover:cursor-pointer hover:bg-white hover:text-green">
-                        {buttonLabelTwo}
-                    </button>
                 </form>
             </Modal>
         </div>

@@ -1,4 +1,4 @@
-import { InputFormsComponent } from "../../components/InputForms";
+import { CategoryFormsComponent } from "./components/CategoryForms";
 import { useCreateCategory } from "./hooks/useCreateCategory";
 
 export function CreateCategory() {
@@ -12,7 +12,7 @@ export function CreateCategory() {
 
     return (
         <div>
-            <InputFormsComponent
+            <CategoryFormsComponent
                 modalId="create-category"
                 modalTitle="Nueva Categoría"
                 redirecTo="/dashboard/categorias"
