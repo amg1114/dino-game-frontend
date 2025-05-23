@@ -1,9 +1,9 @@
 import { StyledInput } from "../../../components/forms/StyledInput";
 import { Pagination } from "../../../components/pagination";
 import { GameCardBasic } from "../../../components/video-games/GameCardBasic";
-import { CategoryFilterVideoGamesInput } from "../components/CategoryFilterVideoGamesInput";
-import { SearchVideoGamesInput } from "../components/SearchVideoGamesInput";
-import { useVideoGames } from "../hooks/useVideoGames";
+import { CategoryFilterVideoGamesInput } from "../components/videogames/CategoryFilterVideoGamesInput";
+import { SearchVideoGamesInput } from "../components/videogames/SearchVideoGamesInput";
+import { useVideoGames } from "../hooks/videogames/useVideoGames";
 import { Link } from "react-router";
 
 export function VideoGamesPage() {

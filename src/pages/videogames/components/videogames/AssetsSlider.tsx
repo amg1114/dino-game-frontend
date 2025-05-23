@@ -1,6 +1,6 @@
-import { Asset } from '../../../models/asset.interface';
-import { VideoGame } from '../../../models/video-game.interface';
-import { useAssetsSlider } from '../hooks/useAssetsSlider';
+import { Asset } from '../../../../models/asset.interface';
+import { VideoGame } from '../../../../models/video-game.interface';
+import { useAssetsSlider } from '../../hooks/videogames/useAssetsSlider';
 
 export function AssetsSlider({ videoGame }: { videoGame: VideoGame }) {
     const slider = useAssetsSlider(videoGame);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { VideoGame } from "../../../models/video-game.interface";
+import { VideoGame } from "../../../../models/video-game.interface";
 import axios from "axios";
-import { usePagination } from "../../../hooks/usePagination";
+import { usePagination } from "../../../../hooks/usePagination";
 
 export function useVideoGames() {
     const [data, setData] = useState<VideoGame[]>([]);
@@ -16,8 +16,6 @@ export function useVideoGames() {
 
 
     useEffect(() => {
-        console.log("inputCategoria", inputCategoria);
-        console.log("inputPrice", inputPrice);
         let ENDPOINT = `/api/video-games?limit=${itemsPerPage}&offset=${page}`;
 
         if (inputCategoria) {
@@ -28,14 +26,12 @@ export function useVideoGames() {
             ENDPOINT += `&precio=${priceNumber}`;
         }
 
-        console.log(ENDPOINT);
         setLoading(true);
 
         axios.get(ENDPOINT)
             .then((response) => {
                 setData(response.data.data);
                 setTotalItems(response.data.total);
-                console.log(response.data);
             }
             )
             .catch((error) => {

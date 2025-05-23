@@ -1,7 +1,7 @@
 import React from "react";
-import { StyledSelect } from "../../../components/forms/StyledSelect";
-import { useHomePage } from "../../home/hooks/useHomePage";
-import type { Categoria } from "../../../models/categoria.interface";
+import { StyledSelect } from "../../../../components/forms/StyledSelect";
+import { useHomePage } from "../../../home/hooks/useHomePage";
+import type { Categoria } from "../../../../models/categoria.interface";
 
 interface CategoryFilterVideoGamesInputProps {
     inputCategoria: string;

@@ -19,7 +19,7 @@ export function GamePrice({
   return (
     <footer className={`flex flex-wrap-reverse w-fit ${wrapperClasses}`}>
       {descuentos.length === 0 && (
-        <Link to={`/video-games/${slug}`} className={`primary-button primary-button--xs mt-auto w-full flex-1 ${buttonClasses}`}>
+        <Link to={`/juegos/${slug}`} className={`primary-button primary-button--xs mt-auto w-full flex-1 ${buttonClasses}`}>
           {formatPrice(precio)}{currencyLabel && precio > 0 && <span className='ml-1'>{currencyLabel}</span>}
         </Link>
       )}

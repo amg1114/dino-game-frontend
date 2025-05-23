@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { VideoGame } from "../../../models/video-game.interface";
+import { VideoGame } from "../../../../models/video-game.interface";
 
 export function useAssetsSlider(videoGame: VideoGame) {
     const { titulo, assets } = videoGame;

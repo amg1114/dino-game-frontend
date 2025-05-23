@@ -1,14 +1,6 @@
 import { Link } from "react-router";
-import { VideoGame } from "../../../models/video-game.interface";
-import { GamePrice } from "../../../components/video-games/GamePrice";
-
-export interface VideoGameInfoTargetProps {
-    titulo: VideoGame["titulo"];
-    precio: VideoGame["precio"];
-    descripcion: VideoGame["descripcion"];
-    slug: VideoGame["slug"];
-    thumb: VideoGame["thumb"];
-}
+import { VideoGame } from "../../../../models/video-game.interface";
+import { GamePrice } from "../../../../components/video-games/GamePrice";
 
 export function VideoGameInfoTarget({ videoGame }: { videoGame: VideoGame }) {
     const { titulo, slug, thumb } = videoGame;

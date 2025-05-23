@@ -1,16 +1,11 @@
 import { StarIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { VideoGame } from "../../../../models/video-game.interface";
+import { useCalification } from "../../hooks/videogame/useCalification";
 
-export function Calification() {
-    const [calification, setCalification] = useState<number>(0);
+export function Calification({ game }: { game: VideoGame }) {
 
-    useEffect(() => {
+    const { calification, handleSetCalification } = useCalification(game);
 
-    }, [calification]);
-
-    const handleSetCalification = (value: number) => {
-        setCalification(value);
-    }
     return (
         <>
             <div className="flex items-center gap-2">
@@ -22,12 +17,14 @@ export function Calification() {
                             fill="#3dab7b"
                             color="#3dab7b"
                             onClick={() => handleSetCalification(i + 1)}
+                            className="hover:w-5 hover:h-5 hover:cursor-pointer"
                         />
                     ) : (
                         <StarIcon
                             key={i}
                             color="#3dab7b"
                             onClick={() => handleSetCalification(i + 1)}
+                            className="hover:w-5 hover:h-5 hover:cursor-pointer"
                         />
                     )
                 )}

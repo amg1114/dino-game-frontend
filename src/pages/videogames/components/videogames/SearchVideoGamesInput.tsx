@@ -1,10 +1,9 @@
-import { StyledInput } from "../../../components/forms/StyledInput";
+import { StyledInput } from "../../../../components/forms/StyledInput";
 import { VideoGameInfoTarget } from "./VideoGameInfoTarget";
-import { useSearchVideoGames } from "../hooks/useSearchVideoGames";
+import { useSearchVideoGames } from "../../hooks/videogames/useSearchVideoGames";
 
 export function SearchVideoGamesInput() {
     const { inputTitle, handleFocus, handleInputChange, focus, dataBySearch, handleBlur } = useSearchVideoGames()
-    console.log(focus)
     return (
         <div className="flex relative flex-col items-start justify-start w-full">
             <div className="-mt-8 w-full">
