@@ -18,8 +18,8 @@ import { PasswordReset } from './pages/auth/PasswordReset';
 
 import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
-import { NewsPage } from './pages/blog/BlogIndex';
-import { VistaNoticia } from './pages/blog/BlogEntry';
+import { BlogPage } from './pages/blog/BlogIndex';
+import { BlogEntry } from './pages/blog/BlogEntry';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
@@ -27,6 +27,7 @@ import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/Profi
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { CategoryPage } from './pages/category/CategoryPage';
 
 
 
@@ -64,11 +65,15 @@ export function App() {
         },
         {
           path: 'blog',
-          element: <NewsPage />,
+          element: <BlogPage />,
         },
         {
           path: 'blog/:slug',
-          element: <VistaNoticia />,
+          element: <BlogEntry />,
+        },
+        {
+          path: 'categorias/:slug',
+          element: <CategoryPage />
         },
         {
           path: 'perfil',
