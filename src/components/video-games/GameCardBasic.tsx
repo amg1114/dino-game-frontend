@@ -11,13 +11,18 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses }: GameCardBasicP
 
   return (
     <article className={`flex h-full flex-col ${wrapperExtraClasses}`}>
-
       <header className="mb-3">
-        <figure className="bg-placeholder aspect-video w-full overflow-hidden rounded">
-          <img src={videoGame.thumb.url} alt={videoGame.thumb.title} />
-        </figure>
+        <Link to={`/juegos/${videoGame.slug}`} className="block">
+          <figure className="bg-placeholder aspect-video w-full overflow-hidden rounded">
+            <img src={videoGame.thumb.url} alt={videoGame.thumb.title} />
+          </figure>
+        </Link>
       </header>
-      <h4 className="text-xl leading-none md:text-2xl">{videoGame.titulo}</h4>
+      <h4 className="text-xl leading-none md:text-2xl">
+        <Link to={`/juegos/${videoGame.slug}`} className="no-underline text-white hover:text-white/30">
+          {videoGame.titulo}
+        </Link>
+      </h4>
       <ul className="mb-2 flex flex-wrap gap-2">
         {videoGame.categorias.length ? (
           videoGame.categorias.map((categoria) => (
