@@ -28,6 +28,8 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 
+
+
 export function App() {
   const router = createBrowserRouter([
     {
@@ -91,7 +93,8 @@ export function App() {
               element: <SolicitudDesarrollador />,
             },
           ],
-        },
+        }
+        ,
         {
           path: 'dashboard',
           element: <ProfileLayout />,
