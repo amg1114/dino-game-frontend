@@ -49,7 +49,7 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses, adminPermissions
 
           {adminPermissions.canEdit && (
             <Link
-              to={`/dashboard/juegos/${videoGame.slug}/edit`}
+              to={`/dashboard/juegos/${videoGame.slug}/editar`}
               className="bg-green flex aspect-square cursor-pointer items-center justify-center rounded p-1 text-xl text-white transition-transform hover:scale-110"
             >
               <Edit />
