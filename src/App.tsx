@@ -28,6 +28,11 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
+import { ManageCategories } from '../src/pages/dashboard/manageCategories/ManageCategories';
+import { CreateCategory } from './pages/dashboard/manageCategories/CreateCategoria';
+import { UpdateCategory } from './pages/dashboard/manageCategories/UpdateCategory';
+
+
 
 export function App() {
   const router = createBrowserRouter([
@@ -104,6 +109,20 @@ export function App() {
             {
               index: true,
               element: <Dashboard />,
+            },
+            {
+              path: 'categorias',
+              element: <ManageCategories />,
+              children: [
+                {
+                  path: 'create',
+                  element: <CreateCategory />
+                },
+                {
+                  path: 'update/:slugCategoria',
+                  element: <UpdateCategory />
+                },
+              ]
             },
           ],
         },
