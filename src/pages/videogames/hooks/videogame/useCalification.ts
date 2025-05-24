@@ -17,7 +17,6 @@ export function useCalification(game: VideoGame) {
         axios.post('/api/video-games/' + slug, { puntaje: value })
             .then((r) => {
                 setCalification(value);
-                console.log("Calificacion creada", r.data);
                 const newCalification: UserCalificacion = {
                     calificacionID: r.data.id,
                     videoGameID: game.id,
