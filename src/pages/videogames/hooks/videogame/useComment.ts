@@ -1,19 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { CommentValidator } from "../../../../utils/zod/comment.validator";
 import { z } from "zod";
+import { useAuth } from "../../../../hooks/useAuth";
 
 export function useComment({ fetchData }: { fetchData: () => Promise<void> }) {
     const { slug } = useParams();
     const [comentario, setComentario] = useState("");
     const [error, setError] = useState("");
+    const { usuario } = useAuth();
+    const navigate = useNavigate();
 
     const handleComentarioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setComentario(e.target.value);
     };
 
     const handleComentarioSubmit = () => {
+        if (!usuario) {
+            navigate("/iniciar-sesion");
+            return;
+        }
         try {
             CommentValidator.parse(comentario);
             axios.post(`/api/video-games/${slug}/comentarios`, { comentario: comentario })
@@ -42,6 +49,7 @@ export function useComment({ fetchData }: { fetchData: () => Promise<void> }) {
         setComentario,
         handleComentarioChange,
         handleComentarioSubmit,
-        error
+        error,
+        usuario
     };
 }

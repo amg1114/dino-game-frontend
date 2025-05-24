@@ -4,7 +4,6 @@ import { GameCardBasic } from "../../../components/video-games/GameCardBasic";
 import { CategoryFilterVideoGamesInput } from "../components/videogames/CategoryFilterVideoGamesInput";
 import { SearchVideoGamesInput } from "../components/videogames/SearchVideoGamesInput";
 import { useVideoGames } from "../hooks/videogames/useVideoGames";
-import { Link } from "react-router";
 
 export function VideoGamesPage() {
 
@@ -38,9 +37,9 @@ export function VideoGamesPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-4">
                 {data.map((videoGame) => (
-                    <Link to={`/juegos/${videoGame.slug}`} key={videoGame.id} className="no-underline">
+                    <article key={videoGame.id} className="no-underline text-white hover:text-white/30">
                         <GameCardBasic videoGame={videoGame} key={videoGame.id} />
-                    </Link>
+                    </article>
                 ))}
             </div>
             <Pagination
