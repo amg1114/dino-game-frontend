@@ -6,7 +6,8 @@ import { useCallback } from "react";
 export function useDeleteDescuento(id: number | string | null, descuento: number | string | null) {
     const navigate = useNavigate();
     const { showToast, showAlert } = useAlert();
-    const handleDelete = useCallback(() => {
+
+    const handleDelete = useCallback((ObtenerDescuentos: () => void) => {
         showAlert({
             title: 'Eliminar descuento',
             message: '¿Estás seguro de que deseas eliminar este descuento?',
@@ -23,6 +24,7 @@ export function useDeleteDescuento(id: number | string | null, descuento: number
                                 message: 'Descuento eliminado correctamente',
                                 duration: 2000,
                             });
+                            ObtenerDescuentos();
                             navigate(`/dashboard/juegos/${id}/descuentos`);
                         })
                         .catch((err) => {

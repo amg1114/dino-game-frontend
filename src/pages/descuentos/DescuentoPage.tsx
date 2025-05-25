@@ -1,9 +1,13 @@
+import { useParams } from "react-router";
+import { DescuentoList } from "./components/DescuentoList";
+
 export function DescuentoPage() {
+    const { id } = useParams();
 
     return (
-        <div className="container">
-            <h1>Descuentos</h1>
-            <p>Esta es la página de descuentos.</p>
+        <div className="">
+            <DescuentoList id={id ?? ""} />
+
         </div>
     )
 }

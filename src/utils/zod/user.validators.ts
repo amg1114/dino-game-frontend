@@ -74,3 +74,5 @@ export const loginSchema = z.object({
   correo: emailSchema,
   password: passwordLoginSchema,
 });
+
+

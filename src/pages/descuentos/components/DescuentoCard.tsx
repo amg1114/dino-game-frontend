@@ -7,9 +7,12 @@ import { useDeleteDescuento } from "../hooks/useDeleteDescuento";
 interface DescuentoCardProps {
     descuento: Descuento;
     wapperExtraClasses?: string;
+    obtenerDescuentos: () => void;
 }
 
-export function DescuentoCard({ descuento }: DescuentoCardProps) {
+
+
+export function DescuentoCard({ descuento, obtenerDescuentos }: DescuentoCardProps) {
     const handleDelete = useDeleteDescuento(descuento.videoGame.id, descuento.id);
     return (
         <div className="grid grid-cols-6 gap-5 items-center border-t border-placeholder-2 p-4">
@@ -41,7 +44,7 @@ export function DescuentoCard({ descuento }: DescuentoCardProps) {
                 </span>
             </div>
             <div className="flex items-center justify-end">
-                <button onClick={handleDelete} className="hover:scale-110" >
+                <button onClick={() => handleDelete(obtenerDescuentos)} className="hover:scale-110" >
                     <Trash2 className="rounded-sm p-1 bg-red h-7 w-10" />
                 </button>
 

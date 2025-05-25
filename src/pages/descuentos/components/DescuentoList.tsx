@@ -1,33 +1,32 @@
+import { useDescuento } from "../hooks/useDescuento";
 import { DescuentoCard } from "./DescuentoCard";
 import { DescuentoColumnHeaders } from "./DescuentoColumnHeaders";
-import { useDescuento } from "../hooks/useDescuento";
-import { Link, Outlet, useParams } from "react-router";
+import { Link, Outlet } from "react-router";
 
+export function DescuentoList({ id }: { id: string | number }) {
+    const { data, loading, error, ObtenerDescuentos } = useDescuento(id ?? null);
 
-export function DescuentoList() {
-    const { id } = useParams();
-    console.log(id);
-    const { data, loading, error } = useDescuento(id ?? null);
-    console.log(data);
     return (
         <div className="flex flex-col justify-between">
-
-            <DescuentoColumnHeaders />
             <div>
-                <div>
-                    {loading && <p>Cargando...</p>}
-                    {error && <p>{error}</p>}
-
-                    {data &&
-                        data.map((descuento) => (
-                            <DescuentoCard key={descuento.id} descuento={descuento} />))}
+                {!loading && !error && data.length > 0 ? (<div className=" overflow-x-auto">
+                    <div className="min-w-max w-full ">
+                        <DescuentoColumnHeaders />
+                        {data.map((descuento) => (
+                            <DescuentoCard key={descuento.id} descuento={descuento} obtenerDescuentos={ObtenerDescuentos} />))}
+                    </div>
 
                 </div>
+                ) : (<>
+                    <div className="flex flex-col gap-4">
+                        <p className="bg-placeholder text-body rounded p-4 text-center uppercase">No existen descuentos para este videojuego</p>
+                    </div>
+                </>)}
             </div>
             <div className="flex justify-end pt-3">
                 <Link to={`/dashboard/juegos/${id}/descuentos/nuevo`} className="primary-button primary-button--xs mt-auto w-fit">Agregar</Link>
             </div>
-            <Outlet />
+            <Outlet context={{ ObtenerDescuentos }} />
         </div>
 
     );
