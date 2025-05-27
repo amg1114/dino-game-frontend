@@ -20,14 +20,15 @@ import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
 import { BlogPage } from './pages/blog/BlogIndex';
 import { BlogEntry } from './pages/blog/BlogEntry';
+import { CategoryPage } from './pages/category/CategoryPage';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
 import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
-import { Dashboard } from './pages/dashboard/Dashboard';
-import { CategoryPage } from './pages/category/CategoryPage';
+
+import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
 
 export function App() {
   const router = createBrowserRouter([
@@ -71,7 +72,7 @@ export function App() {
         },
         {
           path: 'categorias/:slug',
-          element: <CategoryPage />
+          element: <CategoryPage />,
         },
         {
           path: 'perfil',
@@ -100,12 +101,7 @@ export function App() {
         {
           path: 'dashboard',
           element: <ProfileLayout />,
-          children: [
-            {
-              index: true,
-              element: <Dashboard />,
-            },
-          ],
+          children: DASHBOARD_ROUTES,
         },
         { path: 'unauthorized', element: <Unauthorized /> },
       ],

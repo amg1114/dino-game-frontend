@@ -1,9 +1,9 @@
-import { News } from '../../../models/post.interface';
+import { Post } from '../../../models/post.interface';
 import { SectionData } from '../hooks/useHomePage';
 import { PostCard } from '../../../components/PostCard';
 
-export function NewsSection({ data }: { data: SectionData<News> }) {
-  const { loading, error, data: news } = data;
+export function PostsSection({ data }: { data: SectionData<Post> }) {
+  const { loading, error, data: posts } = data;
 
   return (
     <section>
@@ -17,9 +17,9 @@ export function NewsSection({ data }: { data: SectionData<News> }) {
       {!loading && !error && (
         <div className="space-y-9">
           <div className="flex grid-cols-3 gap-4 max-md:overflow-x-scroll md:grid">
-            {news.map((newsItem) => (
-              <div className="min-w-64" key={newsItem.id}>
-                <PostCard post={newsItem} />
+            {posts.map((post) => (
+              <div className="min-w-64" key={post.id}>
+                <PostCard post={post} />
               </div>
             ))}
           </div>
