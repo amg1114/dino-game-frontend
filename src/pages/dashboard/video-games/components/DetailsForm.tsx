@@ -10,7 +10,7 @@ interface DetailsFormProps extends GameFormStepProps {
 }
 
 export function DetailsForm(props: DetailsFormProps) {
-  const { form, errors, categorias, handleChange } = props;
+  const { form, errors, categorias, handleDetailsChange: handleChange } = props;
   return (
     <>
       <StyledInput

@@ -16,5 +16,5 @@ export const gameFormSchema = z.object({
   thumb: imageSchema,
   hero: imageSchema,
   assets: multipleImagesSchema,
-  version: z.array(versionFormSchema).min(1, 'Debes subir al menos una versión'),
+  version: versionFormSchema,
 });

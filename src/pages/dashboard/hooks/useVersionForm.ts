@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { fillFormErrors, FormErrors, VersionForm } from '@utils/video-games/videoGames';
 import { versionFormSchema } from '@utils/zod/game.validators';
 import { z } from 'zod';
+import { AssetInputEvent } from '@utils/assets/assets';
 
 export function useVersionForm(onChangeVersion: (newVersion: VersionForm) => void) {
   const [errors, setErrors] = useState<FormErrors<VersionForm>>({} as FormErrors<VersionForm>);
@@ -50,7 +51,7 @@ export function useVersionForm(onChangeVersion: (newVersion: VersionForm) => voi
     }));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleDetailsChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name } = e.target;
     const key = name as keyof VersionForm;
 
@@ -65,6 +66,7 @@ export function useVersionForm(onChangeVersion: (newVersion: VersionForm) => voi
 
       return;
     }
+
     if (key === 'requirements') {
       const value = e.target.value;
 
@@ -83,6 +85,14 @@ export function useVersionForm(onChangeVersion: (newVersion: VersionForm) => voi
     }));
   };
 
+  const handleFileChange = (e: AssetInputEvent) => {
+    const { name, file } = e;
+    setForm((prev) => ({
+      ...prev,
+      [name]: file,
+    }));
+  };
+
   // Check errors in form
   useEffect(() => {
     checkErrors();
@@ -92,5 +102,5 @@ export function useVersionForm(onChangeVersion: (newVersion: VersionForm) => voi
     onChangeVersion(form);
   }, [form, onChangeVersion]);
 
-  return { form, errors, handleChange, handleAddRequirement, handleRemoveRequirement };
+  return { form, errors, handleDetailsChange, handleFileChange, handleAddRequirement, handleRemoveRequirement };
 }

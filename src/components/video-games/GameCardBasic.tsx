@@ -3,6 +3,8 @@ import { VideoGame } from '../../models/video-game.interface';
 import { GamePrice } from './GamePrice';
 import { AdminPermissions } from '../../pages/dashboard/video-games/hooks/useDashboardGames';
 import { Edit, Eye, PercentSquare, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 interface GameCardBasicProps {
   videoGame: VideoGame;
@@ -12,11 +14,24 @@ interface GameCardBasicProps {
 }
 
 export function GameCardBasic({ videoGame, wrapperExtraClasses, adminPermissions, onDelete }: GameCardBasicProps) {
+  const [loading, setLoading] = useState(true);
   return (
     <article className={`flex h-full flex-col ${wrapperExtraClasses}`}>
       <header className="mb-3">
-        <figure className="bg-placeholder aspect-video w-full overflow-hidden rounded">
-          <img src={videoGame.thumb.url} alt={videoGame.thumb.title} />
+        <figure
+          className={clsx('bg-placeholder aspect-video w-full overflow-hidden rounded', {
+            'animate-place-holder': loading,
+          })}
+        >
+          <img
+            onLoad={() => setLoading(false)}
+            src={videoGame.thumb.url}
+            alt={videoGame.thumb.title}
+            className={clsx('h-full w-full object-cover transition-opacity', {
+              'opacity-0': loading,
+              'opacity-100': !loading,
+            })}
+          />
         </figure>
       </header>
       <h4 className="text-xl leading-none md:text-2xl">{videoGame.titulo}</h4>

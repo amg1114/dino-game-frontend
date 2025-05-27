@@ -4,16 +4,24 @@ import { z } from 'zod';
 
 import {
   ASSETS_FORM_FIELDS,
-  DETAILS_FORM_FIELDS,
+  CanSubmitStep,
   fillFormErrors,
   FormErrors,
   GameForm,
+  GameFormContext,
   GameFormEvent,
+  GameFormMode,
   GameFormStep,
   GameTextInputEvent,
-  parseAssetsInputValue,
-  parseDetailsInputValue,
+  handleAddAssetInEditMode,
+  handleDeleteAssetInEditMode,
+  handleDetailsInputValue,
+  handleReplaceAssetsInEditMode,
+  isGameDetailsValid,
+  parseVideoGameToForm,
   submitGame,
+  updateGameDetails,
+  uploadGameVersion,
   VersionForm,
 } from '@utils/video-games/videoGames';
 
@@ -22,23 +30,14 @@ import { PaginatedResponse } from '@models/base-fetch.interface';
 import { gameFormSchema } from '@utils/zod/game.validators';
 import { useAlert } from '@hooks/useAlert';
 import { useNavigate } from 'react-router';
+import { AssetInputEvent } from '@utils/assets/assets';
+import { VideoGame } from '@models/video-game.interface';
 
-export interface GameFormContext {
-  step: GameFormStep;
-  form: GameForm;
-  canSubmit: CanSubmitStep;
-  errors: FormErrors<GameForm>;
-  categorias: Categoria[];
-  setPrevStep: (step: GameFormStep) => void;
-  handleChange: (e: GameFormEvent) => void;
-  handleVersionChange: (newVersion: VersionForm) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleCancel: () => void;
-}
-
-type CanSubmitStep = Record<GameFormStep, boolean>;
-
-export function useGameForm(): GameFormContext {
+export function useGameForm(
+  mode: GameFormMode = 'create',
+  initialGame?: VideoGame | null,
+  setInitialGame?: React.Dispatch<React.SetStateAction<VideoGame | null>>
+): GameFormContext {
   const { showToast, showAlert } = useAlert();
   const navigate = useNavigate();
 
@@ -60,14 +59,12 @@ export function useGameForm(): GameFormContext {
     thumb: null,
     hero: null,
     assets: null,
-    version: [
-      {
-        version: null,
-        descripcion: null,
-        requirements: null,
-        file: null,
-      },
-    ],
+    version: {
+      version: null,
+      descripcion: null,
+      requirements: null,
+      file: null,
+    },
   });
 
   const resetErrors = () => {
@@ -94,7 +91,7 @@ export function useGameForm(): GameFormContext {
   const handleDetailsChange = (e: GameFormEvent) => {
     const { name } = e.target as HTMLInputElement | HTMLTextAreaElement;
     const key = name as keyof GameForm;
-    const parsedValue = parseDetailsInputValue(e as GameTextInputEvent, form);
+    const parsedValue = handleDetailsInputValue(e as GameTextInputEvent, form);
 
     setForm((prev) => {
       return {
@@ -104,37 +101,167 @@ export function useGameForm(): GameFormContext {
     });
   };
 
-  const handleAssetsChange = (e: GameFormEvent) => {
-    const target = e.target as EventTarget & HTMLInputElement;
-    if (target) {
-      const { name } = target;
-      const value = parseAssetsInputValue(e as React.ChangeEvent<HTMLInputElement>);
-      const key = name as keyof GameForm;
+  const handleDetailsUpdate = async () => {
+    await checkErrors();
 
-      setForm((prev) => {
-        return {
-          ...prev,
-          [key]: value,
-        };
+    if (canSubmit.details) {
+      const loading = showAlert({
+        type: 'loading',
+        title: 'Cargando',
+        message: 'Estamos actualizando los detalles del juego...',
       });
+
+      updateGameDetails(form, initialGame!)
+        .then(() => {
+          return axios.get<VideoGame>(`/api/video-games/${initialGame!.slug}`);
+        })
+        .then((res) => {
+          if (setInitialGame) setInitialGame(res.data as VideoGame);
+
+          showToast({
+            type: 'success',
+            message: 'Detalles del juego actualizados correctamente.',
+          });
+        })
+        .catch((error) => {
+          console.error('Error updating game details:', error);
+          showToast({
+            type: 'error',
+            message: 'Error al actualizar los detalles del juego.',
+          });
+        })
+        .finally(() => {
+          loading.close();
+        });
     }
+  };
+
+  const handleAssetsChange = (e: AssetInputEvent) => {
+    const { name, file, type, index } = e;
+    const key = name as keyof GameForm;
+
+    const isAddingAsset = key === 'assets' && type === 'add';
+    const isUpdatingAsset = key === 'assets' && type === 'update';
+    const isDeletingAsset = key === 'assets' && type === 'delete';
+
+    if (isAddingAsset) {
+      return setForm((prev) => ({
+        ...prev,
+        assets: [...(prev.assets || []), file!],
+      }));
+    }
+
+    if (isUpdatingAsset) {
+      if (index === undefined || index === null) throw new Error('Index is required to update asset');
+      const updatedAssets = [...(form.assets || []).slice(0, index), file!, ...(form.assets || []).slice(index + 1)];
+
+      return setForm((prev) => ({
+        ...prev,
+        assets: updatedAssets,
+      }));
+    }
+
+    if (isDeletingAsset) {
+      if (index === undefined || index === null) throw new Error('Index is required to delete asset');
+      const updatedAssets = (form.assets || []).filter((_, i) => i !== index);
+
+      return setForm((prev) => ({
+        ...prev,
+        assets: updatedAssets,
+      }));
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      [key]: file,
+    }));
+  };
+
+  const handleAssetsUpdate = (e: AssetInputEvent) => {
+    const { type } = e;
+
+    const requests = {
+      add: handleAddAssetInEditMode,
+      update: handleReplaceAssetsInEditMode,
+      delete: handleDeleteAssetInEditMode,
+    };
+
+    const actionLabels = {
+      add: { loading: 'añadiendo', completed: 'añadida' },
+      update: { loading: 'reemplazando', completed: 'actualizada' },
+      delete: { loading: 'eliminando', completed: 'eliminada' },
+    };
+
+    const loading = showAlert({
+      type: 'loading',
+      title: 'Cargando',
+      message: `Estamos ${actionLabels[type].loading} la imágen...`,
+    });
+
+    requests[type](e, initialGame!)
+      .then(() => {
+        return axios.get<VideoGame>(`/api/video-games/${initialGame!.slug}`);
+      })
+      .then((res) => {
+        if (setInitialGame) setInitialGame(res.data as VideoGame);
+        showToast({
+          type: 'success',
+          message: `Imágen ${actionLabels[type].loading} correctamente.`,
+        });
+      })
+      .catch((error) => {
+        console.error('Error updating asset:', error);
+        showToast({
+          type: 'error',
+          message: `Error, la impagen no ha podido ser ${actionLabels[type].completed}`,
+        });
+      })
+      .finally(() => {
+        loading.close();
+      });
   };
 
   const handleVersionChange = useCallback((newVersion: VersionForm) => {
     setForm((prev) => ({
       ...prev,
-      version: [newVersion],
+      version: newVersion,
     }));
   }, []);
 
-  const handleChange = (e: GameFormEvent) => {
-    if (step === 'version') return;
-    const handlers: Record<Exclude<GameFormStep, 'version'>, (e: GameFormEvent) => void> = {
-      details: handleDetailsChange,
-      assets: handleAssetsChange,
-    };
+  const handleSaveVersion = async () => {
+    await checkErrors();
+    if (canSubmit.version) {
+      const loading = showAlert({
+        type: 'loading',
+        title: 'Cargando',
+        message: 'Estamos guardando la versión del juego...',
+      });
 
-    return handlers[step](e);
+      uploadGameVersion(form.version!, initialGame!)
+        .then(() => {
+          return axios.get<VideoGame>(`/api/video-games/${initialGame!.slug}`);
+        })
+        .then((res) => {
+          if (setInitialGame) setInitialGame(res.data as VideoGame);
+          showToast({
+            type: 'success',
+            message: 'Versión del juego guardada correctamente.',
+          });
+          setStep('details');
+        })
+        .catch((error) => {
+          console.error('Error saving game version:', error);
+          showToast({
+            type: 'error',
+            message: 'Error al guardar la versión del juego.',
+          });
+        })
+        .finally(() => {
+          loading.close();
+        });
+
+      return;
+    }
   };
 
   const handleCancel = () => {
@@ -146,14 +273,12 @@ export function useGameForm(): GameFormContext {
       thumb: null,
       hero: null,
       assets: null,
-      version: [
-        {
-          version: null,
-          descripcion: null,
-          requirements: null,
-          file: null,
-        },
-      ],
+      version: {
+        version: null,
+        descripcion: null,
+        requirements: null,
+        file: null,
+      },
     });
     setStep('details');
     navigate(-1);
@@ -161,8 +286,10 @@ export function useGameForm(): GameFormContext {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     await checkErrors();
+
+    if (mode === 'edit' && step === 'details') return handleDetailsUpdate();
+    if (mode === 'edit' && step === 'version') return handleSaveVersion();
 
     if (canSubmit[step]) {
       if (step === 'version') {
@@ -205,16 +332,16 @@ export function useGameForm(): GameFormContext {
     const validateErrors = (key: keyof GameForm, value: unknown) =>
       value === null || errors[key as keyof GameForm] !== undefined;
 
-    const detailIsValid = DETAILS_FORM_FIELDS.every((key) => !validateErrors(key, form[key]));
-    const assetsIsValid = ASSETS_FORM_FIELDS.every((key) => !validateErrors(key, form[key]));
-    const versionIsValid = !validateErrors('version', form.version) && form.version.length > 0;
+    const detailIsValid = isGameDetailsValid(mode, form, initialGame, errors);
+    const assetsIsValid = mode === 'edit' || ASSETS_FORM_FIELDS.every((key) => !validateErrors(key, form[key]));
+    const versionIsValid = !validateErrors('version', form.version);
 
     setCanSubmit({
-      details: detailIsValid,
-      assets: assetsIsValid && detailIsValid,
-      version: versionIsValid && assetsIsValid && detailIsValid,
+      details: isGameDetailsValid(mode, form, initialGame!, errors),
+      assets: (mode === 'edit' || assetsIsValid) && detailIsValid,
+      version: versionIsValid,
     });
-  }, [form, errors, step]);
+  }, [form, mode, initialGame, errors, step]);
 
   // Fetch categories
   useEffect(() => {
@@ -230,16 +357,31 @@ export function useGameForm(): GameFormContext {
     fetchCategories();
   }, []);
 
+  // Fetch game data if in edit mode
+  useEffect(() => {
+    if (mode === 'edit' && initialGame) {
+      const parsedGame = parseVideoGameToForm(initialGame);
+      setForm(parsedGame);
+    } else if (mode === 'edit' && initialGame === undefined) {
+      throw new Error('Initial game data is required in edit mode');
+    }
+  }, [mode, initialGame]);
+
   return {
+    mode,
     step,
     form,
+    initialGame,
     errors,
     canSubmit,
     categorias,
     setPrevStep,
-    handleChange,
+    setStep,
     handleSubmit,
     handleCancel,
     handleVersionChange,
+    handleDetailsChange,
+    handleAssetsChange,
+    handleAssetsUpdate,
   };
 }
