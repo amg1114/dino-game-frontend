@@ -10,7 +10,7 @@ export interface VideoGame {
   precio: number;
   titulo: string;
   descripcion: string;
-  fechaLanzamiento: Date;
+  fechaLanzamiento: string;
   slug: string;
   thumb: Asset;
   hero: Asset;
@@ -25,9 +25,9 @@ export interface VideoGame {
 
 export interface UserVideoGame {
   id: number;
-  createdAt: Date;
-  deletedAt: null;
-  fechaCompra: Date;
+  createdAt: string;
+  deletedAt: string;
+  fechaCompra: string;
   precio: number;
   videoGame: VideoGame;
 }

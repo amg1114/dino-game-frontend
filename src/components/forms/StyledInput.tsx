@@ -7,6 +7,8 @@ export interface StyledInputProps {
   placeholder: string;
   value: string | number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   label?: string;
   name?: string;
   errors?: string[];
@@ -20,6 +22,8 @@ export function StyledInput({
   placeholder,
   value,
   onChange,
+  onInput,
+  onKeyDown,
   label,
   name,
   errors,
@@ -36,14 +40,16 @@ export function StyledInput({
       <input
         type={type}
         id={id}
+        name={name || id}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onInput={onInput}
+        onKeyDown={onKeyDown}
         className={clsx({
           'bg-placeholder focus:ring-green rounded p-4 text-white focus:ring-2 focus:outline-none': true,
           'ring-red focus:ring-red ring-2': errors?.length,
         })}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        name={name || id}
         onFocus={onFocus}
         onBlur={onBlur}
       />
