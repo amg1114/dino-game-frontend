@@ -2,12 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { VideoGame } from '../../../models/video-game.interface';
 import { Categoria } from '../../../models/categoria.interface';
-import { BaseFetch } from '../../../models/base-fetch.interface';
-import { News } from '../../../models/post.interface';
-
-export interface FetchResponse<T> extends BaseFetch {
-  data: T[];
-}
+import { Post } from '../../../models/post.interface';
 
 export interface SectionData<T> {
   data: T[];
@@ -22,7 +17,7 @@ export function useHomePage() {
     error: null,
   });
 
-  const [blogNews, setBlogNews] = useState<SectionData<News>>({
+  const [blogPosts, setBlogPosts] = useState<SectionData<Post>>({
     data: [],
     loading: true,
     error: null,
@@ -79,12 +74,12 @@ export function useHomePage() {
     );
     fetchData<VideoGame>('/api/video-games?descuentos=true&orderBy=featured&order=DESC&limit=3', setDiscountedGames);
     fetchData<Categoria>('/api/categorias?limit=8', setCategories);
-    fetchData<News>('/api/noticias?limit=3&order=DESC&orderBy=fecha', setBlogNews);
+    fetchData<Post>('/api/noticias?limit=3&order=DESC&orderBy=fecha', setBlogPosts);
   }, []);
 
   return {
     featuredGames,
-    blogNews,
+    blogPosts,
     freeGames,
     paidGames,
     discountedGames,
