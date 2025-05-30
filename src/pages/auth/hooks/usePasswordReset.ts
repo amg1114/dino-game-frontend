@@ -102,7 +102,7 @@ export function usePasswordReset() {
         } else if (data.newPassword === confirmPassword) {
             setErrorConfirmPassword('');
         }
-    }, [data.newPassword, confirmPassword, touched]);
+    }, [data, confirmPassword, touched]);
 
     return {
         data,

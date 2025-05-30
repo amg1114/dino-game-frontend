@@ -29,6 +29,8 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 
 import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
+import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
+import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
 
 export function App() {
   const router = createBrowserRouter([
@@ -102,6 +104,14 @@ export function App() {
           path: 'dashboard',
           element: <ProfileLayout />,
           children: DASHBOARD_ROUTES,
+        },
+        {
+          path: 'juegos',
+          element: <VideoGamesPage />,
+        },
+        {
+          path: 'juegos/:slug',
+          element: <VideoGamePageInfo />,
         },
         { path: 'unauthorized', element: <Unauthorized /> },
       ],
