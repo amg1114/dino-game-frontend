@@ -28,6 +28,8 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
+import { ManageDevRequest } from './pages/dashboard/manage-dev-request/ManageDevRequest';
+import { RespRequest } from './pages/dashboard/manage-dev-request/RespRequest';
 
 export function App() {
   const router = createBrowserRouter([
@@ -105,6 +107,17 @@ export function App() {
               index: true,
               element: <Dashboard />,
             },
+            {
+              path: 'solicitudes',
+              element: <ManageDevRequest />,
+              children: [
+                {
+                  path: 'request-detail/:id',
+                  element: <RespRequest />
+                }
+              ]
+
+            }
           ],
         },
         { path: 'unauthorized', element: <Unauthorized /> },
