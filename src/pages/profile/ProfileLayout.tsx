@@ -111,7 +111,7 @@ export function ProfileLayout() {
       },
       {
         title: 'Juegos',
-        path: '/dashboard/juegos/:id/descuentos',
+        path: '/dashboard/juegos',
         icon: <Gamepad strokeWidth={2.3} />,
         access: ['ADMINISTRATOR', 'DEVELOPER'],
       },

@@ -1,13 +1,12 @@
 import { useParams } from "react-router";
 import { DescuentoList } from "./components/DescuentoList";
 
-export function DescuentoPage() {
-    const { id } = useParams();
+export function Descuentos() {
+    const { slug } = useParams<{ slug: string }>();
 
     return (
         <div className="">
-            <DescuentoList id={id ?? ""} />
-
+            <DescuentoList id={slug || ''} />
         </div>
     )
 }

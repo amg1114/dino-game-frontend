@@ -21,8 +21,9 @@ export function Dashboard() {
     data[dashboardConfig.salesUnit].currentSales.sales.length > 0 ||
     data[dashboardConfig.salesUnit].prevSales.sales.length > 0;
 
-  const hasBestSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.mostSoldVideoGame.sales > 0;
-  const hasLeastSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame.sales > 0;
+  const hasBestSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.mostSoldVideoGame?.sales > 0;
+  const hasLeastSoldGame = data[dashboardConfig.salesUnit].bestWorstSellingGames.leastSoldVideoGame?.sales > 0;
+
   return (
     <>
       <section className="borderb border-b-placeholder pb-12">

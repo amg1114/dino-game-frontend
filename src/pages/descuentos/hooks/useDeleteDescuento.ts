@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useAlert } from "../../../hooks/useAlert";
 import { useCallback } from "react";
 
-export function useDeleteDescuento(id: number | string | null, descuento: number | string | null) {
+export function useDeleteDescuento(slug: string | null, descuento: number | string | null) {
     const navigate = useNavigate();
     const { showToast, showAlert } = useAlert();
 
@@ -16,7 +16,7 @@ export function useDeleteDescuento(id: number | string | null, descuento: number
             onClose(confirm) {
                 if (confirm) {
                     axios
-                        .delete(`/api/video-games/${id}/descuentos/${descuento}`)
+                        .delete(`/api/video-games/${slug}/descuentos/${descuento}`)
                         .then((res) => {
                             console.log(res.data);
                             showToast({
@@ -25,7 +25,7 @@ export function useDeleteDescuento(id: number | string | null, descuento: number
                                 duration: 2000,
                             });
                             ObtenerDescuentos();
-                            navigate(`/dashboard/juegos/${id}/descuentos`);
+                            navigate(`/dashboard/juegos/${slug}/descuentos`);
                         })
                         .catch((err) => {
                             console.error(err);
@@ -33,6 +33,6 @@ export function useDeleteDescuento(id: number | string | null, descuento: number
                 }
             }
         })
-    }, [showAlert, id, descuento, navigate, showToast]);
+    }, [showAlert, slug, descuento, navigate, showToast]);
     return handleDelete;
 }

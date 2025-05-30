@@ -13,7 +13,7 @@ export function useDescuento(id: string | number | null) {
             .then((res) => {
                 const data = res.data;
                 setError(null);
-                console.log(data);
+                console.log('este es todo el data' + data);
                 setData(data);
                 setLoading(false);
             })

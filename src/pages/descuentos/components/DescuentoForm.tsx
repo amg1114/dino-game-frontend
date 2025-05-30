@@ -9,7 +9,8 @@ interface OutletContextType {
 
 export function DescuentoForm() {
     const { ObtenerDescuentos } = useOutletContext<OutletContextType>();
-    const { id } = useParams();
+    const { slug } = useParams();
+    console.log('id del form' + slug)
 
     const { descuento,
         handleChange,
@@ -18,10 +19,10 @@ export function DescuentoForm() {
         errorFechaInicio,
         errorFechaFin,
         errorPorcentaje,
-    } = useNewDescuento(id ?? null);
+    } = useNewDescuento(slug ?? null);
     return (
         <>
-            <Modal onClose={() => navigate(`/dashboard/juegos/${id}/descuentos`)} modalTitle="NUEVO DESCUENTO" size="sm" modalId="descuento-modal">
+            <Modal onClose={() => navigate(`/dashboard/juegos/${slug}/descuentos`)} modalTitle="NUEVO DESCUENTO" size="sm" modalId="descuento-modal">
                 <form onSubmit={(e) => handleSubmit(e, ObtenerDescuentos)} className="mt-4 flex flex-col gap-4 px-4">
                     <div>
                         <StyledInput
@@ -61,7 +62,7 @@ export function DescuentoForm() {
                         <button className="primary-button w-full sm:w-auto" type="submit" onClick={(e) => handleSubmit(e, ObtenerDescuentos)}>
                             Guardar
                         </button>
-                        <Link to={`/dashboard/juegos/${id}/descuentos`} className="secondary-button w-full sm:w-auto" type="button">
+                        <Link to={`/dashboard/juegos/${slug}/descuentos`} className="secondary-button w-full sm:w-auto" type="button">
                             Cancelar
                         </Link>
                     </div>
