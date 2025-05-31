@@ -20,17 +20,17 @@ import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
 import { BlogPage } from './pages/blog/BlogIndex';
 import { BlogEntry } from './pages/blog/BlogEntry';
-import { CategoryPage } from './pages/category/CategoryPage';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
 import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
+import { Dashboard } from './pages/dashboard/Dashboard';
+import { CategoryPage } from './pages/category/CategoryPage';
+import { ManageDevelopers } from './pages/dashboard/manageDevelopers/manageDevelopers'
 
-import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
-import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
-import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
+
 
 export function App() {
   const router = createBrowserRouter([
@@ -74,7 +74,7 @@ export function App() {
         },
         {
           path: 'categorias/:slug',
-          element: <CategoryPage />,
+          element: <CategoryPage />
         },
         {
           path: 'perfil',
@@ -99,19 +99,21 @@ export function App() {
               element: <SolicitudDesarrollador />,
             },
           ],
-        },
+        }
+        ,
         {
           path: 'dashboard',
           element: <ProfileLayout />,
-          children: DASHBOARD_ROUTES,
-        },
-        {
-          path: 'juegos',
-          element: <VideoGamesPage />,
-        },
-        {
-          path: 'juegos/:slug',
-          element: <VideoGamePageInfo />,
+          children: [
+            {
+              index: true,
+              element: <Dashboard />,
+            },
+            {
+              path: 'desarrolladores',
+              element: <ManageDevelopers />,
+            },
+          ],
         },
         { path: 'unauthorized', element: <Unauthorized /> },
       ],
