@@ -1,4 +1,4 @@
-import { SquarePlus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { CategoriaCard } from "./components/CategoriaCard";
 import { Pagination } from "../../../components/pagination";
 import { useSearchCategory, useCategories } from "./hooks/useCategories";
@@ -27,7 +27,7 @@ export function ManageCategories() {
             <div className="flex">
                 <h2>Categorias En La Tienda</h2>
                 <Link to="create">
-                    <SquarePlus className="my-2.5 ml-2 bg-green text-3xl text-white p-0.5 rounded stroke-2" />
+                    <Plus className="my-2.5 ml-2 bg-green text-3xl text-white p-0.5 rounded stroke-2" />
                 </Link>
             </div>
             <h4 className="my-3">buscar</h4>

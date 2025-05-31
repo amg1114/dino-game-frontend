@@ -29,10 +29,24 @@ export function useUpdateCategory(slug: string) {
         setTouched((prev) => ({ ...prev, [id]: true }));
     };
 
+    const [originalData, setOriginalData] = useState({
+        titulo: "",
+        descripcion: ""
+    });
+
+    const isModified =
+        data.titulo !== originalData.titulo ||
+        data.descripcion !== originalData.descripcion;
+
+
     useEffect(() => {
         axios.get(`/api/categorias/${slug}`)
             .then((resp) => {
                 setData(resp.data);
+                setOriginalData({
+                    titulo: resp.data.titulo,
+                    descripcion: resp.data.descripcion
+                });
             })
             .catch((err) => {
                 console.error(err)
@@ -81,6 +95,14 @@ export function useUpdateCategory(slug: string) {
                 duration: 2000
             })
         }
+
+        if (
+            data.titulo === originalData.titulo &&
+            data.descripcion === originalData.descripcion
+        ) {
+            return; // No hacer nada si no hay cambios
+        }
+
         try {
             InputFormsSchema.parse(data);
             setErrorTitulo("");
@@ -133,5 +155,6 @@ export function useUpdateCategory(slug: string) {
         errorDescripcion,
         handleChange,
         updateCategoria,
+        isModified
     };
 }

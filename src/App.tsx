@@ -20,7 +20,6 @@ import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
 import { BlogPage } from './pages/blog/BlogIndex';
 import { BlogEntry } from './pages/blog/BlogEntry';
-import { CategoryPage } from './pages/category/CategoryPage';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
@@ -33,11 +32,6 @@ import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
 import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
-import { ManageCategories } from '../src/pages/dashboard/manageCategories/ManageCategories';
-import { CreateCategory } from './pages/dashboard/manageCategories/CreateCategoria';
-import { UpdateCategory } from './pages/dashboard/manageCategories/UpdateCategory';
-
-
 
 export function App() {
   const router = createBrowserRouter([
@@ -124,25 +118,11 @@ export function App() {
               index: true,
               element: <Dashboard />,
             },
-            {
-              path: 'categorias',
-              element: <ManageCategories />,
-              children: [
-                {
-                  path: 'create',
-                  element: <CreateCategory />
-                },
-                {
-                  path: 'update/:slugCategoria',
-                  element: <UpdateCategory />
-                },
-              ]
-            },
-          ],
+          ]
         },
-        { path: 'unauthorized', element: <Unauthorized /> },
       ],
     },
+    { path: 'unauthorized', element: <Unauthorized /> },
   ]);
 
   return (
