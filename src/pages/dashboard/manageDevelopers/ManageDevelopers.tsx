@@ -2,7 +2,7 @@ import { Pagination } from "../../../components/pagination";
 import { StyledInput } from "../../../components/forms/StyledInput";
 import { Outlet, useLocation } from "react-router";
 import { useEffect, useState } from "react";
-import { useDevelopers } from "./hook/useDevelopers";
+import { useDevelopers } from "./hook/UseDevelopers";
 import { DeveloperCard } from "./components/DevelopersCard";
 
 export function ManageDevelopers() {

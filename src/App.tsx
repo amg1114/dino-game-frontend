@@ -28,7 +28,7 @@ import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
-import { ManageDevelopers } from './pages/dashboard/manageDevelopers/manageDevelopers'
+import { ManageDevelopers } from './pages/dashboard/manageDevelopers/ManageDevelopers'
 
 
 

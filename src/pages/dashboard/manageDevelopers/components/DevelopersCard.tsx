@@ -1,4 +1,4 @@
-import { Trash, CalendarDays, Gamepad } from "lucide-react";
+import { Ban, CalendarDays, Gamepad } from "lucide-react";
 import { Usuario } from "../../../../models/user.interface"
 import { useAlert } from "../../../../hooks/useAlert"
 import { useNavigate } from "react-router";
@@ -66,7 +66,7 @@ export function DeveloperCard({ developer }: { developer: Usuario }) {
                 <h4 className="text-md font-semibold uppercase truncate">
                     {developer.nombre}
                 </h4>
-                <Trash
+                <Ban
                     className="text-red hover:cursor-pointer stroke-2"
                     onClick={handleDelete}
                 />
