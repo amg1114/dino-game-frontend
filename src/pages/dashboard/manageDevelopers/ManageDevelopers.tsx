@@ -29,7 +29,7 @@ export function ManageDevelopers() {
     return (
         <div>
             <div className="flex items-center justify-between ">
-                <h2>Desarrolladores Aprobados</h2>
+                <h2>DESARROLLADORES EN LA TIENDA </h2>
 
             </div>
 
@@ -38,7 +38,7 @@ export function ManageDevelopers() {
                 <StyledInput
                     id="searchDeveloper"
                     type="input"
-                    placeholder="Buscar por nombre o correo"
+                    placeholder="BUSCAR DESARROLLADOR"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
