@@ -4,9 +4,12 @@ import { CreateVideoGame } from '@pages/dashboard/video-games/create/CreateVideo
 import { RouteObject } from 'react-router';
 import { EditVideoGame } from './video-games/edit/EditVideoGame';
 import { requireAuth } from '@utils/protect';
+
 import { ManageCategories } from './manageCategories/ManageCategories';
 import { CreateCategory } from './manageCategories/CreateCategoria';
 import { UpdateCategory } from './manageCategories/UpdateCategory';
+
+import { Reports } from './reports/Reports';
 
 export const DASHBOARD_ROUTES: RouteObject[] = [
   {
@@ -30,6 +33,7 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
     element: <EditVideoGame />,
   },
   {
+
     path: 'categorias',
     loader: requireAuth(['ADMINISTRATOR']),
     element: <ManageCategories />,
@@ -46,5 +50,9 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
       }
     ]
   },
-
+  {
+    path: 'reportes',
+    loader: requireAuth(['ADMINISTRATOR']),
+    element: <Reports />,
+  }
 ];
