@@ -53,8 +53,10 @@ export function RespRequest() {
                         <h4 className="">Mensaje</h4>
                         <textarea readOnly className="w-full h-60 leading-6 text-justify bg-placeholder p-3 rounded-sm" name="mensaje" value={data.mensaje} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} />
                     </div>
-                    <button type="submit" onClick={handleAccept} className="absolute mt-4 right-7 w-1/4 bg-green rounded-xl p-3 hover:cursor-pointer hover:bg-white hover:text-green hover:-translate-y-1 transition-all duration-200 ">Aceptar </button>
-                    <button type="submit" onClick={handleReject} className="absolute mt-18 right-7 w-1/4 underline p-3 rounded hover:cursor-pointer hover:bg-placeholder">Rechazar </button>
+                    <div className="flex justify-end mt-6">
+                        <button type="submit" onClick={handleAccept} className="w-1/4 bg-green rounded-xl p-3 hover:cursor-pointer hover:bg-white hover:text-green hover:-translate-y-1 transition-all duration-200 ">Aceptar </button>
+                        <button type="submit" onClick={handleReject} className="w-1/4 underline p-3 ml-3 rounded hover:cursor-pointer hover:bg-placeholder">Rechazar </button>
+                    </div>
                 </div>
             </Modal>
         </div>

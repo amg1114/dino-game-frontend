@@ -20,7 +20,6 @@ import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
 import { BlogPage } from './pages/blog/BlogIndex';
 import { BlogEntry } from './pages/blog/BlogEntry';
-import { CategoryPage } from './pages/category/CategoryPage';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
@@ -33,8 +32,6 @@ import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
 import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { CategoryPage } from './pages/category/CategoryPage';
-import { ManageDevRequest } from './pages/dashboard/manage-dev-request/ManageDevRequest';
-import { RespRequest } from './pages/dashboard/manage-dev-request/RespRequest';
 
 export function App() {
   const router = createBrowserRouter([
@@ -121,17 +118,6 @@ export function App() {
               index: true,
               element: <Dashboard />,
             },
-            {
-              path: 'solicitudes',
-              element: <ManageDevRequest />,
-              children: [
-                {
-                  path: 'request-detail/:id',
-                  element: <RespRequest />
-                }
-              ]
-
-            }
           ],
         },
         { path: 'unauthorized', element: <Unauthorized /> },
