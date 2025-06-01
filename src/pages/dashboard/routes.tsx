@@ -4,6 +4,7 @@ import { CreateVideoGame } from '@pages/dashboard/video-games/create/CreateVideo
 import { RouteObject } from 'react-router';
 import { EditVideoGame } from './video-games/edit/EditVideoGame';
 import { requireAuth } from '@utils/protect';
+import { Reports } from './reports/Reports';
 
 export const DASHBOARD_ROUTES: RouteObject[] = [
   {
@@ -26,4 +27,9 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
     loader: requireAuth(['DEVELOPER']),
     element: <EditVideoGame />,
   },
+  {
+    path: 'reportes',
+    loader: requireAuth(['ADMINISTRATOR']),
+    element: <Reports />,
+  }
 ];
