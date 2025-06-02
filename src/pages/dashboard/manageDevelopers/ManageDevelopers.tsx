@@ -4,17 +4,33 @@ import { Outlet, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { useDevelopers } from "./hook/UseDevelopers";
 import { DeveloperCard } from "./components/DevelopersCard";
+import axios from "axios";
+import { Usuario } from "../../../models/user.interface";
 
 export function ManageDevelopers() {
     const { desarrolladores, loading, page, itemsPerPage, setPage, totalItems } = useDevelopers();
     const location = useLocation();
 
     const [query, setQuery] = useState("");
+    const [searching, setSearching] = useState(false);
+    const [searchResults, setSearchResults] = useState<Usuario[]>([]);
 
-    const filteredDevelopers = desarrolladores.filter(dev =>
-        dev.nombre.toLowerCase().includes(query.toLowerCase()) ||
-        dev.correo.toLowerCase().includes(query.toLowerCase())
-    );
+    useEffect(() => {
+        if (query.trim()) {
+            setSearching(true);
+            axios.get(`/api/users/developers?search=${encodeURIComponent(query)}&limit=${itemsPerPage}&offset=0`)
+                .then((response) => {
+                    setSearchResults(response.data.data as Usuario[]);
+                })
+                .catch((error) => {
+                    setSearchResults([]);
+                    console.error("Error al buscar desarrolladores:", error);
+                })
+                .finally(() => setSearching(false));
+        } else {
+            setSearchResults([]);
+        }
+    }, [query, itemsPerPage]);
 
     useEffect(() => {
         if (location.state?.needsRefresh) {
@@ -45,9 +61,21 @@ export function ManageDevelopers() {
             </div>
 
             <div className="grid grid-cols- sm:grid-cols-2 md:grid-cols-3 gap-4 pb-8 min-h-[450px]">
-                {(query.trim() ? filteredDevelopers : desarrolladores).slice(0, 15).map((dev) => (
-                    <DeveloperCard key={dev.id} developer={dev} />
-                ))}
+                {searching ? (
+                    <p>Buscando...</p>
+                ) : query.trim() ? (
+                    searchResults.length > 0 ? (
+                        searchResults.slice(0, 15).map((dev) => (
+                            <DeveloperCard key={dev.id} developer={dev} />
+                        ))
+                    ) : (
+                        <p>No se encontraron desarrolladores.</p>
+                    )
+                ) : (
+                    desarrolladores.slice(0, 15).map((dev) => (
+                        <DeveloperCard key={dev.id} developer={dev} />
+                    ))
+                )}
             </div>
 
 

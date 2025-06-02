@@ -4,8 +4,7 @@ import { useAlert } from "../../../../hooks/useAlert"
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { formatWithOptions } from "date-fns/fp";
-import { es } from "date-fns/locale/es";
+
 
 export function DeveloperCard({ developer }: { developer: Usuario }) {
     const { showAlert, showToast } = useAlert();
@@ -54,11 +53,11 @@ export function DeveloperCard({ developer }: { developer: Usuario }) {
         });
     };
 
-    const formatDate = formatWithOptions({ locale: es });
-    const formattedDate = formatDate(
-        "MMMM dd 'de' yyyy",
-        new Date(developer.fechaNacimiento)
-    );
+    const formattedDate = new Date(developer.fechaNacimiento).toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit',
+    });
 
     return (
         <div className="w-full h-32 flex flex-col justify-between bg-placeholder p-4 rounded-md text-white shadow">
