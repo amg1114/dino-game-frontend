@@ -51,8 +51,8 @@ export function Dashboard() {
           </div>
         </header>
         <SalesChart
-          prevLabel="Mes Anterior"
-          currentLabel="Mes Actual"
+          prevLabel={`Ventas ${dashboardConfig.showBy} Anterior`}
+          currentLabel={`Ventas ${dashboardConfig.showBy} Actual`}
           data={data}
           salesUnit={dashboardConfig.salesUnit}
           normalizer={dashboardConfig.chartConfig.normalizer}
