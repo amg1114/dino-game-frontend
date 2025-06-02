@@ -83,7 +83,7 @@ export const useLastPost = (): NoticiaRetornadaIndex => {
         console.error(err);
         setLoading(false);
       });
-  }, [page, itemsPerPage]);
+  }, [page, itemsPerPage, ENDPOINT]);
 
   return { post: post, relatedPosts: posts, loading, page, itemsPerPage, setPage, totalItems };
 };

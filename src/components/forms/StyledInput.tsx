@@ -12,6 +12,8 @@ export interface StyledInputProps {
   label?: string;
   name?: string;
   errors?: string[];
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export function StyledInput({
@@ -25,6 +27,8 @@ export function StyledInput({
   label,
   name,
   errors,
+  onFocus,
+  onBlur
 }: StyledInputProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1">
@@ -46,6 +50,8 @@ export function StyledInput({
           'bg-placeholder focus:ring-green rounded p-4 text-white focus:ring-2 focus:outline-none': true,
           'ring-red focus:ring-red ring-2': errors?.length,
         })}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
 
       {errors && errors.length > 0 && (

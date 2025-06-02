@@ -18,23 +18,29 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses, adminPermissions
   return (
     <article className={`flex h-full flex-col ${wrapperExtraClasses}`}>
       <header className="mb-3">
-        <figure
-          className={clsx('bg-placeholder aspect-video w-full overflow-hidden rounded', {
-            'animate-place-holder': loading,
-          })}
-        >
-          <img
-            onLoad={() => setLoading(false)}
-            src={videoGame.thumb.url}
-            alt={videoGame.thumb.title}
-            className={clsx('h-full w-full object-cover transition-opacity', {
-              'opacity-0': loading,
-              'opacity-100': !loading,
+        <Link to={`/juegos/${videoGame.slug}`} className="block">
+          <figure
+            className={clsx('bg-placeholder aspect-video w-full overflow-hidden rounded', {
+              'animate-place-holder': loading,
             })}
-          />
-        </figure>
+          >
+            <img
+              onLoad={() => setLoading(false)}
+              src={videoGame.thumb.url}
+              alt={videoGame.thumb.title}
+              className={clsx('h-full w-full object-cover transition-opacity', {
+                'opacity-0': loading,
+                'opacity-100': !loading,
+              })}
+            />
+          </figure>
+        </Link>
       </header>
-      <h4 className="text-xl leading-none md:text-2xl">{videoGame.titulo}</h4>
+      <h4 className="text-xl leading-none md:text-2xl">
+        <Link to={`/juegos/${videoGame.slug}`} className="no-underline text-white hover:text-white/30">
+          {videoGame.titulo}
+        </Link>
+      </h4>
       <ul className="mb-2 flex flex-wrap gap-2">
         {videoGame.categorias.length ? (
           videoGame.categorias.map((categoria) => (

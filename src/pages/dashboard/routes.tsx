@@ -4,6 +4,7 @@ import { CreateVideoGame } from '@pages/dashboard/video-games/create/CreateVideo
 import { RouteObject } from 'react-router';
 import { EditVideoGame } from './video-games/edit/EditVideoGame';
 import { requireAuth } from '@utils/protect';
+import { Reports } from './reports/Reports';
 import { Descuentos } from '@pages/descuentos/Descuentos';
 import { DescuentoForm } from '@pages/descuentos/components/DescuentoForm';
 
@@ -27,6 +28,11 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
     path: 'juegos/:slug/editar',
     loader: requireAuth(['DEVELOPER']),
     element: <EditVideoGame />,
+  },
+  {
+    path: 'reportes',
+    loader: requireAuth(['ADMINISTRATOR']),
+    element: <Reports />,
   },
   {
     path: 'juegos/:slug/descuentos',
