@@ -34,7 +34,7 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
     element: <ManageDevRequest />,
     children: [
       {
-        path: 'request-detail/:id',
+        path: ':id',
         loader: requireAuth(['ADMINISTRATOR']),
         element: <RespRequest />
       }

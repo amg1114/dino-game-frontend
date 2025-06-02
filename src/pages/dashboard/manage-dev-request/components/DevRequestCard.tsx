@@ -13,7 +13,7 @@ export function DevRequestCard({ request }: { request: SolicitudDesarrollador })
     const fechaFormateada = `${mesCapitalizado} ${date.getDate()} de ${date.getFullYear()}`;
     return (
         <div className="w-full bg-placeholder py-4 px-6 rounded-xl ">
-            <Link className="text-white no-underline" to={`/dashboard/solicitudes/request-detail/${request.user?.id}`}>
+            <Link className="text-white no-underline" to={`/dashboard/solicitudes/${request.user?.id}`}>
                 <div>
                     <div className="flex">
                         <Calendar className="text-green mt-1 text-sm " />

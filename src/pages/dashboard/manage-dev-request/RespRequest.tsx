@@ -8,7 +8,7 @@ import React from "react";
 export function RespRequest() {
 
     const { id } = useParams<{ id: string }>()
-    const { data, setData } = useGetRequest(id!);
+    const { data } = useGetRequest(id!);
     const navigate = useNavigate();
     const { showToast } = useAlert();
 
@@ -45,17 +45,23 @@ export function RespRequest() {
 
     return (
         <div>
-            <Modal onClose={() => navigate('/dashboard/solicitudes')} modalId="Resp-dev-request" modalTitle="Solicitud para verificación como dev">
+            <Modal onClose={() => navigate('/dashboard/solicitudes')} modalId="Resp-dev-request" modalTitle="Solicitud">
                 <div className="h-max">
                     <div className="">
                         <h4>Titulo</h4>
-                        <input readOnly className="w-full mb-6 bg-placeholder text-center text-sm uppercase font-medium p-3 rounded-sm" type="text" name="titulo" value={data.titulo} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} />
+                        <p className="w-full mb-4 text-sm uppercase rounded-sm">
+                            {data.titulo}
+                        </p>
+
                         <h4 className="">Mensaje</h4>
-                        <textarea readOnly className="w-full h-60 leading-6 text-justify bg-placeholder p-3 rounded-sm" name="mensaje" value={data.mensaje} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} />
+                        <p className="w-full leading-6 text-justify rounded-sm">
+                            {data.mensaje}
+                        </p>
+                        {/* <textarea readOnly  name="mensaje" value={data.mensaje} onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })} /> */}
                     </div>
                     <div className="flex justify-end mt-6">
-                        <button type="submit" onClick={handleAccept} className="w-1/4 bg-green rounded-xl p-3 hover:cursor-pointer hover:bg-white hover:text-green hover:-translate-y-1 transition-all duration-200 ">Aceptar </button>
-                        <button type="submit" onClick={handleReject} className="w-1/4 underline p-3 ml-3 rounded hover:cursor-pointer hover:bg-placeholder">Rechazar </button>
+                        <button type="submit" onClick={handleAccept} className="primary-button">Aceptar </button>
+                        <button type="submit" onClick={handleReject} className="secondary-button ml-4">Rechazar </button>
                     </div>
                 </div>
             </Modal>
