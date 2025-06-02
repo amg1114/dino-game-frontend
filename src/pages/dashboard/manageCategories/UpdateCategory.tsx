@@ -27,14 +27,11 @@ export function UpdateCategory() {
                         type="submit"
                         onClick={updateCategoria}
                         disabled={!isModified}
-                        className={`rounded p-3 transition-all duration-200 ${!isModified
-                            ? 'bg-green brightness-75'
-                            : 'bg-green hover:bg-white hover:text-green hover:-translate-y-1 cursor-pointer'
-                            }`}
+                        className="primary-button"
                     >
                         Guardar
                     </button>
-                    <button onClick={() => navigate('/dashboard/categorias')} className="ml-4 p-3 rounded underline hover:cursor-pointer hover:bg-placeholder">
+                    <button onClick={() => navigate('/dashboard/categorias')} className="secondary-button ml-4">
                         Cancelar
                     </button>
                 </div>

@@ -23,6 +23,7 @@ export function useCategories(): CategoriaRetornada & { refetch: () => void } {
         axios
             .get(`/api/categorias?limit=${itemsPerPage}&offset=${page}`)
             .then(function (resp) {
+                console.log('Categoriaasss', resp.data.data.slug)
                 setCategories(resp.data.data);
                 setTotalItems(resp.data.total);
                 setLoading(false);

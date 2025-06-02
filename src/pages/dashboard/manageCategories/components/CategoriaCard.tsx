@@ -4,13 +4,22 @@ import { truncateDescription } from "../../../../utils/truncateDescription";
 import { Link, useNavigate } from "react-router";
 import { useAlert } from "../../../../hooks/useAlert";
 import axios from "axios";
-import { useUpdateCategory } from "../hooks/useUpdateCategory";
+import { useEffect, useState } from "react";
 
 
 export function CategoriaCard({ categoria }: { categoria: Categoria }) {
     const { showAlert, showToast } = useAlert();
     const navigate = useNavigate();
-    const { data } = useUpdateCategory(categoria.slug);
+    const [videoGames, setVideoGames] = useState<number>(0);
+
+    useEffect(() => {
+        axios.get('/api/categorias?withGames=true')
+            .then((resp) => {
+                const respuesta = resp.data.data;
+                const categoriaConJuegos = respuesta.find((cat: Categoria) => cat.id === categoria.id);
+                setVideoGames(categoriaConJuegos?.videoGames?.length || 0);
+            });
+    }, [categoria.id]);
 
 
     const handleDelete = (event: React.MouseEvent<SVGSVGElement>) => {
@@ -42,9 +51,6 @@ export function CategoriaCard({ categoria }: { categoria: Categoria }) {
         });
     };
 
-
-
-
     return (
         <div className="w-full md:max-w-3xs lg:max-w-xl relative flex flex-col bg-placeholder aspect-[16/9] p-4 rounded-md">
             <div className="flex flex-row justify-between uppercase mb-1">
@@ -66,7 +72,7 @@ export function CategoriaCard({ categoria }: { categoria: Categoria }) {
             </div>
             <div className="flex absolute bottom-2">
                 <Gamepad className="text-2xl text-green stroke-2" />
-                <p className="ml-1 text-sm md:text-mb mt-0.5">{data.videoGames.length}</p>
+                <p className="ml-1 text-sm md:text-mb mt-0.5">{videoGames}</p>
             </div>
         </div>
     );

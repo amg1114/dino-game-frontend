@@ -28,6 +28,11 @@ export function useCreateCategory() {
         setTouched((prev) => ({ ...prev, [id]: true }));
     };
 
+    const isEmpty =
+        data.titulo == "" ||
+        data.descripcion == ""
+
+
     useEffect(() => {
         if (data.titulo.length === 0 && data.descripcion.length === 0) {
             setErrorTitulo("");
@@ -122,6 +127,7 @@ export function useCreateCategory() {
         errorDescripcion,
         handleChange,
         createCategoria,
-        navigate
+        navigate,
+        isEmpty
     };
 }

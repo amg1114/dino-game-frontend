@@ -15,7 +15,6 @@ export function useUpdateCategory(slug: string) {
         id: "",
         titulo: "",
         descripcion: "",
-        videoGames: []
     });
 
     const [touched, setTouched] = useState({ titulo: false, descripcion: false });
@@ -100,7 +99,7 @@ export function useUpdateCategory(slug: string) {
             data.titulo === originalData.titulo &&
             data.descripcion === originalData.descripcion
         ) {
-            return; // No hacer nada si no hay cambios
+            return;
         }
 
         try {
