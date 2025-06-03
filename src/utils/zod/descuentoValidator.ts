@@ -9,17 +9,16 @@ export const descuentoSchema = z.object({
         .nonempty('La fecha de inicio no puede estar vacía')
         .date('La fecha de inicio no es válida')
         .refine((date) => {
+            const [year, month, day] = date.split('-').map(Number);
             const today = new Date();
-            const parsedDate = new Date(date);
 
-            // Normaliza ambas fechas a medianoche
-            today.setHours(0, 0, 0, 0);
-            parsedDate.setHours(0, 0, 0, 0);
+            const todaysinhora = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const parsedDate = new Date(year, month - 1, day);
 
-            return parsedDate >= today
+            return parsedDate >= todaysinhora
         },
             {
-                message: 'La fecha de inicio no puede ser igual o anterior a la fecha actual',
+                message: 'La fecha de inicio no puede ser anterior a la fecha actual',
             }),
     fechaFin: z
         .string()
@@ -31,8 +30,8 @@ export const descuentoSchema = z.object({
     porcentaje: z
         .number()
         .min(0, 'El porcentaje no puede ser negativo')
-        .max(1, 'El porcentaje no puede ser mayor a 1 (100%)')
-        .refine((value) => value > 0.0 && value <= 1.0, {
+        .max(100, 'El porcentaje no puede ser mayor a 1 (100%)')
+        .refine((value) => value > 0 && value <= 100, {
             message: 'El porcentaje debe estar mayor que 0 y menor o igual que 1 (0% a 100%)',
         }),
 

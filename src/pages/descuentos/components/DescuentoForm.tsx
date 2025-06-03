@@ -10,7 +10,6 @@ interface OutletContextType {
 export function DescuentoForm() {
     const { ObtenerDescuentos } = useOutletContext<OutletContextType>();
     const { slug } = useParams();
-    console.log('id del form' + slug)
 
     const { descuento,
         handleChange,

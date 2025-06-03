@@ -5,7 +5,6 @@ import { DescuentoColumnHeaders } from "./DescuentoColumnHeaders";
 import { Link, Outlet } from "react-router";
 
 export function DescuentoList({ id }: { id: string }) {
-    console.log('este es el id:' + id)
     const { data, loading, error, ObtenerDescuentos } = useDescuento(id);
 
     return (
