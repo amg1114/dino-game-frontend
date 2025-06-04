@@ -4,6 +4,8 @@ import { CreateVideoGame } from '@pages/dashboard/video-games/create/CreateVideo
 import { RouteObject } from 'react-router';
 import { EditVideoGame } from './video-games/edit/EditVideoGame';
 import { requireAuth } from '@utils/protect';
+import { ManageDevRequest } from './manage-dev-request/ManageDevRequest';
+import { RespRequest } from './manage-dev-request/RespRequest';
 
 import { ManageCategories } from './manageCategories/ManageCategories';
 import { CreateCategory } from './manageCategories/CreateCategoria';
@@ -33,7 +35,18 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
     element: <EditVideoGame />,
   },
   {
-
+    path: 'solicitudes',
+    loader: requireAuth(['ADMINISTRATOR']),
+    element: <ManageDevRequest />,
+    children: [
+      {
+        path: ':id',
+        loader: requireAuth(['ADMINISTRATOR']),
+        element: <RespRequest />,
+      },
+    ],
+  },
+  {
     path: 'categorias',
     loader: requireAuth(['ADMINISTRATOR']),
     element: <ManageCategories />,
@@ -41,18 +54,18 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
       {
         path: 'create',
         loader: requireAuth(['ADMINISTRATOR']),
-        element: <CreateCategory />
+        element: <CreateCategory />,
       },
       {
         path: 'update/:slug',
         loader: requireAuth(['ADMINISTRATOR']),
-        element: <UpdateCategory />
-      }
-    ]
+        element: <UpdateCategory />,
+      },
+    ],
   },
   {
     path: 'reportes',
     loader: requireAuth(['ADMINISTRATOR']),
     element: <Reports />,
-  }
+  },
 ];
