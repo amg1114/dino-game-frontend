@@ -31,6 +31,7 @@ import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/S
 import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
 import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
 import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
+import { CategoryIndex } from '@pages/category/CategoryIndex';
 
 export function App() {
   const router = createBrowserRouter([
@@ -71,6 +72,10 @@ export function App() {
         {
           path: 'blog/:slug',
           element: <BlogEntry />,
+        },
+        {
+          path: 'categorias',
+          element: <CategoryIndex />,
         },
         {
           path: 'categorias/:slug',
