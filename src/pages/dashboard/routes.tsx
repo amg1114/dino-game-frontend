@@ -12,6 +12,8 @@ import { CreateCategory } from './manageCategories/CreateCategoria';
 import { UpdateCategory } from './manageCategories/UpdateCategory';
 
 import { Reports } from './reports/Reports';
+import { Descuentos } from '@pages/descuentos/Descuentos';
+import { DescuentoForm } from '@pages/descuentos/components/DescuentoForm';
 
 export const DASHBOARD_ROUTES: RouteObject[] = [
   {
@@ -33,6 +35,17 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
     path: 'juegos/:slug/editar',
     loader: requireAuth(['DEVELOPER']),
     element: <EditVideoGame />,
+  },
+  {
+    path: 'juegos/:slug/descuentos',
+    loader: requireAuth(['DEVELOPER']),
+    element: <Descuentos />,
+    children: [
+      {
+        path: 'nuevo',
+        element: <DescuentoForm />,
+      },
+    ],
   },
   {
     path: 'solicitudes',

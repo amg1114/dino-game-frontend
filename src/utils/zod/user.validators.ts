@@ -31,7 +31,7 @@ export const emailSchema = z
 export const passwordLoginSchema = z
   .string()
   .min(1, 'La contraseña es obligatoria')
-  .nonempty('La contraseña no puede estar vacía')
+  .nonempty('La contraseña no puede estar vacía');
 
 export const userSchema = z.object({
   nombre: z.string().min(1, 'El nombre es obligatorio'),
@@ -74,4 +74,3 @@ export const loginSchema = z.object({
   correo: emailSchema,
   password: passwordLoginSchema,
 });
-
