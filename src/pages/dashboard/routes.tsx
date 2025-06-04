@@ -7,6 +7,12 @@ import { requireAuth } from '@utils/protect';
 import { ManageDevRequest } from './manage-dev-request/ManageDevRequest';
 import { RespRequest } from './manage-dev-request/RespRequest';
 
+import { ManageCategories } from './manageCategories/ManageCategories';
+import { CreateCategory } from './manageCategories/CreateCategoria';
+import { UpdateCategory } from './manageCategories/UpdateCategory';
+
+import { Reports } from './reports/Reports';
+
 export const DASHBOARD_ROUTES: RouteObject[] = [
   {
     index: true,
@@ -36,8 +42,30 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
       {
         path: ':id',
         loader: requireAuth(['ADMINISTRATOR']),
-        element: <RespRequest />
-      }
-    ]
-  }
+        element: <RespRequest />,
+      },
+    ],
+  },
+  {
+    path: 'categorias',
+    loader: requireAuth(['ADMINISTRATOR']),
+    element: <ManageCategories />,
+    children: [
+      {
+        path: 'create',
+        loader: requireAuth(['ADMINISTRATOR']),
+        element: <CreateCategory />,
+      },
+      {
+        path: 'update/:slug',
+        loader: requireAuth(['ADMINISTRATOR']),
+        element: <UpdateCategory />,
+      },
+    ],
+  },
+  {
+    path: 'reportes',
+    loader: requireAuth(['ADMINISTRATOR']),
+    element: <Reports />,
+  },
 ];
