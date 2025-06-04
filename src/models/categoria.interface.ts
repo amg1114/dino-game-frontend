@@ -3,7 +3,7 @@ import { VideoGame } from './video-game.interface';
 export interface Categoria {
   id: number;
   titulo: string;
-  descripcion: null;
+  descripcion: string;
   slug: string;
   videoGames?: VideoGame[];
 }

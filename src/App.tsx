@@ -20,7 +20,6 @@ import { HomePage } from './pages/home/HomePage';
 import { AboutPage } from './pages/about/AboutPage';
 import { BlogPage } from './pages/blog/BlogIndex';
 import { BlogEntry } from './pages/blog/BlogEntry';
-import { CategoryPage } from './pages/category/CategoryPage';
 
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
@@ -28,10 +27,13 @@ import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/Profi
 import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
 import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
 
-import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
 import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
 import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
+import { CategoryPage } from './pages/category/CategoryPage';
 import { CategoryIndex } from '@pages/category/CategoryIndex';
+
+import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
+import { Dashboard } from './pages/dashboard/Dashboard';
 
 export function App() {
   const router = createBrowserRouter([
@@ -117,10 +119,16 @@ export function App() {
         {
           path: 'juegos/:slug',
           element: <VideoGamePageInfo />,
+          children: [
+            {
+              index: true,
+              element: <Dashboard />,
+            },
+          ],
         },
-        { path: 'unauthorized', element: <Unauthorized /> },
       ],
     },
+    { path: 'unauthorized', element: <Unauthorized /> },
   ]);
 
   return (
