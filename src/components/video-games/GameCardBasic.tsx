@@ -37,12 +37,12 @@ export function GameCardBasic({ videoGame, wrapperExtraClasses, adminPermissions
         </Link>
       </header>
       <h4 className="text-xl leading-none md:text-2xl">
-        <Link to={`/juegos/${videoGame.slug}`} className="no-underline text-white hover:text-white/30">
+        <Link to={`/juegos/${videoGame.slug}`} className="text-white no-underline hover:text-white/30">
           {videoGame.titulo}
         </Link>
       </h4>
       <ul className="mb-2 flex flex-wrap gap-2">
-        {videoGame.categorias.length ? (
+        {videoGame.categorias && videoGame.categorias.length ? (
           videoGame.categorias.map((categoria) => (
             <li className="list-none leading-none" key={categoria.id}>
               <Link
