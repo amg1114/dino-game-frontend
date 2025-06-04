@@ -14,6 +14,7 @@ import { UpdateCategory } from './manageCategories/UpdateCategory';
 import { Reports } from './reports/Reports';
 import { Descuentos } from '@pages/descuentos/Descuentos';
 import { DescuentoForm } from '@pages/descuentos/components/DescuentoForm';
+import { ManageDevelopers } from './manageDevelopers/ManageDevelopers';
 
 export const DASHBOARD_ROUTES: RouteObject[] = [
   {
@@ -80,5 +81,10 @@ export const DASHBOARD_ROUTES: RouteObject[] = [
     path: 'reportes',
     loader: requireAuth(['ADMINISTRATOR']),
     element: <Reports />,
+  },
+  {
+    path: 'desarrolladores',
+    loader: requireAuth(['ADMINISTRATOR']),
+    element: <ManageDevelopers />,
   },
 ];
