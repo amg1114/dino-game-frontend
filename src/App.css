@@ -4,8 +4,19 @@
 @theme {
   /* Colors */
   --color-*: initial;
+
   --color-green: #3dab7b;
-  --color-green-2: #a1ddc3;
+  --color-green-light: #a1ddc3;
+
+  --color-red: #b95959;
+  --color-red-light: #e3bdbd;
+
+  --color-blue: #387dd8;
+  --color-blue-light: #afcbef;
+
+  --color-yellow: #e5b710;
+  --color-yellow-light: #faeab3;
+
   --color-white: #ffffff;
   --color-body: #1d1d1d;
   --color-placeholder: #303030;
@@ -15,11 +26,31 @@
   --font-bebas: 'Bebas Neue', cursive;
   --font-oswald: 'Oswald', sans-serif;
   --font-roboto: 'Roboto', sans-serif;
+
+  --animate-place-holder: placeholder 1100ms linear infinite;
+
+  @keyframes placeholder {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {
-  * {
+  body {
     @apply font-roboto text-white;
+  }
+
+  .lucide {
+    width: 1em;
+    height: 1em;
+    @apply text-inherit;
   }
 
   h1 {
@@ -45,8 +76,17 @@
     @apply font-bebas leading-normal;
   }
 
+  label {
+    @apply font-bebas uppercase;
+  }
+
+  input,
+  select {
+    @apply font-roboto font-light;
+  }
+
   a {
-    @apply text-green hover:text-green-2 underline transition-colors;
+    @apply text-green hover:text-green-light underline transition-colors;
   }
 }
 
@@ -62,7 +102,7 @@
   .primary-button,
   .secondary-button,
   .thertiary-button {
-    @apply font-oswald cursor-pointer rounded px-3 py-2 text-base font-semibold tracking-wide uppercase outline-4 outline-transparent transition-transform hover:scale-110;
+    @apply font-oswald rounded px-3 py-2 text-base font-semibold tracking-wide uppercase no-underline outline-4 outline-transparent transition-transform not-disabled:cursor-pointer not-disabled:hover:scale-110 disabled:opacity-60;
   }
 
   .primary-button--sm,
@@ -78,18 +118,103 @@
   }
 
   .primary-button {
-    @apply bg-green active:outline-green/40 rounded-md px-4 py-2 text-white;
+    @apply bg-green not-disabled:active:outline-green/40 rounded-md px-4 py-2 text-white;
   }
 
   .secondary-button {
-    @apply bg-placeholder active:outline-placeholder/40 rounded-md px-4 py-2 text-white;
+    @apply bg-placeholder not-disabled:active:outline-placeholder/40 rounded-md px-4 py-2 text-white;
   }
 
   .thertiary-button {
-    @apply text-green rounded-md bg-white px-4 py-2 active:outline-white/40;
+    @apply text-green rounded-md bg-white px-4 py-2 not-disabled:active:outline-white/40;
   }
 
   .container {
-    @apply mx-auto w-full px-6 md:max-w-3xl md:px-0 lg:max-w-6xl;
+    @apply mx-auto w-full px-6 md:max-w-3xl 2xl:max-w-6xl 2xl:px-0;
+  }
+
+  .rich-text {
+    @apply space-y-6 text-base leading-relaxed;
+
+    /* Text color and base font */
+    color: var(--color-white);
+    font-family: var(--font-roboto);
+
+    /* Headings */
+    h1,
+    h2,
+    h3,
+    h4 {
+      @apply font-bebas leading-tight;
+      color: var(--color-yellow);
+    }
+
+    h1 {
+      @apply mt-6 mb-3 text-5xl;
+    }
+    h2 {
+      @apply mt-5 mb-2.5 text-4xl;
+    }
+    h3 {
+      @apply mt-4 mb-2 text-3xl;
+    }
+    h4 {
+      @apply mt-3 mb-1.5 text-2xl;
+    }
+
+    /* Paragraphs */
+    p {
+      @apply text-base leading-7 text-white;
+    }
+
+    /* Links */
+    a {
+      @apply text-green hover:text-green-light underline transition-colors;
+    }
+
+    /* Lists */
+    ul {
+      @apply list-disc space-y-2 pl-6;
+    }
+
+    ol {
+      @apply list-decimal space-y-2 pl-6;
+    }
+
+    li {
+      @apply text-base text-white;
+    }
+
+    /* Blockquote */
+    blockquote {
+      @apply border-yellow text-yellow-light border-l-4 pl-4 italic;
+    }
+
+    /* Images */
+    img {
+      @apply my-4 w-full rounded-lg shadow-lg;
+    }
+
+    /* Code block */
+    pre {
+      @apply bg-placeholder-2 overflow-x-auto rounded p-4 font-mono text-sm text-white;
+    }
+
+    code {
+      @apply bg-placeholder-2 text-yellow-light rounded px-1 py-0.5 font-mono text-sm;
+    }
+
+    /* Tables */
+    table {
+      @apply my-6 w-full border-collapse text-left;
+    }
+
+    th {
+      @apply bg-placeholder border-placeholder-2 border-b px-4 py-2 text-white;
+    }
+
+    td {
+      @apply border-placeholder-2 border-b px-4 py-2;
+    }
   }
 }
