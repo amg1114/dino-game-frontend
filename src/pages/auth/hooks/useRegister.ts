@@ -78,12 +78,47 @@ export function useRegister() {
                     }, 800);
                 })
                 .catch((error) => {
-                    showAlert({
-                        type: 'error',
-                        title: 'Error',
-                        message: error.response?.data?.message || 'Error interno del servidor',
-                        duration: 2000,
-                    });
+                    const err = error.response?.data;
+
+                    if (err?.error === 'ACCOUNT_DELETED') {
+                        showAlert({
+                            type: 'warning',
+                            title: 'Cuenta eliminada',
+                            message: 'Tu cuenta ha sido eliminada. ¿Deseas recuperarla?',
+                            isConfirm: true,
+                            confirmText: 'Recuperar',
+                            cancelText: 'Cancelar',
+                            onClose: (confirmed) => {
+                                if (confirmed) {
+                                    axios.post(`/api/auth/request-account-recovery?email=${formData.correo}`)
+                                        .then(() => {
+                                            showToast({
+                                                type: 'success',
+                                                message: 'Solicitud de recuperación enviada. Revisa tu correo.',
+                                                duration: 3000,
+                                            });
+                                            navigate('/iniciar-sesion');
+                                        })
+                                        .catch((error) => {
+                                            showAlert({
+                                                type: 'error',
+                                                title: 'Error',
+                                                message: error.response?.data?.message || 'Error interno del servidor',
+                                                duration: 3000,
+                                            });
+                                        });
+                                }
+                            },
+                        });
+                        return;
+                    } else {
+                        showAlert({
+                            type: 'error',
+                            title: 'Error',
+                            message: error.response?.data?.message || 'Error interno del servidor',
+                            duration: 2000,
+                        });
+                    }
                 });
         } catch (error) {
             if (error instanceof z.ZodError) {

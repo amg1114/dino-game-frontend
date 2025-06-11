@@ -34,6 +34,7 @@ import { CategoryIndex } from '@pages/category/CategoryIndex';
 
 import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { RecoverAccount } from '@pages/auth/RecoverAccount';
 
 export function App() {
   const router = createBrowserRouter([
@@ -60,6 +61,10 @@ export function App() {
             {
               path: 'recuperar-contrasena/:token',
               element: <PasswordReset />,
+            },
+            {
+              path: 'recuperar-cuenta/:token',
+              element: <RecoverAccount />,
             },
           ],
         },
