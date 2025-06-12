@@ -11,7 +11,6 @@ export function useVideoGameInfo() {
         try {
             const response = await axios.get(`/api/video-games/${slug}`);
             const game = response.data;
-            game.assets = [...game.assets, game.thumb, game.hero];
             setVideoGame(game);
         } catch (error) {
             console.error("Error fetching video game data:", error);
