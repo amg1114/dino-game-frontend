@@ -58,7 +58,7 @@ export function ProfileLayout() {
   const handleDeleteAccount = useCallback(() => {
     showAlert({
       title: 'Eliminar cuenta',
-      message: '¿Estás seguro de que deseas Eliminar cuenta? Esto eliminará tu cuenta y no podrás recuperarla.',
+      message: '¿Estás seguro de que deseas Eliminar cuenta?',
       type: 'warning',
       isConfirm: true,
       onClose(confirm) {
