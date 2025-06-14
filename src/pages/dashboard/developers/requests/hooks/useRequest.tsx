@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { usePagination } from '../../../../hooks/usePagination';
+import { usePagination } from '../../../../../hooks/usePagination';
 import axios from 'axios';
-import { SolicitudDesarrollador } from '../../../../models/solicitud.interface';
+import { SolicitudDesarrollador } from '../../../../../models/solicitud.interface';
 import { number } from 'zod';
-import { useAlert } from '../../../../hooks/useAlert';
+import { useAlert } from '../../../../../hooks/useAlert';
 
 interface returnedRequest {
   request: SolicitudDesarrollador[];

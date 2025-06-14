@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Descuento } from '../../../models/descuento.interface';
+import { Descuento } from '../../../../../models/descuento.interface';
 import { useEffect, useState } from 'react';
 
 export function useDescuento(id: string | number | null) {

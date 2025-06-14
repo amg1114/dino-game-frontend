@@ -4,17 +4,17 @@ import { CreateVideoGame } from '@pages/dashboard/video-games/create/CreateVideo
 import { RouteObject } from 'react-router';
 import { EditVideoGame } from './video-games/edit/EditVideoGame';
 import { requireAuth } from '@utils/protect';
-import { ManageDevRequest } from './manage-dev-request/ManageDevRequest';
-import { RespRequest } from './manage-dev-request/RespRequest';
+import { ManageDevRequest } from './developers/requests/ManageDevRequest';
+import { RespRequest } from './developers/requests/RespRequest';
 
-import { ManageCategories } from './manageCategories/ManageCategories';
-import { CreateCategory } from './manageCategories/CreateCategoria';
-import { UpdateCategory } from './manageCategories/UpdateCategory';
+import { ManageCategories } from './categories/ManageCategories';
+import { CreateCategory } from './categories/CreateCategoria';
+import { UpdateCategory } from './categories/UpdateCategory';
 
 import { Reports } from './reports/Reports';
-import { Descuentos } from '@pages/descuentos/Descuentos';
-import { DescuentoForm } from '@pages/descuentos/components/DescuentoForm';
-import { ManageDevelopers } from './manageDevelopers/ManageDevelopers';
+import { Descuentos } from '@pages/dashboard/video-games/descuentos/Descuentos';
+import { DescuentoForm } from '@pages/dashboard/video-games/descuentos/components/DescuentoForm';
+import { ManageDevelopers } from './developers/ManageDevelopers';
 
 export const DASHBOARD_ROUTES: RouteObject[] = [
   {

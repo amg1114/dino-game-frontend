@@ -1,6 +1,6 @@
 import { Calendar } from 'lucide-react';
-import { SolicitudDesarrollador } from '../../../../models/solicitud.interface';
-import { truncateDescription } from '../../../../utils/truncateDescription';
+import { SolicitudDesarrollador } from '../../../../../models/solicitud.interface';
+import { truncateDescription } from '../../../../../utils/truncateDescription';
 import { Link } from 'react-router';
 
 export function DevRequestCard({ request }: { request: SolicitudDesarrollador }) {

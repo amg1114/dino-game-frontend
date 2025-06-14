@@ -1,6 +1,6 @@
-import { Modal } from '../../../components/Modal';
+import { Modal } from '../../../../../components/Modal';
 import { useNewDescuento } from '../hooks/useNewDescuento';
-import { StyledInput } from '../../../components/forms/StyledInput';
+import { StyledInput } from '../../../../../components/forms/StyledInput';
 import { Link, useOutletContext, useParams } from 'react-router';
 
 interface OutletContextType {

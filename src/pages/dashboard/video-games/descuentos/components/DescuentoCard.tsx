@@ -1,6 +1,6 @@
 import { CalendarCheck, CalendarX, Trash2 } from 'lucide-react';
-import { Descuento } from '../../../models/descuento.interface';
-import { formatPrice } from '../../../utils/formatPrice';
+import { Descuento } from '../../../../../models/descuento.interface';
+import { formatPrice } from '../../../../../utils/formatPrice';
 import { useDeleteDescuento } from '../hooks/useDeleteDescuento';
 
 interface DescuentoCardProps {

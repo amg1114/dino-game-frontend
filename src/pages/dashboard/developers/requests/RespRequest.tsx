@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router';
-import { Modal } from '../../../components/Modal';
+import { Modal } from '../../../../components/Modal';
 import { useGetRequest } from './hooks/useRequest';
 import axios from 'axios';
-import { useAlert } from '../../../hooks/useAlert';
+import { useAlert } from '../../../../hooks/useAlert';
 import React from 'react';
 
 export function RespRequest() {

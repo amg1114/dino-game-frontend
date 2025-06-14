@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
-import { StyledInput } from '../../../components/forms/StyledInput';
-import { Pagination } from '../../../components/pagination';
+import { StyledInput } from '../../../../components/forms/StyledInput';
+import { Pagination } from '../../../../components/pagination';
 import { DevRequestCard } from './components/DevRequestCard';
 import { useRequest, useSearch } from './hooks/useRequest';
 import { useLocation } from 'react-router';

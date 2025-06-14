@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { useAlert } from '../../../hooks/useAlert';
+import { useAlert } from '../../../../../hooks/useAlert';
 import { useCallback } from 'react';
 
 export function useDeleteDescuento(slug: string | null, descuento: number | string | null) {

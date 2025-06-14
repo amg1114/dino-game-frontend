@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { descuentoSchema } from '../../../utils/zod/descuentoValidator';
+import { descuentoSchema } from '../../../../../utils/zod/descuentoValidator';
 import { z } from 'zod';
-import { useAlert } from '../../../hooks/useAlert';
+import { useAlert } from '../../../../../hooks/useAlert';
 
 export function useNewDescuento(id: number | string | null) {
   const navigate = useNavigate();
