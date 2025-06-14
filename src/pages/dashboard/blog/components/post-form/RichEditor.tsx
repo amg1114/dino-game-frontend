@@ -30,6 +30,7 @@ import {
   TextQuote,
   Undo,
 } from 'lucide-react';
+import { useEffect } from 'react';
 
 function ToolbarButton({
   onClick,
@@ -66,11 +67,11 @@ function ToolbarSeparator() {
 export type RichEditorChangeEvent = string | null;
 
 export function RichEditor({
-  value,
+  value = '',
   errors,
   onChange,
 }: {
-  value?: string;
+  value: string;
   onChange?: (value: RichEditorChangeEvent) => void;
   errors?: string[];
 }) {
@@ -95,7 +96,7 @@ export function RichEditor({
         showOnlyCurrent: false,
       }),
     ],
-    content: value || '',
+    content: value,
     onUpdate: ({ editor }) => {
       const content = editor.getHTML();
       if (onChange) {
@@ -103,6 +104,16 @@ export function RichEditor({
       }
     },
   });
+
+  useEffect(() => {
+    if (editor) {
+      const currentContent = editor.getHTML();
+      editor.commands.setContent(value, false);
+      if (currentContent !== value && currentContent.replace(/<[^>]+>/g, '').trim() !== '') {
+        editor.commands.focus();
+      }
+    }
+  }, [value, editor]);
 
   if (!editor) return null;
 

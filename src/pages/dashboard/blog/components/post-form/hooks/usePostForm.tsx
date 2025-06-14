@@ -21,12 +21,13 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
   });
 
   const [errors, setErrors] = useState<FormErrors<PostForm>>({} as FormErrors<PostForm>);
+  const [canSubmit, setCanSubmit] = useState(false);
 
   const handleChange = (
     field: PostFormField,
     e: ChangeEvent<HTMLInputElement> | AssetInputEvent | RichEditorChangeEvent
   ) => {
-    if (mode === 'create' && field !== 'thumb') {
+    if (field !== 'thumb') {
       const value =
         field === 'descripcion' ? (e as RichEditorChangeEvent) : (e as ChangeEvent<HTMLInputElement>).target.value;
       setForm((prev) => ({
@@ -36,7 +37,7 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
       return;
     }
 
-    if (mode === 'create' && field === 'thumb') {
+    if (field === 'thumb') {
       const { file, type } = e as AssetInputEvent;
       if (type === 'delete') {
         console.warn('Cannot delete thumb in create mode');
@@ -64,7 +65,7 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
     e.preventDefault();
     checkErrors();
 
-    if (Object.keys(errors).length > 0) {
+    if (!canSubmit) {
       showToast({
         type: 'error',
         message: 'Por favor, corrige los errores antes de enviar el formulario.',
@@ -131,7 +132,28 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
       });
   };
 
-  const updatePost = async () => {};
+  const updatePost = async () => {
+    return axios
+      .patch<Post>(`/api/noticias/${initialData?.id}`, {
+        titulo: form.titulo,
+        descripcion: form.descripcion,
+      })
+      .then((res) => {
+        if (form.thumb) {
+          return uploadAsset(
+            form.thumb!,
+            `/api/assets/noticias/${initialData!.id}/${initialData!.thumb.id}`,
+            undefined,
+            'PUT'
+          );
+        }
+        return res.data;
+      })
+      .catch((error) => {
+        console.error('Error updating post:', error);
+        throw error;
+      });
+  };
 
   const resetErrors = () => {
     setErrors({} as FormErrors<PostForm>);
@@ -184,11 +206,26 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
     checkErrors();
   }, [form, checkErrors]);
 
+  useEffect(() => {
+    if (mode === 'create') {
+      setCanSubmit(
+        Object.keys(errors).length === 0 && form.titulo !== null && form.descripcion !== null && form.thumb !== null
+      );
+    } else if (mode === 'edit' && initialData) {
+      setCanSubmit(
+        (Object.keys(errors).length === 0 &&
+          Object.entries(form).some(([key, value]) => value !== null && value !== initialData[key as keyof Post])) ||
+          form.thumb !== null
+      );
+    }
+  }, [errors, form, initialData, mode]);
+
   return {
     form,
     mode,
     initialData,
     errors,
+    canSubmit,
     handleChange,
     handleCancel,
     handleSubmit,

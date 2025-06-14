@@ -5,9 +5,13 @@ import { StyledInput } from '@components/forms/StyledInput';
 import { StyledFileInput } from '@components/forms/StyledFileInput';
 import { ALLOWED_IMAGES } from '@utils/zod/file.validators';
 import { RichEditor } from './RichEditor';
+import { Post } from '@models/post.interface';
 
-export function PostForm({ mode }: { mode: PostFormMode }) {
-  const { form, initialData, errors, handleChange, handleCancel, handleSubmit } = usePostForm(mode);
+export function PostForm({ mode, initialData: initialPost }: { mode: PostFormMode; initialData?: Post | null }) {
+  const { form, initialData, errors, canSubmit, handleChange, handleCancel, handleSubmit } = usePostForm(
+    mode,
+    initialPost
+  );
 
   return (
     <section className="mx-auto w-full max-w-2xl space-y-6">
@@ -49,7 +53,7 @@ export function PostForm({ mode }: { mode: PostFormMode }) {
           />
         </div>
         <RichEditor
-          value={form.descripcion || ''}
+          value={form.descripcion ?? ''}
           errors={errors.descripcion}
           onChange={(e) => handleChange('descripcion', e)}
         />
@@ -57,7 +61,7 @@ export function PostForm({ mode }: { mode: PostFormMode }) {
           <button type="button" className="secondary-button" onClick={() => handleCancel()}>
             Cancelar
           </button>
-          <button type="submit" className="primary-button">
+          <button type="submit" className="primary-button" disabled={!canSubmit}>
             {mode === 'edit' ? 'Guardar' : 'Crear'}
           </button>
         </footer>
