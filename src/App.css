@@ -145,7 +145,6 @@
     h3,
     h4 {
       @apply font-bebas leading-tight;
-      color: var(--color-yellow);
     }
 
     h1 {

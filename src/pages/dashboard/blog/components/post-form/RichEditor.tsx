@@ -182,7 +182,7 @@ export function RichEditor() {
       </div>
 
       {/* Focusable wrapper */}
-      <div onClick={handleWrapperClick} className="">
+      <div onClick={handleWrapperClick}>
         <EditorContent editor={editor} className="rich-text min-h-96 border-0 outline-0" />
       </div>
     </div>
