@@ -9,6 +9,7 @@ export interface AuthContextType {
   token: string | null;
   logIn: (token: string | null) => void;
   logOut: () => void;
+  getUsuario: () => void;
   updateUsuario: (newUser: Partial<Usuario>) => Promise<void>;
   deleteAccount: () => Promise<void>;
 }
@@ -108,11 +109,12 @@ export function AuthProvider({ child }: AuthProviderProps) {
       token,
       isLoading,
       updateUsuario,
+      getUsuario,
       deleteAccount,
       logOut,
       logIn,
     };
-  }, [isLoading, usuario, token, updateUsuario, logOut, logIn, deleteAccount]);
+  }, [isLoading, usuario, token, updateUsuario, logOut, logIn, getUsuario, deleteAccount]);
 
   return <AuthContext.Provider value={contextValue}>{child}</AuthContext.Provider>;
 }

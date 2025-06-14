@@ -4,10 +4,13 @@ import { Heart } from 'lucide-react';
 import { PostCard } from '../../components/PostCard';
 import { usePageMetadata } from '../../hooks/usePageMetadata';
 import { truncateDescription } from '../../utils/truncateDescription';
+import { useAuth } from '@hooks/useAuth';
+import axios from 'axios';
 
 export function BlogEntry() {
   const { slug } = useParams<{ slug: string }>();
   const { post, relatedPosts, loading } = useBlog(slug || '');
+  const { usuario, getUsuario } = useAuth();
 
   usePageMetadata({
     title: post?.titulo || 'Loading',
@@ -23,6 +26,33 @@ export function BlogEntry() {
   const mes = date.toLocaleDateString('es-ES', opcionesMes);
 
   const mesCapitalizado = mes.charAt(0).toUpperCase() + mes.slice(1);
+  const isLiked = !!usuario && (usuario.likes ?? []).some((like) => like.noticiaID === post.id);
+  const handleLike = () => {
+    if (isLiked) {
+      axios
+        .delete(`/api/likes/${post.id}`)
+        .then(() => {
+          getUsuario();
+        })
+        .catch((error) => {
+          console.error('Error al eliminar el like:', error);
+        });
+
+      post.cantidadLikes -= 1;
+
+      return;
+    }
+
+    post.cantidadLikes += 1;
+    axios
+      .post(`/api/likes/${post.id}`)
+      .then(() => {
+        getUsuario();
+      })
+      .catch((error) => {
+        console.error('Error al eliminar el like:', error);
+      });
+  };
 
   const fechaFormateada = `${mesCapitalizado} ${date.getDate()}, ${date.getFullYear()}`;
 
@@ -31,7 +61,7 @@ export function BlogEntry() {
       <div className="mx-auto w-full md:w-[80%] lg:w-1/2">
         <div className="flex aspect-[16/9] w-full max-w-[90%] flex-col sm:min-w-[90%]">
           <img className="rounded-xl" src={post.thumb?.url} alt="news image" />
-          <div className="mt-4 flex flex-row justify-start text-sm md:w-2/3">
+          <div className="mt-4 flex flex-row justify-start text-base md:w-2/3">
             <time
               dateTime={post.fecha}
               className="font-roboto border-r-placeholder-2 border-r-2 pr-2 leading-none text-white"
@@ -42,10 +72,14 @@ export function BlogEntry() {
               {post.autor.nombre}
             </p>
             <div className="flex flex-row items-center px-2">
-              <span className="fill-placeholder-2 stroke-placeholder-2 pr-1 text-xs leading-none">
-                <Heart />
-              </span>
-              <span className="text-sm leading-none text-white">{post.cantidadLikes}</span>
+              <button
+                className="fill-placeholder-2 stroke-placeholder-2 group flex cursor-pointer items-center gap-1 pr-1 leading-none"
+                onClick={() => handleLike()}
+              >
+                {isLiked && <Heart fill="#3dab7b" color="#3dab7b" className={!isLiked ? '' : ''} />}
+                {!isLiked && <Heart />}
+                <span className="text-sm leading-none text-white">{post.cantidadLikes}</span>
+              </button>
             </div>
           </div>
           <h1 className="mt-2 w-auto text-4xl leading-tight">{post.titulo}</h1>
