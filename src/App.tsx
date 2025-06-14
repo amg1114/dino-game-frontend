@@ -2,8 +2,6 @@ import './App.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import { requireAuth } from './utils/protect';
-
 import { AuthProvider } from './providers/AuthContext';
 import { AlertProvider } from './providers/AlertContext';
 
@@ -21,20 +19,16 @@ import { AboutPage } from './pages/about/AboutPage';
 import { BlogPage } from './pages/blog/BlogIndex';
 import { BlogEntry } from './pages/blog/BlogEntry';
 
-import { ProfileLayout } from './pages/profile/ProfileLayout';
-import { ProfileInfo } from './pages/profile/profileInfo/ProfileInfo';
-import { ProfilePasswordReset } from './pages/profile/profilePasswordReset/ProfilePasswordReset';
-import { ProfileLibrary } from './pages/profile/library/ProfileLibrary';
-import { SolicitudDesarrollador } from './pages/profile/solicitudDesarrollador/SolicitudDesarrollador';
-
 import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
 import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
 import { CategoryPage } from './pages/category/CategoryPage';
 import { CategoryIndex } from '@pages/category/CategoryIndex';
 
-import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { RecoverAccount } from '@pages/auth/RecoverAccount';
+
+import { PROFILE_ROUTES } from '@pages/profile/routes';
+import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
 
 export function App() {
   const router = createBrowserRouter([
@@ -89,35 +83,6 @@ export function App() {
           element: <CategoryPage />,
         },
         {
-          path: 'perfil',
-          loader: requireAuth(),
-          element: <ProfileLayout />,
-          children: [
-            {
-              path: '',
-              index: true,
-              element: <ProfileInfo />,
-            },
-            {
-              path: 'restablecer-contrasena',
-              element: <ProfilePasswordReset />,
-            },
-            {
-              path: 'biblioteca',
-              element: <ProfileLibrary />,
-            },
-            {
-              path: 'solicitud-desarrollador',
-              element: <SolicitudDesarrollador />,
-            },
-          ],
-        },
-        {
-          path: 'dashboard',
-          element: <ProfileLayout />,
-          children: DASHBOARD_ROUTES,
-        },
-        {
           path: 'juegos',
           element: <VideoGamesPage />,
         },
@@ -131,6 +96,8 @@ export function App() {
             },
           ],
         },
+        PROFILE_ROUTES,
+        DASHBOARD_ROUTES,
       ],
     },
     { path: 'unauthorized', element: <Unauthorized /> },
