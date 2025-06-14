@@ -11,9 +11,8 @@ export function PasswordReset() {
     handleChangePassword,
     handleChangeConfirmPassword,
     handleSubmit,
-    navigate
+    navigate,
   } = usePasswordReset();
-
 
   return (
     <>

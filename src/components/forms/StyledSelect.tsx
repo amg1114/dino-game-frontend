@@ -19,7 +19,7 @@ export function StyledSelect({ id, options, value, onChange, label, errors }: St
       <select
         id={id}
         className={clsx({
-          'bg-placeholder focus:ring-green rounded p-4 text-white focus:ring-2 focus:outline-none h-14': true,
+          'bg-placeholder focus:ring-green h-14 rounded p-4 text-white focus:ring-2 focus:outline-none': true,
           'ring-red focus:ring-red ring-2': errors?.length,
         })}
         value={value}

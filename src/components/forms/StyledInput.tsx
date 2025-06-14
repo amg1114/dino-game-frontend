@@ -28,7 +28,7 @@ export function StyledInput({
   name,
   errors,
   onFocus,
-  onBlur
+  onBlur,
 }: StyledInputProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1">

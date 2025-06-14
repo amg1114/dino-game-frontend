@@ -4,14 +4,7 @@ import { StyledSelect } from '../../components/forms/StyledSelect';
 import { useRegister } from './hooks/useRegister';
 
 export function Register() {
-  const {
-    formData,
-    errors,
-    handleChange,
-    handleSubmit,
-    countries,
-    navigate
-  } = useRegister();
+  const { formData, errors, handleChange, handleSubmit, countries, navigate } = useRegister();
 
   return (
     <>
