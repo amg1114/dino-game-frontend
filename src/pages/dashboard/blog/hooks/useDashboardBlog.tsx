@@ -1,3 +1,4 @@
+import { useAlert } from '@hooks/useAlert';
 import { useAuth } from '@hooks/useAuth';
 import { usePagination } from '@hooks/usePagination';
 import { PaginatedResponse } from '@models/base-fetch.interface';
@@ -7,6 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 export function useDashboardBlog() {
   const { usuario } = useAuth();
+  const { showAlert, showToast } = useAlert();
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPosts, setTotalPosts] = useState(0);
@@ -20,6 +22,7 @@ export function useDashboardBlog() {
     ],
     9
   );
+
   const fetchPosts = useCallback(async () => {
     if (!usuario) return;
     let endpoint = `/api/noticias?limit=${itemsPerPage}&offset=${page}&autor=${usuario.id}&orderBy=fecha&order=desc`;
@@ -40,6 +43,51 @@ export function useDashboardBlog() {
     }
   }, [usuario, searchTerm, itemsPerPage, page]);
 
+  const handleDeletePost = (post: Post) => {
+    showAlert({
+      type: 'warning',
+      title: 'Eliminar Publicación',
+      message: `¿Estás seguro de que quieres eliminar la publicación "${post.titulo}"? Esta acción no se puede deshacer.`,
+      isConfirm: true,
+      onClose(confirm) {
+        if (!confirm) {
+          showToast({
+            type: 'info',
+            message: 'La publicación no fue eliminada.',
+          });
+          return;
+        }
+
+        deletePost(post.id);
+      },
+    });
+  };
+
+  const deletePost = async (id: number) => {
+    const loading = showAlert({
+      type: 'loading',
+      title: 'Eliminando Publicación',
+      message: 'Por favor, espere mientras se elimina la publicación.',
+    });
+
+    try {
+      await axios.delete(`/api/noticias/${id}`);
+      showToast({
+        type: 'success',
+        message: 'Publicación eliminada correctamente.',
+      });
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      showAlert({
+        type: 'error',
+        title: 'Error al eliminar la publicación',
+        message: 'Ocurrió un error al intentar eliminar la publicación. Por favor, inténtalo de nuevo más tarde.',
+      });
+    } finally {
+      loading.close();
+      fetchPosts();
+    }
+  };
   useEffect(() => {
     if (usuario) {
       fetchPosts();
@@ -55,5 +103,6 @@ export function useDashboardBlog() {
     setSearchTerm,
     setPage,
     fetchPosts,
+    handleDeletePost,
   };
 }
