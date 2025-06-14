@@ -37,7 +37,7 @@ export function DashboardBlog() {
           <>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <PostCard post={post} key={post.id} />
+                <PostCard post={post} key={post.id} adminControls />
               ))}
             </div>
             <Pagination itemsPerPage={itemsPerPage} totalItems={totalPosts} page={page} setPage={setPage} />
