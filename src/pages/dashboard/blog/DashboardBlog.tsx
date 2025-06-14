@@ -23,7 +23,7 @@ export function DashboardBlog() {
               id="search"
               name="search"
               label="Buscar"
-              placeholder="Buscar Juegos por Titulo o Descripcion"
+              placeholder="Buscar Publicaciones por Titulo o Descripcion"
               type="text"
               value={searchTerm}
               onChange={(e) => {

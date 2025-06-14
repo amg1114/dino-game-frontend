@@ -22,7 +22,11 @@ export function useDashboardBlog() {
   );
   const fetchPosts = useCallback(async () => {
     if (!usuario) return;
-    const endpoint = `/api/noticias?limit=${itemsPerPage}&offset=${page}&author=${usuario.id}`;
+    let endpoint = `/api/noticias?limit=${itemsPerPage}&offset=${page}&autor=${usuario.id}&orderBy=fecha&order=desc`;
+
+    if (searchTerm.trim() !== '') {
+      endpoint += `&search=${searchTerm}`;
+    }
 
     const response = await axios.get<PaginatedResponse<Post>>(endpoint);
 
@@ -34,7 +38,7 @@ export function useDashboardBlog() {
       setTotalPosts(0);
       console.error('Error fetching posts:', error);
     }
-  }, [usuario, itemsPerPage, page]);
+  }, [usuario, searchTerm, itemsPerPage, page]);
 
   useEffect(() => {
     if (usuario) {
