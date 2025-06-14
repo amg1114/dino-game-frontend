@@ -16,6 +16,7 @@ import { Descuentos } from '@pages/dashboard/video-games/descuentos/Descuentos';
 import { DescuentoForm } from '@pages/dashboard/video-games/descuentos/components/DescuentoForm';
 import { ManageDevelopers } from './developers/ManageDevelopers';
 import { ProfileLayout } from '@pages/profile/ProfileLayout';
+import { DashboardBlog } from './blog/DashboardBlog';
 
 export const DASHBOARD_ROUTES: RouteObject = {
   path: 'dashboard',
@@ -90,6 +91,11 @@ export const DASHBOARD_ROUTES: RouteObject = {
       path: 'desarrolladores',
       loader: requireAuth(['ADMINISTRATOR']),
       element: <ManageDevelopers />,
+    },
+    {
+      path: 'blog',
+      loader: requireAuth(['DEVELOPER', 'ADMINISTRATOR']),
+      element: <DashboardBlog />,
     },
   ],
 };
