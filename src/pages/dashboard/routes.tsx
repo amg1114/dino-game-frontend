@@ -17,6 +17,7 @@ import { DescuentoForm } from '@pages/dashboard/video-games/descuentos/component
 import { ManageDevelopers } from './developers/ManageDevelopers';
 import { ProfileLayout } from '@pages/profile/ProfileLayout';
 import { DashboardBlog } from './blog/DashboardBlog';
+import { CreatePost } from './blog/create/CreatePost';
 
 export const DASHBOARD_ROUTES: RouteObject = {
   path: 'dashboard',
@@ -96,6 +97,11 @@ export const DASHBOARD_ROUTES: RouteObject = {
       path: 'blog',
       loader: requireAuth(['DEVELOPER', 'ADMINISTRATOR']),
       element: <DashboardBlog />,
+    },
+    {
+      path: 'blog/crear',
+      loader: requireAuth(['DEVELOPER', 'ADMINISTRATOR']),
+      element: <CreatePost />,
     },
   ],
 };

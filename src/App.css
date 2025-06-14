@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
-
 @theme {
   /* Colors */
   --color-*: initial;
@@ -216,5 +215,9 @@
     td {
       @apply border-placeholder-2 border-b px-4 py-2;
     }
+  }
+
+  .rich-text .ProseMirror {
+    @apply min-h-96 outline-0;
   }
 }
