@@ -9,6 +9,7 @@ import { useDashboardConfig } from './hooks/useDashboradConfig';
 import { DashboardUnit } from '../../utils/statistics';
 import { SalesChart } from './components/SalesChart';
 import clsx from 'clsx';
+import { Link } from 'react-router';
 
 export function Dashboard() {
   const { dashboardConfig, season, dashboardUnitsOptions, handleDashboardUnitChange, hanldeSeasonChange } =
@@ -57,6 +58,9 @@ export function Dashboard() {
           salesUnit={dashboardConfig.salesUnit}
           normalizer={dashboardConfig.chartConfig.normalizer}
         />
+        <p className="text-end">
+          <Link to="/dashboard/ventas">Ver reportes de Ventas</Link>
+        </p>
 
         {hasSalesData && (
           <div

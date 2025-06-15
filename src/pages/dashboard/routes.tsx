@@ -19,6 +19,7 @@ import { ProfileLayout } from '@pages/profile/ProfileLayout';
 import { DashboardBlog } from './blog/DashboardBlog';
 import { CreatePost } from './blog/create/CreatePost';
 import { EditPost } from './blog/edit/EditPost';
+import { SalesDashboard } from './sales/SalesDashborad';
 
 export const DASHBOARD_ROUTES: RouteObject = {
   path: 'dashboard',
@@ -28,6 +29,11 @@ export const DASHBOARD_ROUTES: RouteObject = {
       index: true,
       loader: requireAuth(['DEVELOPER', 'ADMINISTRATOR']),
       element: <Dashboard />,
+    },
+    {
+      path: 'ventas',
+      loader: requireAuth(['DEVELOPER', 'ADMINISTRATOR']),
+      element: <SalesDashboard />,
     },
     {
       path: 'juegos',

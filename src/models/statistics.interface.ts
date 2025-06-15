@@ -35,3 +35,13 @@ export interface Sale {
 }
 export type SalesType = keyof Omit<Statistics, 'season' | 'totalVideoGames'>;
 export type SalesDelta = 'increase' | 'same' | 'decrease';
+
+export interface SalesData {
+  id: number;
+  fechaCompra: Date;
+  precio: number;
+  videoGame: {
+    titulo: string;
+    slug: string;
+  };
+}
