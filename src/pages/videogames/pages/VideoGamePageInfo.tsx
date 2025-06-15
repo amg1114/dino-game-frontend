@@ -5,11 +5,15 @@ import { CommentsSection } from '../components/videogame/CommentsSection';
 import { useVideoGameInfo } from '../hooks/videogame/useVideoGameInfo';
 import { Requisito } from '../../../models/requisitos.interface';
 import { Categoria } from '../../../models/categoria.interface';
-import { Outlet } from 'react-router';
 import { GamePageContext } from '@utils/context/gamePageContext';
+import { AlertCircle } from 'lucide-react';
+import { Outlet, useNavigate } from 'react-router';
+import { useAuth } from '@hooks/useAuth';
 
 export function VideoGamePageInfo() {
   const videoGameInfo = useVideoGameInfo();
+  const navigate = useNavigate();
+  const { usuario } = useAuth();
   if (!videoGameInfo) return null;
   const { game, fechaFormateada, fetchData } = videoGameInfo;
   return (
@@ -19,20 +23,30 @@ export function VideoGamePageInfo() {
           <AssetsSlider videoGame={game} />
           <div className="mt-8 flex w-full flex-col justify-between gap-x-10 gap-y-3 sm:flex-row xl:w-4/5">
             <div className="mb-2 w-full">
-              <div className="border-b-placeholder flex w-full flex-col-reverse border-b-2 pb-4 xl:flex-row">
-                <p>
-                  {fechaFormateada.toUpperCase()} <span className="opacity-20">&#124; </span>
-                  {game.developer.nombre} <span className="opacity-20">&#124; </span>
-                  {game.versions.length > 0 ? (
-                    <>
-                      {' '}
-                      ({game.versions[0].version}) <span className="opacity-20">&#124; </span>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </p>
-                <span className="md:ml-1">{<Calification game={game} />}</span>
+              <div className="border-b-placeholder flex justify-between border-b-2 pb-4">
+                <div className="flex w-full flex-col-reverse xl:flex-row">
+                  <p>
+                    {fechaFormateada.toUpperCase()} <span className="opacity-20">&#124; </span>
+                    {game.developer.nombre} <span className="opacity-20">&#124; </span>
+                    {game.versions.length > 0 ? (
+                      <>
+                        {' '}
+                        ({game.versions[0].version}) <span className="opacity-20">&#124; </span>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </p>
+                  <span className="md:ml-1">{<Calification game={game} />}</span>
+                </div>
+                <AlertCircle
+                  className={
+                    usuario?.tipo !== 'ESTANDAR'
+                      ? 'text-red h-8 w-8 hover:cursor-default'
+                      : 'text-red hover:text-red/70 h-8 w-8 hover:cursor-pointer'
+                  }
+                  onClick={usuario?.tipo !== 'ESTANDAR' ? () => {} : () => navigate(`reportar`)}
+                />
               </div>
               <div className="border-b-placeholder w-full border-b-2 pb-4">
                 <h2 className="mt-2 uppercase">Descripción</h2>
@@ -100,6 +114,7 @@ export function VideoGamePageInfo() {
       ) : (
         <></>
       )}
+      <Outlet />
     </>
   );
 }

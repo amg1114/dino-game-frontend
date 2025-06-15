@@ -28,6 +28,7 @@ import { RecoverAccount } from '@pages/auth/RecoverAccount';
 import { PROFILE_ROUTES } from '@pages/profile/routes';
 import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
 import { BuyVideoGamePage } from '@pages/videogames/pages/BuyVideoGamePage';
+import { Report } from '@pages/videogames/components/videogame/Report';
 
 export function App() {
   const router = createBrowserRouter([
@@ -92,6 +93,10 @@ export function App() {
             {
               path: 'comprar',
               element: <BuyVideoGamePage />,
+            },
+            {
+              path: 'reportar',
+              element: <Report />,
             },
           ],
         },
