@@ -12,6 +12,7 @@ export function useRegister() {
   const ENDPOINT = '/api/auth/register';
   const navigate = useNavigate();
   const { usuario, isLoading, logIn } = useAuth();
+  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
   const { showToast, showAlert } = useAlert();
 
   const [errors, setErrors] = useState<ErrorUsuario>({} as ErrorUsuario);
@@ -31,6 +32,7 @@ export function useRegister() {
     correo: false,
     password: false,
   });
+  const [closeRecoveryToast, setCloseRecoveryToast] = useState<(() => void) | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -90,9 +92,11 @@ export function useRegister() {
               cancelText: 'Cancelar',
               onClose: (confirmed) => {
                 if (confirmed) {
+                  setIsLoadingEmail(true);
                   axios
                     .post(`/api/auth/request-account-recovery?email=${formData.correo}`)
                     .then(() => {
+                      setIsLoadingEmail(false);
                       showToast({
                         type: 'success',
                         message: 'Solicitud de recuperación enviada. Revisa tu correo.',
@@ -107,11 +111,14 @@ export function useRegister() {
                         message: error.response?.data?.message || 'Error interno del servidor',
                         duration: 3000,
                       });
+                      setIsLoadingEmail(false);
                     });
+                  setTimeout(() => {
+                    navigate('/');
+                  }, 800);
                 }
               },
             });
-            return;
           } else {
             showAlert({
               type: 'error',
@@ -146,6 +153,19 @@ export function useRegister() {
       navigate('/');
     }
   }, [isLoading, usuario, navigate]);
+  useEffect(() => {
+    if (isLoadingEmail) {
+      const close = showToast({
+        type: 'info',
+        message: 'Enviando solicitud de recuperación...',
+        duration: 0
+      });
+      setCloseRecoveryToast(() => close);
+    } else if (closeRecoveryToast) {
+      closeRecoveryToast();
+      setCloseRecoveryToast(null);
+    }
+  }, [isLoadingEmail]);
 
   return {
     formData,
@@ -153,6 +173,6 @@ export function useRegister() {
     handleChange,
     handleSubmit,
     countries,
-    navigate,
+    navigate
   };
 }
