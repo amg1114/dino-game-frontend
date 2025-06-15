@@ -24,11 +24,11 @@ import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
 import { CategoryPage } from './pages/category/CategoryPage';
 import { CategoryIndex } from '@pages/category/CategoryIndex';
 
-import { Dashboard } from './pages/dashboard/Dashboard';
 import { RecoverAccount } from '@pages/auth/RecoverAccount';
 
 import { PROFILE_ROUTES } from '@pages/profile/routes';
 import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
+import { Report } from '@pages/videogames/components/videogame/Report';
 
 export function App() {
   const router = createBrowserRouter([
@@ -91,9 +91,9 @@ export function App() {
           element: <VideoGamePageInfo />,
           children: [
             {
-              index: true,
-              element: <Dashboard />,
-            },
+              path: 'reportar',
+              element: <Report />,
+            }
           ],
         },
         PROFILE_ROUTES,
