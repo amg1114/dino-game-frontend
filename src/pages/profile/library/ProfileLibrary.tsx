@@ -3,7 +3,7 @@ import { UserGame } from '../../../components/video-games/UserGame';
 import { useLibrary } from '../hooks/useLibrary';
 
 export function ProfileLibrary() {
-  const { usuario, videoGames, itemsPerPage, totalItems, page, setPage } = useLibrary();
+  const { usuario, videoGames, itemsPerPage, totalItems, page, setPage, fetchVideoGames } = useLibrary();
 
   return (
     <>
@@ -17,7 +17,7 @@ export function ProfileLibrary() {
             <>
               <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {videoGames.map((userGame) => (
-                  <UserGame videoGame={userGame.videoGame} key={userGame.id} />
+                  <UserGame videoGame={userGame.videoGame} key={userGame.id} onDelete={() => fetchVideoGames()} />
                 ))}
               </div>
               <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} page={page} setPage={setPage} />

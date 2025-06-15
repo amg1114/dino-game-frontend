@@ -18,13 +18,6 @@ export function CommentsSection({
   return (
     <>
       <div className="w-full">
-        {comments.length <= 0 && usuario?.tipo !== 'ESTANDAR' ? (
-          <></>
-        ) : (
-          <>
-            <h2>Comentarios</h2>
-          </>
-        )}
         {usuario?.tipo !== 'ESTANDAR' && usuario ? (
           <></>
         ) : (
@@ -47,6 +40,7 @@ export function CommentsSection({
             </div>
           </>
         )}
+
         <div className="mt-3 w-full sm:mt-0">
           {comments.length > 0 ? (
             <>
@@ -55,7 +49,7 @@ export function CommentsSection({
               ))}
             </>
           ) : (
-            <></>
+            <p className="bg-placeholder text-body rounded p-4 text-center uppercase">No hay comentarios disponibles</p>
           )}
         </div>
       </div>

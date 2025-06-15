@@ -23,11 +23,11 @@ import { VideoGamesPage } from './pages/videogames/pages/VideoGamesPage';
 import { VideoGamePageInfo } from './pages/videogames/pages/VideoGamePageInfo';
 import { CategoryPage } from './pages/category/CategoryPage';
 import { CategoryIndex } from '@pages/category/CategoryIndex';
-
 import { RecoverAccount } from '@pages/auth/RecoverAccount';
 
 import { PROFILE_ROUTES } from '@pages/profile/routes';
 import { DASHBOARD_ROUTES } from '@pages/dashboard/routes';
+import { BuyVideoGamePage } from '@pages/videogames/pages/BuyVideoGamePage';
 import { Report } from '@pages/videogames/components/videogame/Report';
 
 export function App() {
@@ -91,9 +91,13 @@ export function App() {
           element: <VideoGamePageInfo />,
           children: [
             {
+              path: 'comprar',
+              element: <BuyVideoGamePage />,
+            },
+            {
               path: 'reportar',
               element: <Report />,
-            }
+            },
           ],
         },
         PROFILE_ROUTES,
