@@ -6,12 +6,13 @@ import { useParams } from 'react-router';
 export function useVideoGameInfo() {
   const { slug } = useParams();
   const [videoGame, setVideoGame] = useState(null);
-
   const fetchData = async () => {
     try {
       const response = await axios.get(`/api/video-games/${slug}`);
       const game = response.data;
-      game.assets = [...game.assets, game.thumb, game.hero];
+      if (game.assets.length <= 3) {
+        game.assets = [...game.assets, game.thumb, game.hero];
+      }
       setVideoGame(game);
     } catch (error) {
       console.error('Error fetching video game data:', error);
