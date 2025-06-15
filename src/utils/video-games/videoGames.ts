@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import { Version, VideoGame } from '@models/video-game.interface';
+import { VideoGame } from '@models/video-game.interface';
+import { Version } from '@models/version.interface';
 import { AlertToast, Toast, VisibleAlertToast } from '@utils/context/alertContext';
 import { z } from 'zod';
 import { AssetInputEvent, uploadAsset } from '@utils/assets/assets';
@@ -515,9 +516,20 @@ export function updateGameDetails(form: GameForm, initialGame: VideoGame) {
  * @returns A promise resolving to the created `Version` object.
  */
 export function uploadGameVersion(version: VersionForm, initialGame: VideoGame) {
-  return axios.post<Version>(`/api/video-games/${initialGame.id}/versions`, {
-    version: version.version,
-    descripcion: version.descripcion,
-    requisitos: version.requirements,
-  });
+  return axios
+    .post<Version>(`/api/video-games/${initialGame.id}/versions`, {
+      version: version.version,
+      descripcion: version.descripcion,
+      requisitos: version.requirements,
+    })
+    .then((res) => {
+      if (version.file) {
+        return uploadAsset(version.file, `/api/assets/versions/${res.data.id}`);
+      }
+      return res.data;
+    })
+    .catch((error) => {
+      console.error('Error uploading game version:', error);
+      throw new Error('Failed to upload game version');
+    });
 }

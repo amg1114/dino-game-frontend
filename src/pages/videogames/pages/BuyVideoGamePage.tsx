@@ -127,7 +127,7 @@ export function BuyVideoGamePage() {
                   <StyledInput
                     type="text"
                     id="expiryDateMonth"
-                    name="expiryDateMoth"
+                    name="expiryDateMonth"
                     value={formData.expiryDateMonth ?? ''}
                     onChange={handleInputChange}
                     inputClassName="bg-placeholder-2"

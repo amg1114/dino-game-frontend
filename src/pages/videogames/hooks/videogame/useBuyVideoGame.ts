@@ -12,7 +12,6 @@ export interface PurchaseFormData {
   address: string | null;
   city: string | null;
   zipCode: string | null;
-  phone: string | null;
   cardNumber: string | null;
   expiryDateMonth: string | null;
   expiryDateYear: string | null;
@@ -28,7 +27,6 @@ const purchaseFormSchema = z.object({
   address: z.string().min(1, 'Dirección es requerida'),
   city: z.string().min(1, 'Ciudad es requerida'),
   zipCode: z.string().min(1, 'Código postal es requerido'),
-  phone: z.string().min(1, 'Teléfono es requerido'),
   cardNumber: z.string().min(1, 'Número de tarjeta es requerido'),
   expiryDateMonth: z.string().min(1, 'Mes de expiración es requerido'),
   expiryDateYear: z.string().min(1, 'Año de expiración es requerido'),
@@ -41,7 +39,6 @@ export function useBuyVideoGame(game: VideoGame | null) {
     address: null,
     city: null,
     zipCode: null,
-    phone: null,
     cardNumber: null,
     expiryDateMonth: null,
     expiryDateYear: null,
@@ -63,6 +60,7 @@ export function useBuyVideoGame(game: VideoGame | null) {
       [name]: value,
     }));
   };
+
   const navigate = useNavigate();
   const { showToast, showAlert } = useAlert();
 
@@ -74,7 +72,8 @@ export function useBuyVideoGame(game: VideoGame | null) {
     }
 
     if (game && game.precio !== 0) {
-      if (Object.values(formData).some((val) => val === null)) {
+      if (Object.entries(formData).some(([key, val]) => val === null && key !== 'activeDiscount')) {
+        console.warn('Formulario incompleto:', formData);
         showToast({
           type: 'error',
           message: 'Por favor, completa todos los campos antes de continuar.',
