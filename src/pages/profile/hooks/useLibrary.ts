@@ -29,5 +29,5 @@ export function useLibrary() {
     fetchVideoGames();
   }, [usuario, page, itemsPerPage, fetchVideoGames]);
 
-  return { usuario, videoGames, itemsPerPage, totalItems, page, setPage };
+  return { usuario, videoGames, itemsPerPage, totalItems, page, setPage, fetchVideoGames };
 }

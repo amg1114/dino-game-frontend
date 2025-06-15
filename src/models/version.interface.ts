@@ -1,3 +1,4 @@
+import { Asset } from './asset.interface';
 import { Requisito } from './requisitos.interface';
 import { VideoGame } from './video-game.interface';
 
@@ -9,4 +10,5 @@ export interface Version {
   descripcion: string;
   videGame: VideoGame;
   requisitos: Requisito[];
+  file: Asset;
 }
