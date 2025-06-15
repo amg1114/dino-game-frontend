@@ -5,6 +5,8 @@ import { CommentsSection } from '../components/videogame/CommentsSection';
 import { useVideoGameInfo } from '../hooks/videogame/useVideoGameInfo';
 import { Requisito } from '../../../models/requisitos.interface';
 import { Categoria } from '../../../models/categoria.interface';
+import { Outlet } from 'react-router';
+import { GamePageContext } from '@utils/context/gamePageContext';
 
 export function VideoGamePageInfo() {
   const videoGameInfo = useVideoGameInfo();
@@ -89,6 +91,9 @@ export function VideoGamePageInfo() {
                 </div>
               </div>
             </div>
+            <GamePageContext.Provider value={{ game }}>
+              <Outlet />
+            </GamePageContext.Provider>
           </div>
         </>
       ) : (
