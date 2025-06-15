@@ -52,6 +52,7 @@ export function VideoGamePageInfo() {
                   currencyLabel="COP"
                   wrapperClasses="w-full h-8 items-center justify-center"
                   textClasses="text-md flex items-center w-full"
+                  toBuyForm
                 />
                 {game.versions.length > 0 && game.versions[0].requisitos.length > 0 ? (
                   <>

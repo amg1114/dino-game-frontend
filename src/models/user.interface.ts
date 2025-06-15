@@ -1,4 +1,5 @@
 import { UserCalificacion } from './user-calificacion.interface';
+import { UserVideoGame } from './video-game.interface';
 
 export interface Usuario {
   id: number;
@@ -11,6 +12,7 @@ export interface Usuario {
   likes?: { noticiaID: number }[];
   password?: string;
   calificaciones?: UserCalificacion[];
+  videoGames?: UserVideoGame[];
 }
 
 export type UserType = 'ESTANDAR' | 'ADMINISTRATOR' | 'DEVELOPER';
