@@ -15,6 +15,7 @@ export interface StyledInputProps {
   onFocus?: () => void;
   onBlur?: () => void;
   className?: string;
+  inputClassName?: string;
 }
 
 export function StyledInput({
@@ -31,6 +32,7 @@ export function StyledInput({
   onFocus,
   onBlur,
   className,
+  inputClassName,
 }: StyledInputProps): JSX.Element {
   return (
     <div className={clsx('flex flex-col gap-1', className)}>
@@ -48,7 +50,7 @@ export function StyledInput({
         onChange={onChange}
         onInput={onInput}
         onKeyDown={onKeyDown}
-        className={clsx({
+        className={clsx(inputClassName, {
           'bg-placeholder focus:ring-green rounded p-4 text-white focus:ring-2 focus:outline-none': true,
           'ring-red focus:ring-red ring-2': errors?.length,
         })}

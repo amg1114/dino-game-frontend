@@ -20,7 +20,7 @@ export function GamePrice({
     <footer className={`flex w-fit flex-wrap-reverse ${wrapperClasses}`}>
       {descuentos.length === 0 && (
         <Link
-          to={`/juegos/${slug}`}
+          to={`/juegos/${slug}/comprar`}
           className={`primary-button primary-button--xs mt-auto w-full flex-1 ${buttonClasses}`}
         >
           {formatPrice(precio)}
@@ -30,7 +30,7 @@ export function GamePrice({
 
       {descuentos.length > 0 && (
         <div className="flex w-full flex-wrap-reverse items-center gap-2">
-          <Link to={`/video-games/${slug}`} className={`primary-button primary-button--xs mt-auto ${buttonClasses}`}>
+          <Link to={`/juegos/${slug}/comprar`} className={`primary-button primary-button--xs mt-auto ${buttonClasses}`}>
             - {descuentos[0].porcentaje * 100}%
             {currencyLabel && precio > 0 && <span className="ml-2 uppercase">comprar</span>}
           </Link>
