@@ -78,7 +78,7 @@ export function UserGame({ videoGame, wrapperExtraClasses, onDelete }: GameCardB
         <a
           type="button"
           className="primary-button primary-button--sm flex w-full! items-center justify-center gap-2 lg:w-fit!"
-          href={videoGame.versions[0]?.version || '#'}
+          href={videoGame.versions[0]?.file?.url || '#'}
         >
           <Download />
           Descargar
