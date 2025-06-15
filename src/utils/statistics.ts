@@ -118,14 +118,20 @@ export const getInitialSeason = (): StatisticsSeason => {
 };
 
 export const getMonthOptions = (year: number): SeasonOption[] => {
-  return Array.from({ length: 12 }, (_, i) => {
-    const date = new Date(year, i);
-    const label = date.toLocaleString('es-CO', { month: 'long' });
-    return {
-      value: date.toLocaleString('default', { month: '2-digit' }),
-      label: label.charAt(0).toUpperCase() + label.slice(1),
-    };
-  });
+  const now = new Date();
+  const currentMonth = now.getMonth(); // 0 = enero, 11 = diciembre
+  const currentYear = now.getFullYear();
+
+  return Array.from({ length: 12 }, (_, i) => i)
+    .filter((i) => year < currentYear || (year === currentYear && i <= currentMonth))
+    .map((i) => {
+      const date = new Date(year, i);
+      const label = date.toLocaleString('es-CO', { month: 'long' });
+      return {
+        value: date.toLocaleString('default', { month: '2-digit' }),
+        label: label.charAt(0).toUpperCase() + label.slice(1),
+      };
+    });
 };
 
 export const getYearOptions = (startYear = 2023): SeasonOption[] => {
