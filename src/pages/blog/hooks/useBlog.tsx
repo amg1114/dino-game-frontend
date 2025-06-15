@@ -7,11 +7,26 @@ interface NoticiaRetornada {
   post: Post | null;
   relatedPosts: Post[];
   loading: boolean;
+  loadPost: () => void;
 }
 export const useBlog = (slug: string): NoticiaRetornada => {
   const [post, setPost] = useState<Post | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const loadPost = () => {
+    //  setLoading(true);
+    axios
+      .get(`/api/noticias/noticia/${slug}`)
+      .then(function (resp) {
+        const post_data = resp.data;
+        setPost(post_data);
+      })
+      .catch(function (err) {
+        console.error(err);
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -43,7 +58,7 @@ export const useBlog = (slug: string): NoticiaRetornada => {
       });
   }, [slug]);
 
-  return { post: post, relatedPosts: posts, loading };
+  return { post, relatedPosts: posts, loading, loadPost };
 };
 
 interface NoticiaRetornadaIndex {

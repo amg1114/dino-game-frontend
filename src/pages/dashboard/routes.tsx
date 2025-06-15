@@ -18,6 +18,7 @@ import { ManageDevelopers } from './developers/ManageDevelopers';
 import { ProfileLayout } from '@pages/profile/ProfileLayout';
 import { DashboardBlog } from './blog/DashboardBlog';
 import { CreatePost } from './blog/create/CreatePost';
+import { EditPost } from './blog/edit/EditPost';
 
 export const DASHBOARD_ROUTES: RouteObject = {
   path: 'dashboard',
@@ -102,6 +103,11 @@ export const DASHBOARD_ROUTES: RouteObject = {
       path: 'blog/crear',
       loader: requireAuth(['DEVELOPER', 'ADMINISTRATOR']),
       element: <CreatePost />,
+    },
+    {
+      path: 'blog/:slug/editar',
+      loader: requireAuth(['DEVELOPER', 'ADMINISTRATOR']),
+      element: <EditPost />,
     },
   ],
 };

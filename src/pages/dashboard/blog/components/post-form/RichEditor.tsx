@@ -30,6 +30,7 @@ import {
   TextQuote,
   Undo,
 } from 'lucide-react';
+import { useEffect } from 'react';
 
 function ToolbarButton({
   onClick,
@@ -63,7 +64,17 @@ function ToolbarSeparator() {
   return <span className="bg-placeholder-2 w-px"></span>;
 }
 
-export function RichEditor() {
+export type RichEditorChangeEvent = string | null;
+
+export function RichEditor({
+  value = '',
+  errors,
+  onChange,
+}: {
+  value: string;
+  onChange?: (value: RichEditorChangeEvent) => void;
+  errors?: string[];
+}) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -85,7 +96,24 @@ export function RichEditor() {
         showOnlyCurrent: false,
       }),
     ],
+    content: value,
+    onUpdate: ({ editor }) => {
+      const content = editor.getHTML();
+      if (onChange) {
+        onChange(content);
+      }
+    },
   });
+
+  useEffect(() => {
+    if (editor) {
+      const currentContent = editor.getHTML();
+      editor.commands.setContent(value, false);
+      if (currentContent !== value && currentContent.replace(/<[^>]+>/g, '').trim() !== '') {
+        editor.commands.focus();
+      }
+    }
+  }, [value, editor]);
 
   if (!editor) return null;
 
@@ -101,7 +129,11 @@ export function RichEditor() {
   };
 
   return (
-    <div className="bg-placeholder w-full rounded p-4">
+    <div
+      className={clsx('bg-placeholder w-full rounded p-4', {
+        'border-red border-2': errors && errors.length > 0,
+      })}
+    >
       <div className="mb-2 flex flex-wrap justify-center gap-2 border-b pb-2">
         <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} isActive={editor.isActive('bold')}>
           <BoldIcon />
@@ -182,7 +214,7 @@ export function RichEditor() {
       </div>
 
       {/* Focusable wrapper */}
-      <div onClick={handleWrapperClick} className="">
+      <div onClick={handleWrapperClick}>
         <EditorContent editor={editor} className="rich-text min-h-96 border-0 outline-0" />
       </div>
     </div>

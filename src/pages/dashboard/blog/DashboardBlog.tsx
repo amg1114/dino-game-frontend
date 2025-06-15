@@ -6,7 +6,8 @@ import { PostCard } from '@components/PostCard';
 import { Pagination } from '@components/pagination';
 
 export function DashboardBlog() {
-  const { posts, totalPosts, itemsPerPage, page, searchTerm, setSearchTerm, setPage } = useDashboardBlog();
+  const { posts, totalPosts, itemsPerPage, page, searchTerm, setSearchTerm, setPage, handleDeletePost } =
+    useDashboardBlog();
   return (
     <>
       <section className="space-y-6">
@@ -23,7 +24,7 @@ export function DashboardBlog() {
               id="search"
               name="search"
               label="Buscar"
-              placeholder="Buscar Juegos por Titulo o Descripcion"
+              placeholder="Buscar Publicaciones por Titulo o Descripcion"
               type="text"
               value={searchTerm}
               onChange={(e) => {
@@ -37,7 +38,7 @@ export function DashboardBlog() {
           <>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <PostCard post={post} key={post.id} />
+                <PostCard post={post} key={post.id} onDelete={handleDeletePost} adminControls />
               ))}
             </div>
             <Pagination itemsPerPage={itemsPerPage} totalItems={totalPosts} page={page} setPage={setPage} />

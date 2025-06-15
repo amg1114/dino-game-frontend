@@ -183,6 +183,7 @@ interface StyledFileInputProps {
   disableDelete?: boolean;
   disableReplace?: boolean;
   className?: string;
+  errors?: string[];
   onChange: (e: AssetInputEvent) => void;
 }
 export function StyledFileInput({
@@ -195,13 +196,17 @@ export function StyledFileInput({
   acceptedFileTypes,
   disableDelete,
   disableReplace,
+  errors,
   onChange,
 }: StyledFileInputProps) {
   return (
     <div
       className={clsx(
         'group bg-placeholder relative aspect-video w-full overflow-hidden rounded md:max-w-56',
-        className
+        className,
+        {
+          'border-red border': errors && errors.length > 0,
+        }
       )}
     >
       {file && <AssetPreview file={file} isImage={acceptedFileTypes.split(', ').every((t) => t.includes('image/'))} />}

@@ -1,3 +1,5 @@
+import { Asset } from './asset.interface';
+
 export interface Post {
   id: number;
   titulo: string;
@@ -8,9 +10,5 @@ export interface Post {
   autor: {
     nombre: string;
   };
-  thumb: {
-    id: number;
-    title: string;
-    url: string;
-  };
+  thumb: Asset;
 }

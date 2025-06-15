@@ -158,7 +158,7 @@ export function useRegister() {
       const close = showToast({
         type: 'info',
         message: 'Enviando solicitud de recuperación...',
-        duration: 0
+        duration: 0,
       });
       setCloseRecoveryToast(() => close);
     } else if (closeRecoveryToast) {
@@ -173,6 +173,6 @@ export function useRegister() {
     handleChange,
     handleSubmit,
     countries,
-    navigate
+    navigate,
   };
 }
