@@ -135,7 +135,7 @@ export function ProfileLayout() {
       },
       {
         title: 'Posts',
-        path: '/dashboard/posts',
+        path: '/dashboard/blog',
         icon: <Newspaper strokeWidth={2.3} />,
         access: ['ADMINISTRATOR', 'DEVELOPER'],
       },

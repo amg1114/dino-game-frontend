@@ -116,4 +116,3 @@ export function AuthProvider({ child }: AuthProviderProps) {
 
   return <AuthContext.Provider value={contextValue}>{child}</AuthContext.Provider>;
 }
-

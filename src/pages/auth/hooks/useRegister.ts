@@ -34,46 +34,81 @@ export function useRegister() {
     });
     const [closeRecoveryToast, setCloseRecoveryToast] = useState<(() => void) | null>(null);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { id, value } = e.target;
-        setFormData((prev) => ({ ...prev, [id]: value }));
-        setTouched((prev) => ({ ...prev, [id]: true }));
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+    setTouched((prev) => ({ ...prev, [id]: true }));
+  };
 
-    useEffect(() => {
-        if (Object.values(formData).every((v) => v.length === 0)) {
-            setErrors({} as ErrorUsuario);
-            return;
+  useEffect(() => {
+    if (Object.values(formData).every((v) => v.length === 0)) {
+      setErrors({} as ErrorUsuario);
+      return;
+    }
+    try {
+      userWithPasswordSchema.parse(formData);
+      setErrors({} as ErrorUsuario);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: ErrorUsuario = {} as ErrorUsuario;
+        for (const issue of error.issues) {
+          const field = issue.path[0] as keyof typeof formData;
+          if (touched[field]) {
+            newErrors[field] = [issue.message];
+          }
         }
-        try {
-            userWithPasswordSchema.parse(formData);
-            setErrors({} as ErrorUsuario);
-        } catch (error) {
-            if (error instanceof z.ZodError) {
-                const newErrors: ErrorUsuario = {} as ErrorUsuario;
-                for (const issue of error.issues) {
-                    const field = issue.path[0] as keyof typeof formData;
-                    if (touched[field]) {
-                        newErrors[field] = [issue.message];
-                    }
-                }
-                setErrors(newErrors);
-            }
-        }
-    }, [formData, touched]);
+        setErrors(newErrors);
+      }
+    }
+  }, [formData, touched]);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            userWithPasswordSchema.parse(formData);
-            axios
-                .post(ENDPOINT, formData)
-                .then((response) => {
-                    logIn(response.data.access_token);
-                    showToast({
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      userWithPasswordSchema.parse(formData);
+      axios
+        .post(ENDPOINT, formData)
+        .then((response) => {
+          logIn(response.data.access_token);
+          showToast({
+            type: 'success',
+            message: 'Registro exitoso',
+            duration: 2000,
+          });
+          setTimeout(() => {
+            navigate('/');
+          }, 800);
+        })
+        .catch((error) => {
+          const err = error.response?.data;
+
+          if (err?.error === 'ACCOUNT_DELETED') {
+            showAlert({
+              type: 'warning',
+              title: 'Cuenta eliminada',
+              message: 'Tu cuenta ha sido eliminada. ¿Deseas recuperarla?',
+              isConfirm: true,
+              confirmText: 'Recuperar',
+              cancelText: 'Cancelar',
+              onClose: (confirmed) => {
+                if (confirmed) {
+                  axios
+                    .post(`/api/auth/request-account-recovery?email=${formData.correo}`)
+                    .then(() => {
+                      showToast({
                         type: 'success',
-                        message: 'Registro exitoso',
-                        duration: 2000,
+                        message: 'Solicitud de recuperación enviada. Revisa tu correo.',
+                        duration: 3000,
+                      });
+                      navigate('/iniciar-sesion');
+                    })
+                    .catch((error) => {
+                      showAlert({
+                        type: 'error',
+                        title: 'Error',
+                        message: error.response?.data?.message || 'Error interno del servidor',
+                        duration: 3000,
+                      });
                     });
                     setTimeout(() => {
                         navigate('/');
@@ -132,26 +167,25 @@ export function useRegister() {
                     const field = issue.path[0] as keyof typeof formData;
                     const message = issue.message;
 
-                    setErrors((prev: ErrorUsuario) => {
-                        const prevErrors = prev[field] || [];
-                        const newErrors = [...prevErrors.filter((err) => err !== message), message];
+          setErrors((prev: ErrorUsuario) => {
+            const prevErrors = prev[field] || [];
+            const newErrors = [...prevErrors.filter((err) => err !== message), message];
 
-                        return {
-                            ...prev,
-                            [field]: newErrors,
-                        } as ErrorUsuario;
-                    });
-                }
-            }
+            return {
+              ...prev,
+              [field]: newErrors,
+            } as ErrorUsuario;
+          });
         }
-    };
+      }
+    }
+  };
 
-    useEffect(() => {
-        if (!isLoading && usuario) {
-            navigate('/');
-        }
-    }, [isLoading, usuario, navigate]);
-
+  useEffect(() => {
+    if (!isLoading && usuario) {
+      navigate('/');
+    }
+  }, [isLoading, usuario, navigate]);
     useEffect(() => {
         if (isLoadingEmail) {
             // Mostrar toast y guardar función de cierre

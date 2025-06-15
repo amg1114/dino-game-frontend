@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { useVideoGames } from "./useVideoGames";
+import { useState } from 'react';
+import { useVideoGames } from './useVideoGames';
 
 export function useSearchVideoGames() {
-    const { dataBySearch, setInputTitle, inputTitle } = useVideoGames();
-    const [focus, setFocus] = useState(false);
+  const { dataBySearch, setInputTitle, inputTitle } = useVideoGames();
+  const [focus, setFocus] = useState(false);
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setInputTitle(value);
-    };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setInputTitle(value);
+  };
 
-    const handleFocus = () => setFocus(true);
-    const handleBlur = () => setTimeout(() => setFocus(false), 200);
+  const handleFocus = () => setFocus(true);
+  const handleBlur = () => setTimeout(() => setFocus(false), 200);
 
-    return {
-        dataBySearch,
-        setInputTitle,
-        inputTitle,
-        handleInputChange,
-        handleFocus,
-        focus,
-        handleBlur,
-    };
+  return {
+    dataBySearch,
+    setInputTitle,
+    inputTitle,
+    handleInputChange,
+    handleFocus,
+    focus,
+    handleBlur,
+  };
 }

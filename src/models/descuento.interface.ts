@@ -1,4 +1,4 @@
-import { VideoGame } from "./video-game.interface";
+import { VideoGame } from './video-game.interface';
 
 export interface Descuento {
   id: number;

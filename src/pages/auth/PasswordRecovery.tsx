@@ -3,14 +3,7 @@ import { StyledInput } from '../../components/forms/StyledInput';
 import { usePasswordRecovery } from './hooks/usePasswordRecovery';
 
 export function PasswordRecovery() {
-  const {
-    correo,
-    errorCorreo,
-    isLoadingPetition,
-    handleChangeCorreo,
-    handleSubmit,
-    navigate
-  } = usePasswordRecovery();
+  const { correo, errorCorreo, isLoadingPetition, handleChangeCorreo, handleSubmit, navigate } = usePasswordRecovery();
 
   return (
     <>

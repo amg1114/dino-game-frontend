@@ -1,4 +1,4 @@
-import { UserCalificacion } from "./user-calificacion.interface";
+import { UserCalificacion } from './user-calificacion.interface';
 
 export interface Usuario {
   id: number;
