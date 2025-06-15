@@ -3,8 +3,8 @@ import React, { JSX } from 'react';
 
 interface StyledSelectProps {
   id: string;
-  options: { value: string; label: string }[];
-  value: string;
+  options: { value: string | number; label: string }[];
+  value: string | number;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   label: string;
   errors?: string[];
@@ -28,7 +28,7 @@ export function StyledSelect({ id, options, value, onChange, label, errors }: St
         <option disabled value="">
           Seleccione una opción
         </option>
-        {options.map((option: { value: string; label: string }, index) => (
+        {options.map((option: { value: string | number; label: string }, index) => (
           <option value={option.value} className="bg-placeholder text-white" key={id + index}>
             {option.label}
           </option>
