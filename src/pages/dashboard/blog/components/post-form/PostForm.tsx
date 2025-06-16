@@ -66,8 +66,6 @@ export function PostForm({ mode, initialData: initialPost }: { mode: PostFormMod
           </button>
         </footer>
       </form>
-
-      <pre>{JSON.stringify(form, null, 4)}</pre>
     </section>
   );
 }
