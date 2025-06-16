@@ -44,8 +44,8 @@ export function CommentsSection({
         <div className="mt-3 w-full sm:mt-0">
           {comments.length > 0 ? (
             <>
-              {comments.map((comment: Comentario, idx: number) => (
-                <Comment key={comment.id} comment={comment} isLast={idx === comments.length - 1} />
+              {comments.map((comment: Comentario) => (
+                <Comment key={comment.id} comment={comment} />
               ))}
             </>
           ) : (
