@@ -40,10 +40,22 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
 
   const showToast = (toast: Toast) => {
     setToasts((prev) => [...prev, toast]);
-
-    setTimeout(() => {
-      setToasts((prev) => prev.slice(1));
-    }, toast.duration || 2000);
+    const index = toasts.length;
+    let timeoutId: NodeJS.Timeout | null = null;
+    if (toast.duration !== 0) {
+      timeoutId = setTimeout(() => {
+        setToasts((prev) => prev.slice(1));
+      }, toast.duration || 2000);
+    }
+    // Devuelve función para cerrar manualmente
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      setToasts((prev) => {
+        const copy = [...prev];
+        copy.splice(index, 1);
+        return copy;
+      });
+    };
   };
 
   const showAlert = (toast: AlertToast): VisibleAlertToast => {

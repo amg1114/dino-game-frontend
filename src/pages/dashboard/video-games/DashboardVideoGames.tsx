@@ -14,9 +14,11 @@ export function DashboardVideoGames() {
         <header className="grid grid-cols-3 gap-6">
           <div className="col-span-full flex items-center gap-6">
             <h1>Juegos en la tienda</h1>
-            <Link to="/dashboard/juegos/crear" className="primary-button group">
-              <Plus strokeWidth={4} />
-            </Link>
+            {permissions.canCreate && (
+              <Link to="/dashboard/juegos/crear" className="primary-button group">
+                <Plus strokeWidth={4} />
+              </Link>
+            )}
           </div>
           <div className="col-span-full lg:col-span-2">
             <StyledInput

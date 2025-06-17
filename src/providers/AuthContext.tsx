@@ -9,8 +9,10 @@ export interface AuthContextType {
   token: string | null;
   logIn: (token: string | null) => void;
   logOut: () => void;
+  getUsuario: () => void;
   updateUsuario: (newUser: Partial<Usuario>) => Promise<void>;
   deleteAccount: () => Promise<void>;
+  hasVideoGame: (videoGameId: number) => boolean;
 }
 
 interface AuthProviderProps {
@@ -86,6 +88,14 @@ export function AuthProvider({ child }: AuthProviderProps) {
     }
   }, [usuario, logOut]);
 
+  const hasVideoGame = useCallback(
+    (videoGameId: number): boolean => {
+      if (!usuario || !usuario.videoGames) return false;
+      return usuario.videoGames.some((vg) => vg.videoGame.id === videoGameId);
+    },
+    [usuario]
+  );
+
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -108,12 +118,13 @@ export function AuthProvider({ child }: AuthProviderProps) {
       token,
       isLoading,
       updateUsuario,
+      getUsuario,
       deleteAccount,
       logOut,
       logIn,
+      hasVideoGame,
     };
-  }, [isLoading, usuario, token, updateUsuario, logOut, logIn, deleteAccount]);
+  }, [isLoading, usuario, token, updateUsuario, logOut, logIn, getUsuario, deleteAccount, hasVideoGame]);
 
   return <AuthContext.Provider value={contextValue}>{child}</AuthContext.Provider>;
 }
-

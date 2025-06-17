@@ -57,8 +57,8 @@ export function ProfileLayout() {
 
   const handleDeleteAccount = useCallback(() => {
     showAlert({
-      title: 'Cerrar Sesión',
-      message: '¿Estás seguro de que deseas cerrar sesión? Esto eliminará tu cuenta y no podrás recuperarla.',
+      title: 'Eliminar cuenta',
+      message: '¿Estás seguro de que deseas Eliminar cuenta?',
       type: 'warning',
       isConfirm: true,
       onClose(confirm) {
@@ -135,7 +135,7 @@ export function ProfileLayout() {
       },
       {
         title: 'Posts',
-        path: '/dashboard/posts',
+        path: '/dashboard/blog',
         icon: <Newspaper strokeWidth={2.3} />,
         access: ['ADMINISTRATOR', 'DEVELOPER'],
       },

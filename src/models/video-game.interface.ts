@@ -18,9 +18,9 @@ export interface VideoGame {
   descuentos: Descuento[];
   assets: Asset[];
   developer: Usuario;
-  versions: Version[]
+  versions: Version[];
   comentarios: Comentario[];
-  calificaciones: { promedio: number, cantidad: number };
+  calificaciones: { promedio: number; cantidad: number };
 }
 
 export interface UserVideoGame {

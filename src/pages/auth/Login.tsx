@@ -4,14 +4,7 @@ import { StyledInput } from '../../components/forms/StyledInput';
 import { useLogin } from './hooks/useLogin';
 
 export function Login() {
-  const {
-    data,
-    errorCorreo,
-    errorPassword,
-    handleChange,
-    login,
-    navigate
-  } = useLogin();
+  const { data, errorCorreo, errorPassword, handleChange, login, navigate } = useLogin();
 
   return (
     <>

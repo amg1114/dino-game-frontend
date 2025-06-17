@@ -1,13 +1,55 @@
 import { Link } from 'react-router';
 import { VideoGame } from '../../models/video-game.interface';
 import { Download, Trash } from 'lucide-react';
+import { useAlert } from '@hooks/useAlert';
+import axios from 'axios';
 
 interface GameCardBasicProps {
   videoGame: VideoGame;
   wrapperExtraClasses?: string;
+  onDelete?: () => void;
 }
 
-export function UserGame({ videoGame, wrapperExtraClasses }: GameCardBasicProps) {
+export function UserGame({ videoGame, wrapperExtraClasses, onDelete }: GameCardBasicProps) {
+  const { showAlert, showToast } = useAlert();
+
+  const handleDelete = () => {
+    showAlert({
+      type: 'warning',
+      title: 'Eliminar juego',
+      message: `¿Estás seguro de que deseas eliminar ${videoGame.titulo} de tu biblioteca?`,
+      isConfirm: true,
+      onClose(confirm) {
+        if (confirm) {
+          axios
+            .delete(`/api/video-games/biblioteca/${videoGame.id}`)
+            .then(() => {
+              showToast({
+                type: 'success',
+                message: 'El juego ha sido eliminado de tu biblioteca.',
+              });
+              if (onDelete) {
+                onDelete();
+              }
+            })
+            .catch((error) => {
+              console.error('Error al eliminar el juego:', error);
+              showToast({
+                type: 'error',
+                message: 'No se pudo eliminar el juego. Por favor, inténtalo más tarde.',
+              });
+            });
+          return;
+        }
+
+        showToast({
+          type: 'info',
+          message: 'El juego no ha sido eliminado.',
+        });
+      },
+    });
+  };
+
   return (
     <article className={`flex h-full flex-col ${wrapperExtraClasses}`}>
       <header className="mb-3">
@@ -33,16 +75,18 @@ export function UserGame({ videoGame, wrapperExtraClasses }: GameCardBasicProps)
         )}
       </ul>
       <div className="mt-2 flex flex-wrap items-center justify-end gap-4">
-        <button
+        <a
           type="button"
           className="primary-button primary-button--sm flex w-full! items-center justify-center gap-2 lg:w-fit!"
+          href={videoGame.versions[0]?.file?.url || '#'}
         >
           <Download />
           Descargar
-        </button>
+        </a>
         <button
           type="button"
           className="secondary-button secondary-button--sm hover:bg-red! flex w-full! items-center justify-center gap-2 lg:w-fit!"
+          onClick={handleDelete}
         >
           <Trash />
           Eliminar
