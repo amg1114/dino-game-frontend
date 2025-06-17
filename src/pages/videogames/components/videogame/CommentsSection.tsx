@@ -41,7 +41,7 @@ export function CommentsSection({
           </>
         )}
 
-        <div className="mt-3 w-full sm:mt-0">
+        <div className="mt-3 w-full">
           {comments.length > 0 ? (
             <>
               {comments.map((comment: Comentario) => (

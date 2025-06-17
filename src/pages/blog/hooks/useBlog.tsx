@@ -71,7 +71,7 @@ interface NoticiaRetornadaIndex {
   totalItems: number;
 }
 export const useLastPost = (): NoticiaRetornadaIndex => {
-  const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 3, windowWidth: 768 }], 9);
+  const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 3, windowWidth: 768 }], 10);
   const [posts, setPosts] = useState<Post[]>([]);
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
