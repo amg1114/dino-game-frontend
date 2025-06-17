@@ -22,7 +22,7 @@ export function GameForm({ formContext }: { formContext: GameFormContext }) {
         <h1 className="flex items-center gap-2 text-2xl">
           Crear Juego
           <ChevronRight className="text-green" />
-          FORM_STEP_LABELS[step]
+          {FORM_STEP_LABELS[step]}
         </h1>
       )}
 

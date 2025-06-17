@@ -107,11 +107,7 @@ export function RichEditor({
 
   useEffect(() => {
     if (editor) {
-      const currentContent = editor.getHTML();
       editor.commands.setContent(value, false);
-      if (currentContent !== value && currentContent.replace(/<[^>]+>/g, '').trim() !== '') {
-        editor.commands.focus();
-      }
     }
   }, [value, editor]);
 
