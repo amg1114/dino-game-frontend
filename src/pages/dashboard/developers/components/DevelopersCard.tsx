@@ -13,7 +13,7 @@ export function DeveloperCard({ developer }: { developer: Usuario }) {
 
   useEffect(() => {
     axios
-      .get(`/api/video-games/developer/${developer.id}/video-games`)
+      .get(`${import.meta.env.VITE_API_URL}/api/video-games/developer/${developer.id}/video-games`)
       .then((res) => {
         setVideoGameCount(res.data.length);
       })
@@ -32,7 +32,7 @@ export function DeveloperCard({ developer }: { developer: Usuario }) {
       onClose: async (confirm) => {
         if (!confirm) return;
         try {
-          await axios.delete(`/api/users/${developer.id}`);
+          await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${developer.id}`);
           showToast({
             type: 'success',
             message: 'Desarrollador eliminado correctamente',

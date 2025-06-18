@@ -11,7 +11,7 @@ export function useEditGame(slug: string) {
   useEffect(() => {
     const fetchGame = async () => {
       try {
-        const res = await axios.get<VideoGame>(`/api/video-games/${slug}`);
+        const res = await axios.get<VideoGame>(`${import.meta.env.VITE_API_URL}/api/video-games/${slug}`);
         setFetchedGame(res.data);
       } catch (error) {
         console.error('Error fetching game:', error);

@@ -1,4 +1,4 @@
-import { Version } from '@models/video-game.interface';
+import { Version } from '@models/version.interface';
 import { Calendar } from 'lucide-react';
 
 export function VersionRow({ version }: { version: Version }) {
@@ -10,7 +10,7 @@ export function VersionRow({ version }: { version: Version }) {
         <br />
         Requisitos: {version.requisitos?.map((req) => req.requisito).join(', ') || 'No especificados'}
       </p>
-      <time dateTime={version.createdAt} className="ml-auto flex items-center gap-2">
+      <time dateTime={version.createdAt.toDateString()} className="ml-auto flex items-center gap-2">
         <Calendar />{' '}
         {new Date(version.createdAt).toLocaleDateString('es-ES', {
           year: 'numeric',

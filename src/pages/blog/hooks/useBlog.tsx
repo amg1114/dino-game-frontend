@@ -17,7 +17,7 @@ export const useBlog = (slug: string): NoticiaRetornada => {
   const loadPost = () => {
     //  setLoading(true);
     axios
-      .get(`/api/noticias/noticia/${slug}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/noticias/noticia/${slug}`)
       .then(function (resp) {
         const post_data = resp.data;
         setPost(post_data);
@@ -31,11 +31,11 @@ export const useBlog = (slug: string): NoticiaRetornada => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/api/noticias/noticia/${slug}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/noticias/noticia/${slug}`)
       .then(function (resp) {
         const post_data = resp.data;
         axios
-          .get('/api/noticias?limit=4')
+          .get(import.meta.env.VITE_API_URL + '/api/noticias?limit=4')
           .then(function (resp) {
             const all_posts = resp.data.data;
             const sort_posts = all_posts.slice().sort((a: Post, b: Post) => {
@@ -76,7 +76,7 @@ export const useLastPost = (): NoticiaRetornadaIndex => {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalItems, setTotalItems] = useState(0);
-  const ENDPOINT = `/api/noticias?limit=${itemsPerPage}&offset=${page}`;
+  const ENDPOINT = `${import.meta.env.VITE_API_URL}/api/noticias?limit=${itemsPerPage}&offset=${page}`;
 
   useEffect(() => {
     setLoading(true);

@@ -12,7 +12,7 @@ export function CategoriaCard({ categoria }: { categoria: Categoria }) {
   const [videoGames, setVideoGames] = useState<number>(0);
 
   useEffect(() => {
-    axios.get('/api/categorias?withGames=true').then((resp) => {
+    axios.get(import.meta.env.VITE_API_URL + '/api/categorias?withGames=true').then((resp) => {
       const respuesta = resp.data.data;
       const categoriaConJuegos = respuesta.find((cat: Categoria) => cat.id === categoria.id);
       setVideoGames(categoriaConJuegos?.videoGames?.length || 0);
@@ -30,7 +30,7 @@ export function CategoriaCard({ categoria }: { categoria: Categoria }) {
         if (!confirm) return;
 
         try {
-          await axios.delete(`/api/categorias/${categoria.id}`);
+          await axios.delete(`${import.meta.env.VITE_API_URL}/api/categorias/${categoria.id}`);
           showToast({
             type: 'success',
             message: 'Categoría eliminada correctamente',

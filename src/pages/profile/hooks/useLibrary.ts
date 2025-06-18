@@ -13,7 +13,9 @@ export function useLibrary() {
   const fetchVideoGames = useCallback(async () => {
     if (usuario) {
       try {
-        const res = await axios.get(`/api/video-games/biblioteca?limit=${itemsPerPage}&offset=${page}`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/video-games/biblioteca?limit=${itemsPerPage}&offset=${page}`
+        );
         setVideoGames(res.data.data);
         setTotalItems(res.data.total);
       } catch (error) {

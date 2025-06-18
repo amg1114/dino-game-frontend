@@ -219,7 +219,12 @@ export async function handleAddAssetInEditMode(e: AssetInputEvent, initialGame: 
 
   const field = name === 'assets' ? 'asset' : name;
 
-  return uploadAsset(file, `/api/assets/video-games/${initialGame.id}/${field}`, index, 'POST');
+  return uploadAsset(
+    file,
+    `${import.meta.env.VITE_API_URL}/api/assets/video-games/${initialGame.id}/${field}`,
+    index,
+    'POST'
+  );
 }
 
 /**
@@ -252,7 +257,7 @@ export async function handleDeleteAssetInEditMode(e: AssetInputEvent, initialGam
     if (!asset) throw new Error('Asset not found');
   }
 
-  return axios.delete(`/api/assets/${(asset as Asset).id}`);
+  return axios.delete(`${import.meta.env.VITE_API_URL}/api/assets/${(asset as Asset).id}`);
 }
 
 /**
@@ -293,7 +298,7 @@ export async function handleReplaceAssetsInEditMode(e: AssetInputEvent, initialG
 
   const res = await uploadAsset(
     file,
-    `/api/assets/video-games/${initialGame.id}/${(asset as Asset).id}`,
+    `${import.meta.env.VITE_API_URL}/api/assets/video-games/${initialGame.id}/${(asset as Asset).id}`,
     undefined,
     'PUT'
   );
@@ -440,7 +445,7 @@ export async function submitGame(
   });
 
   try {
-    const { data: videoGame } = await axios.post<VideoGame>('/api/video-games', {
+    const { data: videoGame } = await axios.post<VideoGame>(import.meta.env.VITE_API_URL + '/api/video-games', {
       titulo: form.titulo,
       descripcion: form.descripcion,
       precio: form.precio,
@@ -448,27 +453,30 @@ export async function submitGame(
       fechaLanzamiento: new Date().toDateString(),
     });
 
-    const { data: version } = await axios.post<Version>(`/api/video-games/${videoGame.id}/versions`, {
-      version: form.version!.version,
-      descripcion: form.version!.descripcion,
-      requisitos: form.version!.requirements,
-    });
+    const { data: version } = await axios.post<Version>(
+      `${import.meta.env.VITE_API_URL}/api/video-games/${videoGame.id}/versions`,
+      {
+        version: form.version!.version,
+        descripcion: form.version!.descripcion,
+        requisitos: form.version!.requirements,
+      }
+    );
 
     if (form.version!.file) {
-      uploadAsset(form.version!.file, `/api/assets/versions/${version.id}`);
+      uploadAsset(form.version!.file, `${import.meta.env.VITE_API_URL}/api/assets/versions/${version.id}`);
     }
 
     if (form.thumb) {
-      uploadAsset(form.thumb, `/api/assets/video-games/${videoGame.id}/thumb`);
+      uploadAsset(form.thumb, `${import.meta.env.VITE_API_URL}/api/assets/video-games/${videoGame.id}/thumb`);
     }
 
     if (form.hero) {
-      uploadAsset(form.hero, `/api/assets/video-games/${videoGame.id}/hero`);
+      uploadAsset(form.hero, `${import.meta.env.VITE_API_URL}/api/assets/video-games/${videoGame.id}/hero`);
     }
 
     if (form.assets) {
       const uploadPromises = form.assets.map((asset) =>
-        uploadAsset(asset, `/api/assets/video-games/${videoGame.id}/asset`)
+        uploadAsset(asset, `${import.meta.env.VITE_API_URL}/api/assets/video-games/${videoGame.id}/asset`)
       );
       await Promise.all(uploadPromises);
     }
@@ -497,7 +505,7 @@ export async function submitGame(
  * @returns A Promise resolving to the server's response of the PATCH request.
  */
 export function updateGameDetails(form: GameForm, initialGame: VideoGame) {
-  return axios.patch(`/api/video-games/${initialGame.id}`, {
+  return axios.patch(`${import.meta.env.VITE_API_URL}/api/video-games/${initialGame.id}`, {
     titulo: form.titulo,
     descripcion: form.descripcion,
     precio: form.precio,
@@ -517,14 +525,14 @@ export function updateGameDetails(form: GameForm, initialGame: VideoGame) {
  */
 export function uploadGameVersion(version: VersionForm, initialGame: VideoGame) {
   return axios
-    .post<Version>(`/api/video-games/${initialGame.id}/versions`, {
+    .post<Version>(`${import.meta.env.VITE_API_URL}/api/video-games/${initialGame.id}/versions`, {
       version: version.version,
       descripcion: version.descripcion,
       requisitos: version.requirements,
     })
     .then((res) => {
       if (version.file) {
-        return uploadAsset(version.file, `/api/assets/versions/${res.data.id}`);
+        return uploadAsset(version.file, `${import.meta.env.VITE_API_URL}/api/assets/versions/${res.data.id}`);
       }
       return res.data;
     })

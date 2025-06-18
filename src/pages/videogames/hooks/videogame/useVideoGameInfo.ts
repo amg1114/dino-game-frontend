@@ -8,7 +8,7 @@ export function useVideoGameInfo() {
   const [videoGame, setVideoGame] = useState(null);
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/api/video-games/${slug}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/video-games/${slug}`);
       const game = response.data;
       if (game.assets.length <= 3) {
         game.assets = [...game.assets, game.thumb, game.hero];

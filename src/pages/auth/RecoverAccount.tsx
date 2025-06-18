@@ -19,7 +19,7 @@ export function RecoverAccount() {
       return;
     }
     axios
-      .post(`/api/auth/recover-account?token=${token}`)
+      .post(`${import.meta.env.VITE_API_URL}/api/auth/recover-account?token=${token}`)
       .then(() => {
         showToast({
           type: 'success',

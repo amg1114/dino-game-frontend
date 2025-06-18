@@ -9,7 +9,7 @@ import { userWithPasswordSchema } from '../../../utils/zod/user.validators';
 import { ErrorUsuario } from '../../profile/hooks/useUpdateProfile';
 
 export function useRegister() {
-  const ENDPOINT = '/api/auth/register';
+  const ENDPOINT = import.meta.env.VITE_API_URL + '/api/auth/register';
   const navigate = useNavigate();
   const { usuario, isLoading, logIn } = useAuth();
   const [isLoadingEmail, setIsLoadingEmail] = useState(false);
@@ -94,7 +94,7 @@ export function useRegister() {
                 if (confirmed) {
                   setIsLoadingEmail(true);
                   axios
-                    .post(`/api/auth/request-account-recovery?email=${formData.correo}`)
+                    .post(`${import.meta.env.VITE_API_URL}/api/auth/request-account-recovery?email=${formData.correo}`)
                     .then(() => {
                       setIsLoadingEmail(false);
                       showToast({

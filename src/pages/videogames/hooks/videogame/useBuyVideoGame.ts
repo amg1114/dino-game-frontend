@@ -99,7 +99,7 @@ export function useBuyVideoGame(game: VideoGame | null) {
     });
 
     axios
-      .post(`/api/video-games/biblioteca/${game.id}`, {
+      .post(`${import.meta.env.VITE_API_URL}/api/video-games/biblioteca/${game.id}`, {
         precio: formData.finalPrice,
       })
       .then(() => {

@@ -22,7 +22,7 @@ export function useStatistics(dashboardConfig: DashboardConfig | null, season: S
     if (currentMonth === month && currentYear === year) {
       const controller = new AbortController();
 
-      fetchEventSource('/api/statistics', {
+      fetchEventSource(import.meta.env.VITE_API_URL + '/api/statistics', {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + token,
@@ -50,7 +50,7 @@ export function useStatistics(dashboardConfig: DashboardConfig | null, season: S
     }
 
     axios
-      .get<Statistics>(`/api/statistics/${month}/${year}`)
+      .get<Statistics>(`${import.meta.env.VITE_API_URL}/api/statistics/${month}/${year}`)
       .then((res) => {
         setData(res.data);
       })

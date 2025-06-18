@@ -9,7 +9,7 @@ export function CategoryIndex() {
   const [categories, setCategories] = useState<Categoria[]>([]);
   useEffect(() => {
     axios
-      .get<PaginatedResponse<Categoria>>('/api/categorias?withGames=true')
+      .get<PaginatedResponse<Categoria>>(import.meta.env.VITE_API_URL + '/api/categorias?withGames=true')
       .then((response) => {
         setCategories(response.data.data);
       })

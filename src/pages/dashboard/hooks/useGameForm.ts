@@ -113,7 +113,7 @@ export function useGameForm(
 
       updateGameDetails(form, initialGame!)
         .then(() => {
-          return axios.get<VideoGame>(`/api/video-games/${initialGame!.slug}`);
+          return axios.get<VideoGame>(`${import.meta.env.VITE_API_URL}/api/video-games/${initialGame!.slug}`);
         })
         .then((res) => {
           if (setInitialGame) setInitialGame(res.data as VideoGame);
@@ -200,7 +200,7 @@ export function useGameForm(
 
     requests[type](e, initialGame!)
       .then(() => {
-        return axios.get<VideoGame>(`/api/video-games/${initialGame!.slug}`);
+        return axios.get<VideoGame>(`${import.meta.env.VITE_API_URL}/api/video-games/${initialGame!.slug}`);
       })
       .then((res) => {
         if (setInitialGame) setInitialGame(res.data as VideoGame);
@@ -239,7 +239,7 @@ export function useGameForm(
 
       uploadGameVersion(form.version!, initialGame!)
         .then(() => {
-          return axios.get<VideoGame>(`/api/video-games/${initialGame!.slug}`);
+          return axios.get<VideoGame>(`${import.meta.env.VITE_API_URL}/api/video-games/${initialGame!.slug}`);
         })
         .then((res) => {
           if (setInitialGame) setInitialGame(res.data as VideoGame);
@@ -347,7 +347,7 @@ export function useGameForm(
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get<PaginatedResponse<Categoria>>('/api/categorias');
+        const res = await axios.get<PaginatedResponse<Categoria>>(import.meta.env.VITE_API_URL + '/api/categorias');
         setCategorias(res.data.data);
       } catch (error) {
         console.error('Error fetching categories:', error);

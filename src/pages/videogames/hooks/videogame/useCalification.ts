@@ -15,7 +15,7 @@ export function useCalification(game: VideoGame) {
 
   const postData = async (value: number) => {
     axios
-      .post('/api/video-games/' + slug, { puntaje: value })
+      .post(import.meta.env.VITE_API_URL + '/api/video-games/' + slug, { puntaje: value })
       .then((r) => {
         setCalification(value);
         const newCalification: UserCalificacion = {
@@ -33,7 +33,9 @@ export function useCalification(game: VideoGame) {
 
   const patchData = async (value: number, calificacion: UserCalificacion) => {
     axios
-      .patch(`/api/video-games/${slug}/${calificacion.calificacionID}`, { puntaje: value })
+      .patch(`${import.meta.env.VITE_API_URL}/api/video-games/${slug}/${calificacion.calificacionID}`, {
+        puntaje: value,
+      })
       .then(() => {
         setCalification(value);
         setExists(true);

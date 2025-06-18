@@ -7,7 +7,7 @@ import { useAlert } from '../../../hooks/useAlert';
 import { loginSchema } from '../../../utils/zod/user.validators';
 
 export function useLogin() {
-  const ENDPOINT = '/api/auth/login';
+  const ENDPOINT = import.meta.env.VITE_API_URL + '/api/auth/login';
   const { usuario, logIn, isLoading } = useAuth();
   const { showToast, showAlert } = useAlert();
   const navigate = useNavigate();

@@ -14,7 +14,9 @@ export function RespRequest() {
   const handleAccept = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
-      axios.patch(`/api/users/developers/${id}/solicitud`, { estado: (data.estado = 'APPROVED') });
+      axios.patch(`${import.meta.env.VITE_API_URL}/api/users/developers/${id}/solicitud`, {
+        estado: (data.estado = 'APPROVED'),
+      });
       showToast({
         type: 'success',
         message: 'Solicitud Acceptada',
@@ -29,7 +31,9 @@ export function RespRequest() {
   const handleReject = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
-      axios.patch(`/api/users/developers/${id}/solicitud`, { estado: (data.estado = 'REJECTED') });
+      axios.patch(`${import.meta.env.VITE_API_URL}/api/users/developers/${id}/solicitud`, {
+        estado: (data.estado = 'REJECTED'),
+      });
       showToast({
         type: 'success',
         message: 'Solicitud Rechazada',

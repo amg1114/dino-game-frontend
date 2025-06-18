@@ -14,7 +14,7 @@ export const useBestGame = (slug: string): BestGame => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/api/calificaciones/best-video-game/${slug}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/calificaciones/best-video-game/${slug}`)
       .then((resp) => {
         const game_data = resp.data;
         setGame(game_data);
