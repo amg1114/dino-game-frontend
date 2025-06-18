@@ -25,7 +25,7 @@ export function useDashboardBlog() {
 
   const fetchPosts = useCallback(async () => {
     if (!usuario) return;
-    let endpoint = `/api/noticias?limit=${itemsPerPage}&offset=${page}&autor=${usuario.id}&orderBy=fecha&order=desc`;
+    let endpoint = `${import.meta.env.VITE_API_URL}/api/noticias?limit=${itemsPerPage}&offset=${page}&autor=${usuario.id}&orderBy=fecha&order=desc`;
 
     if (searchTerm.trim() !== '') {
       endpoint += `&search=${searchTerm}`;
@@ -71,7 +71,7 @@ export function useDashboardBlog() {
     });
 
     try {
-      await axios.delete(`/api/noticias/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/noticias/${id}`);
       showToast({
         type: 'success',
         message: 'Publicación eliminada correctamente.',

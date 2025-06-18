@@ -15,7 +15,7 @@ export function useVideoGames() {
   const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 4, windowWidth: 768 }], 9);
 
   useEffect(() => {
-    let ENDPOINT = `/api/video-games?limit=${itemsPerPage}&offset=${page}`;
+    let ENDPOINT = `${import.meta.env.VITE_API_URL}/api/video-games?limit=${itemsPerPage}&offset=${page}`;
 
     if (inputCategoria) {
       ENDPOINT += `&categoria=${inputCategoria}`;
@@ -45,7 +45,7 @@ export function useVideoGames() {
       setDataBySearch([]);
       return;
     }
-    const ENDPOINT = `/api/video-games?search=${inputTitle}`;
+    const ENDPOINT = `${import.meta.env.VITE_API_URL}/api/video-games?search=${inputTitle}`;
     setLoading(true);
     axios
       .get(ENDPOINT)

@@ -23,10 +23,12 @@ export function useComment({ fetchData }: { fetchData: () => Promise<void> }) {
     }
     try {
       CommentValidator.parse(comentario);
-      axios.post(`/api/video-games/${slug}/comentarios`, { comentario: comentario }).then(() => {
-        setComentario('');
-        fetchData();
-      });
+      axios
+        .post(`${import.meta.env.VITE_API_URL}/api/video-games/${slug}/comentarios`, { comentario: comentario })
+        .then(() => {
+          setComentario('');
+          fetchData();
+        });
     } catch (error) {
       if (error instanceof z.ZodError) {
         setError('');

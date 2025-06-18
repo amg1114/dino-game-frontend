@@ -66,15 +66,25 @@ export function useHomePage() {
   };
 
   useEffect(() => {
-    fetchData<VideoGame>('/api/video-games?&orderBy=fechaLanzamiento&order=DESC&limit=4', setFeaturedGames);
-    fetchData<VideoGame>('/api/video-games?precio=0&orderBy=featured&order=DESC&limit=7', setFreeGames);
     fetchData<VideoGame>(
-      '/api/video-games?onlyPaidGames=true&descuentos=false&orderBy=featured&order=DESC&limit=7',
+      import.meta.env.VITE_API_URL + '/api/video-games?&orderBy=fechaLanzamiento&order=DESC&limit=4',
+      setFeaturedGames
+    );
+    fetchData<VideoGame>(
+      import.meta.env.VITE_API_URL + '/api/video-games?precio=0&orderBy=featured&order=DESC&limit=7',
+      setFreeGames
+    );
+    fetchData<VideoGame>(
+      import.meta.env.VITE_API_URL +
+        '/api/video-games?onlyPaidGames=true&descuentos=false&orderBy=featured&order=DESC&limit=7',
       setPaidGames
     );
-    fetchData<VideoGame>('/api/video-games?descuentos=true&orderBy=featured&order=DESC&limit=3', setDiscountedGames);
-    fetchData<Categoria>('/api/categorias?limit=8', setCategories);
-    fetchData<Post>('/api/noticias?limit=3&order=DESC&orderBy=fecha', setBlogPosts);
+    fetchData<VideoGame>(
+      import.meta.env.VITE_API_URL + '/api/video-games?descuentos=true&orderBy=featured&order=DESC&limit=3',
+      setDiscountedGames
+    );
+    fetchData<Categoria>(import.meta.env.VITE_API_URL + '/api/categorias?limit=8', setCategories);
+    fetchData<Post>(import.meta.env.VITE_API_URL + '/api/noticias?limit=3&order=DESC&orderBy=fecha', setBlogPosts);
   }, []);
 
   return {

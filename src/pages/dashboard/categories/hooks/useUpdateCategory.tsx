@@ -37,7 +37,7 @@ export function useUpdateCategory(slug: string) {
 
   useEffect(() => {
     axios
-      .get(`/api/categorias/${slug}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/categorias/${slug}`)
       .then((resp) => {
         setData(resp.data);
         setOriginalData({
@@ -103,7 +103,7 @@ export function useUpdateCategory(slug: string) {
       setErrorDescripcion('');
 
       axios
-        .patch(`/api/categorias/${data.id}`, {
+        .patch(`${import.meta.env.VITE_API_URL}/api/categorias/${data.id}`, {
           titulo: data.titulo,
           descripcion: data.descripcion,
         })

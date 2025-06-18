@@ -19,7 +19,9 @@ export function ManageDevelopers() {
     if (query.trim()) {
       setSearching(true);
       axios
-        .get(`/api/users/developers?search=${encodeURIComponent(query)}&limit=${itemsPerPage}&offset=0`)
+        .get(
+          `${import.meta.env.VITE_API_URL}/api/users/developers?search=${encodeURIComponent(query)}&limit=${itemsPerPage}&offset=0`
+        )
         .then((response) => {
           setSearchResults(response.data.data as Usuario[]);
         })

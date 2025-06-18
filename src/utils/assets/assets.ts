@@ -9,7 +9,7 @@ export interface AssetInputEvent {
 }
 
 export async function fileFromUrl(url: string): Promise<File> {
-  const proxiedUrl = `/api/assets/file?url=${encodeURIComponent(url)}`;
+  const proxiedUrl = `${import.meta.env.VITE_API_URL}/api/assets/file?url=${encodeURIComponent(url)}`;
   const response = await fetch(proxiedUrl);
   if (!response.ok) {
     throw new Error(`Error al descargar el archivo: ${response.statusText}`);

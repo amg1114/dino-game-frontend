@@ -118,13 +118,13 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
 
   const uploadPost = () => {
     return axios
-      .post<Post>('/api/noticias', {
+      .post<Post>(import.meta.env.VITE_API_URL + '/api/noticias', {
         titulo: form.titulo,
         descripcion: form.descripcion,
         fecha: new Date().toISOString(),
       })
       .then((res) => {
-        return uploadAsset(form.thumb!, `/api/assets/noticias/${res.data.id}`);
+        return uploadAsset(form.thumb!, `${import.meta.env.VITE_API_URL}/api/assets/noticias/${res.data.id}`);
       })
       .catch((error) => {
         console.error('Error uploading post:', error);
@@ -134,7 +134,7 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
 
   const updatePost = async () => {
     return axios
-      .patch<Post>(`/api/noticias/${initialData?.id}`, {
+      .patch<Post>(`${import.meta.env.VITE_API_URL}/api/noticias/${initialData?.id}`, {
         titulo: form.titulo,
         descripcion: form.descripcion,
       })
@@ -142,7 +142,7 @@ export function usePostForm(mode: PostFormMode, initialData?: Post | null) {
         if (form.thumb) {
           return uploadAsset(
             form.thumb!,
-            `/api/assets/noticias/${initialData!.id}/${initialData!.thumb.id}`,
+            `${import.meta.env.VITE_API_URL}/api/assets/noticias/${initialData!.id}/${initialData!.thumb.id}`,
             undefined,
             'PUT'
           );

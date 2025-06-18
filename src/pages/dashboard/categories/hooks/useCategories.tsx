@@ -21,7 +21,7 @@ export function useCategories(): CategoriaRetornada & { refetch: () => void } {
   const fecthCategories = () => {
     setLoading(true);
     axios
-      .get(`/api/categorias?limit=${itemsPerPage}&offset=${page}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/categorias?limit=${itemsPerPage}&offset=${page}`)
       .then(function (resp) {
         console.log('Categoriaasss', resp.data.data.slug);
         setCategories(resp.data.data);
@@ -53,7 +53,7 @@ export function useSearchCategory(): searchProps {
 
   useEffect(() => {
     axios
-      .get(`/api/categorias?search=${query}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/categorias?search=${query}`)
       .then(function (resp) {
         setResult(resp.data.data);
       })

@@ -30,7 +30,7 @@ export function BlogEntry() {
   const handleLike = () => {
     if (isLiked) {
       axios
-        .delete(`/api/likes/${post.id}`)
+        .delete(`${import.meta.env.VITE_API_URL}/api/likes/${post.id}`)
         .then(() => {
           getUsuario();
         })
@@ -45,7 +45,7 @@ export function BlogEntry() {
 
     post.cantidadLikes += 1;
     axios
-      .post(`/api/likes/${post.id}`)
+      .post(`${import.meta.env.VITE_API_URL}/api/likes/${post.id}`)
       .then(() => {
         getUsuario();
       })

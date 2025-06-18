@@ -19,7 +19,7 @@ export function useReportesPage() {
     setLoading(true);
     setError(null);
     axios
-      .get(`/api/reports?limit=${itemsPerPage}&offset=${page}&search=${search}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/reports?limit=${itemsPerPage}&offset=${page}&search=${search}`)
       .then(function (resp) {
         const data = resp.data.data;
         console.log(data);
