@@ -47,7 +47,7 @@ export function useSolicitudDesarrollador() {
       });
 
       axios
-        .post<SolicitudDesarrollador>(`/api/users/developers/${usuario?.id}/solicitud`, {
+        .post<SolicitudDesarrollador>(`${import.meta.env.VITE_API_URL}/api/users/developers/${usuario?.id}/solicitud`, {
           titulo: 'Solicitud de desarrollador - ' + usuario?.nombre,
           mensaje: message,
         })
@@ -95,7 +95,7 @@ export function useSolicitudDesarrollador() {
         });
 
         axios
-          .get(`/api/users/developers/${usuario.id}/solicitud`)
+          .get(`${import.meta.env.VITE_API_URL}/api/users/developers/${usuario.id}/solicitud`)
           .then((response) => {
             setSolicitud({
               data: response.data,

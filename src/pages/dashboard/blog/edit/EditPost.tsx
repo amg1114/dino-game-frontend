@@ -11,7 +11,7 @@ export function EditPost() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get<Post>(`/api/noticias/noticia/${slug}`);
+        const response = await axios.get<Post>(`${import.meta.env.VITE_API_URL}/api/noticias/noticia/${slug}`);
         setPost(response.data);
       } catch (error) {
         console.error('Error fetching post:', error);

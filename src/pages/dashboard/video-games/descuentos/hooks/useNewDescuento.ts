@@ -69,7 +69,7 @@ export function useNewDescuento(id: number | string | null) {
       setErrorFechaFin('');
       setErrorPorcentaje('');
       axios
-        .post(`/api/video-games/${id}/descuentos`, {
+        .post(`${import.meta.env.VITE_API_URL}/api/video-games/${id}/descuentos`, {
           ...descuento,
           porcentaje: descuento.porcentaje / 100,
         })

@@ -16,7 +16,7 @@ export function useDevelopers(): DeveloperReturn {
   const [developers, setDevelopers] = useState([]);
   const [loading, setLoading] = useState(true);
   const { itemsPerPage, page, setPage } = usePagination([{ itemsPerPage: 3, windowWidth: 760 }], 12);
-  const endpoint = `/api/users/developers?limit=${itemsPerPage}&offset=${page}`;
+  const endpoint = `${import.meta.env.VITE_API_URL}/api/users/developers?limit=${itemsPerPage}&offset=${page}`;
   const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {

@@ -97,7 +97,7 @@ export function useSalesPage(tablaRef: RefObject<HTMLElement | null>) {
     formData.append('file', blob, 'tabla.pdf');
     formData.append('email', dashboardConfig.sendTo);
 
-    const res = await axios.post('/api/statistics/share', formData, {
+    const res = await axios.post(import.meta.env.VITE_API_URL + '/api/statistics/share', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -129,7 +129,7 @@ export function useSalesPage(tablaRef: RefObject<HTMLElement | null>) {
       });
       try {
         const response = await axios.get<SalesData[]>(
-          `/api/statistics/sales?year=${dashboardConfig.selectedYear}&month=${dashboardConfig.selectedMonth}`
+          `${import.meta.env.VITE_API_URL}/api/statistics/sales?year=${dashboardConfig.selectedYear}&month=${dashboardConfig.selectedMonth}`
         );
 
         setSales(response.data);

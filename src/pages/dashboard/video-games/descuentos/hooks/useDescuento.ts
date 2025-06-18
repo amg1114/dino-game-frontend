@@ -9,7 +9,7 @@ export function useDescuento(id: string | number | null) {
 
   const ObtenerDescuentos = () => {
     axios
-      .get(`/api/video-games/${id}/descuentos`)
+      .get(`${import.meta.env.VITE_API_URL}/api/video-games/${id}/descuentos`)
       .then((res) => {
         const data = res.data;
         setError(null);

@@ -53,7 +53,7 @@ export function usePasswordRecovery() {
       setErrorCorreo('');
 
       axios
-        .post(`/api/auth/request-password-reset?email=${correo}`)
+        .post(`${import.meta.env.VITE_API_URL}/api/auth/request-password-reset?email=${correo}`)
         .then(() => {
           if (mostrarAlerta) {
             mostrarAlerta.close();

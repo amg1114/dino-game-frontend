@@ -6,7 +6,7 @@ import axios from 'axios';
 import { InputFormsSchema } from '../../../../utils/zod/category.validator';
 
 export function useCreateCategory() {
-  const ENDPOINT = '/api/categorias';
+  const ENDPOINT = import.meta.env.VITE_API_URL + '/api/categorias';
   const { showToast, showAlert } = useAlert();
   const navigate = useNavigate();
 

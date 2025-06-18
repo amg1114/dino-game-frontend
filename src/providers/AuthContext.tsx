@@ -53,7 +53,7 @@ export function AuthProvider({ child }: AuthProviderProps) {
 
   const getUsuario = useCallback(() => {
     axios
-      .get<Usuario>('/api/auth/profile')
+      .get<Usuario>(import.meta.env.VITE_API_URL + '/api/auth/profile')
       .then((response) => {
         setUsuario(response.data);
       })
@@ -69,7 +69,7 @@ export function AuthProvider({ child }: AuthProviderProps) {
   const updateUsuario = useCallback(
     async (newUser: Partial<Usuario>) => {
       try {
-        await axios.patch('/api/users/' + usuario!.id, newUser);
+        await axios.patch(import.meta.env.VITE_API_URL + '/api/users/' + usuario!.id, newUser);
         getUsuario();
         return Promise.resolve();
       } catch (error) {
@@ -81,7 +81,7 @@ export function AuthProvider({ child }: AuthProviderProps) {
 
   const deleteAccount = useCallback(async () => {
     try {
-      await axios.delete('/api/users/' + usuario!.id);
+      await axios.delete(import.meta.env.VITE_API_URL + '/api/users/' + usuario!.id);
       logOut();
     } catch (error) {
       console.error('Error al eliminar la cuenta:', error);

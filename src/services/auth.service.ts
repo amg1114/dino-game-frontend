@@ -7,5 +7,5 @@ export function getUserProfile() {
     return null;
   }
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  return axios.get<Usuario>('/api/auth/profile');
+  return axios.get<Usuario>(import.meta.env.VITE_API_URL + '/api/auth/profile');
 }

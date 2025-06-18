@@ -23,7 +23,9 @@ export function useRequest(): returnedRequest & { refetch: () => void } {
     setLoading(true);
 
     axios
-      .get(`/api/users/developers/solicitudes?limit=${itemsPerPage}&offset=${page}&orderBy=fecha&order=DESC`)
+      .get(
+        `${import.meta.env.VITE_API_URL}/api/users/developers/solicitudes?limit=${itemsPerPage}&offset=${page}&orderBy=fecha&order=DESC`
+      )
       .then((resp) => {
         const respRequest = resp.data.data.filter((req: SolicitudDesarrollador) => req.estado === 'PENDING');
         setData(respRequest);
@@ -55,7 +57,7 @@ export function useSearch(): returnedSearch {
 
   useEffect(() => {
     axios
-      .get(`/api/users/developers/solicitudes?search=${query}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/users/developers/solicitudes?search=${query}`)
       .then((resp) => {
         console.log('queryyy', query);
         const respRequest = resp.data.data.filter((req: SolicitudDesarrollador) => req.estado === 'PENDING');
@@ -80,7 +82,7 @@ export function useGetRequest(id: string) {
 
   useEffect(() => {
     axios
-      .get(`/api/users/developers/${id}/solicitud`)
+      .get(`${import.meta.env.VITE_API_URL}/api/users/developers/${id}/solicitud`)
       .then((resp) => {
         setData(resp.data);
       })

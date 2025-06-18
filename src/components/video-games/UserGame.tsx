@@ -22,7 +22,7 @@ export function UserGame({ videoGame, wrapperExtraClasses, onDelete }: GameCardB
       onClose(confirm) {
         if (confirm) {
           axios
-            .delete(`/api/video-games/biblioteca/${videoGame.id}`)
+            .delete(`${import.meta.env.VITE_API_URL}/api/video-games/biblioteca/${videoGame.id}`)
             .then(() => {
               showToast({
                 type: 'success',

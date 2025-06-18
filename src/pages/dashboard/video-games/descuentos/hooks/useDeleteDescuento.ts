@@ -17,7 +17,7 @@ export function useDeleteDescuento(slug: string | null, descuento: number | stri
         onClose(confirm) {
           if (confirm) {
             axios
-              .delete(`/api/video-games/${slug}/descuentos/${descuento}`)
+              .delete(`${import.meta.env.VITE_API_URL}/api/video-games/${slug}/descuentos/${descuento}`)
               .then((res) => {
                 console.log(res.data);
                 showToast({

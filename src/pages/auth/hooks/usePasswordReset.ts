@@ -21,7 +21,7 @@ export function usePasswordReset() {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [touched, setTouched] = useState({ newPassword: false, confirmPassword: false });
 
-  const ENDPOINT = `/api/auth/reset-password`;
+  const ENDPOINT = `${import.meta.env.VITE_API_URL}/api/auth/reset-password`;
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;

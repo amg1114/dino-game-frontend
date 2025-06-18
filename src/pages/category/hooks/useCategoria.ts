@@ -19,7 +19,7 @@ export function useCategoria(slug: string) {
     setLoading(true);
     setError(null);
     axios
-      .get(`/api/video-games?categoria=${slug}&limit=${itemsPerPage}&offset=${page}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/video-games?categoria=${slug}&limit=${itemsPerPage}&offset=${page}`)
       .then(function (resp) {
         const data = resp.data.data;
         setData(data);
@@ -33,7 +33,7 @@ export function useCategoria(slug: string) {
       });
 
     axios
-      .get(`/api/categorias/${slug}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/categorias/${slug}`)
       .then(function (resp) {
         const data = resp.data;
         setCategoria(data.titulo);

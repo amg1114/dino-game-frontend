@@ -41,7 +41,7 @@ export function useDashboardGames() {
   const fetchGames = useCallback(async () => {
     if (!usuario) return;
 
-    let endpoint = `/api/video-games?limit=${itemsPerPage}&offset=${page}`;
+    let endpoint = `${import.meta.env.VITE_API_URL}/api/video-games?limit=${itemsPerPage}&offset=${page}`;
 
     if (usuario.tipo === 'DEVELOPER') {
       endpoint += `&developer=${usuario.id}`;
@@ -83,7 +83,7 @@ export function useDashboardGames() {
           });
 
           axios
-            .delete(`/api/video-games/${videoGame.id}`)
+            .delete(`${import.meta.env.VITE_API_URL}/api/video-games/${videoGame.id}`)
             .then(() => {
               fetchGames();
               showToast({

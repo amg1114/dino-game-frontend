@@ -59,7 +59,7 @@ export function useProfilePasswordReset() {
         }
 
         try {
-          await axios.post('/api/auth/change-password', data);
+          await axios.post(import.meta.env.VITE_API_URL + '/api/auth/change-password', data);
           showToast({
             type: 'success',
             message: 'Contraseña actualizada correctamente',
