@@ -9,7 +9,7 @@
     "lint": "npx eslint .",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "prepare": "lefthook install"
+    "prepare": "node -e \"if (process.env.SKIP_HOOKS !== 'true') require('child_process').execSync('lefthook install', {stdio: 'inherit'})\""
   },
   "dependencies": {
     "@microsoft/fetch-event-source": "^2.0.1",
