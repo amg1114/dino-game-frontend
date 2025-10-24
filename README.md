@@ -1,54 +1,131 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🦖 DinoGame Frontend
 
-Currently, two official plugins are available:
+DinoGame is a modern web platform designed for buying and selling video games, connecting developers and players in a dynamic and secure environment.  
+This repository contains the **frontend application**, built with React and TypeScript, focused on delivering an intuitive, responsive, and high-performance user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The DinoGame frontend provides an interactive interface where users can explore games, read news, purchase titles, and manage their profiles.  
+Developers can publish and manage their games, while administrators oversee the platform through dedicated dashboards.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+---
+
+## 🧩 Tech Stack
+
+| Category | Technologies |
+|-----------|--------------|
+| Framework | React + Vite |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Form Validation | Zod |
+| Charts & Widgets | Recharts |
+| Icons & UI | Lucide React, shadcn/ui |
+| Routing | React Router |
+| Hosting | Railway + Caddy |
+| Linting & Formatting | ESLint + Prettier + Lefthook |
+
+---
+
+## 🏗️ Architecture
+
+The project follows a **modular architecture** organized by features and contexts:
+
+- `pages/` – Views grouped by feature (auth, dashboard, videogames, etc.).  
+- `components/` – Reusable UI components and form inputs.  
+- `hooks/` – Custom React hooks for logic abstraction.  
+- `providers/` – Context providers for authentication and alert management.  
+- `utils/` – Helpers for data formatting, validation, and constants.  
+- `models/` – TypeScript interfaces and DTO definitions.
+
+---
+
+## ⚙️ Main Features
+
+- 🕹️ **Game Marketplace** – Explore, buy, and review games.  
+- 🧑‍💻 **Developer Tools** – Upload games, track stats, and manage discounts.  
+- 📰 **Blog & News System** – Publish and browse community posts.  
+- 📊 **Admin Dashboard** – Manage users, games, categories, and reports.  
+- 🧠 **Smart UI Hooks** – Custom pagination, auth, alerts, and dynamic routing.  
+- 🌙 **Responsive Design** – Built for desktop and mobile with Tailwind CSS.  
+
+---
+
+## 👥 User Roles
+
+| Role | Description |
+|------|--------------|
+| **Administrator** | Full control of content, users, and moderation tools. |
+| **Developer** | Can publish and manage games, discounts, and statistics. |
+| **User** | Browse, purchase, and review games while following news. |
+
+---
+
+## 🧪 Testing & Quality
+
+Frontend testing strategy includes:  
+- **Unit & Integration Tests:** Jest + React Testing Library.  
+- **E2E Tests:** Cypress for user flows.  
+- **Accessibility Tests:** axe-core + cypress-axe.  
+- **Visual Regression:** Percy or Chromatic snapshots.
+
+Continuous integration ensures every commit is linted, tested, and validated automatically.
+
+---
+
+## 🧰 Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/amg1114/dino-game-frontend.git
+cd dino-game-frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Lint & format code
+npm run lint
+npm run format
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+## 📂 Project Structure (simplified)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
 ```
+src/
+├─ pages/
+├─ components/
+├─ hooks/
+├─ providers/
+├─ models/
+├─ utils/
+└─ assets/
+```
+
+---
+
+## 👨‍💻 Team & Credits
+
+| Member | Role |
+|---------|------|
+| **Johan Alejandro Moreno Gil** | 💼 Lead Full-Stack Developer, Scrum Master, UI/UX Designer |
+| Andrés Felipe Cabal Correa | Full-Stack Developer |
+| Daniel José Cuestas Parada | Frontend Developer / QA |
+| Natalia Gómez Delacruz | Frontend Developer |
+| Gina Paola Moreno Caicedo | Frontend Developer |
+
+> **Project developed at Universidad del Valle – Tuluá Campus (2025)**  
+> Under the course *Software Product Quality* – guided by *Ing. Luis Adrián Lasso C., M.Sc.*
+
+---
+
+## 🏁 License
+
+This project is for academic and portfolio purposes.  
+All rights reserved © 2025 – DinoGame Team.
